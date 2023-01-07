@@ -30,7 +30,7 @@ const Layout = () => {
     return (
         <div>
             <BrowserRouter basename={basename}>
-                <ScrollToTop>
+                <ScrollToTop> 
                     <Navbar />
 
                     <Routes>
