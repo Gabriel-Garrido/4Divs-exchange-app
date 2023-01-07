@@ -5,7 +5,6 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
 import { Login } from "./pages/login"
 import { RestorePassword } from "./pages/restorePassword"
-import { CreateAccount } from "./pages/createAccount"
 import { ChangePassword } from "./pages/changePassword"
 import { Process } from "./pages/process"
 import { NewBankAccount } from "./pages/newBankAccount"
@@ -37,7 +36,6 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Login />} path="/" />
                         <Route element={<RestorePassword />} path="/restorepassword" />
-                        <Route element={<CreateAccount />} path="/createaccount" />
                         <Route element={<ChangePassword />} path="/changepassword" />
                         <Route element={<Home />} path="/home" />
                         <Route element={<Process />} path="/process" />
