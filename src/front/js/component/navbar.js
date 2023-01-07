@@ -15,12 +15,12 @@ export const Navbar = () => {
 					</div>
 
 					
-					<div class="offcanvas-body d-flex flex-column mb-6 justify-content-evenly">
+					<div class="offcanvas-body d-flex flex-column mb-6 justify-content-evenly" data-bs-toggle="offcanvas">
 						
-							<button class="btn btn-primary" type="button">Record</button>
-							<button class="btn btn-primary" type="button">NewBankAccount</button>
-							<button class="btn btn-primary" type="button">ChangePassword</button>
-							<button class="btn btn-primary" type="button">Logout</button>
+							<Link to="/record" class="btn btn-primary">Record</Link>
+							<button class="btn btn-primary" to="/newbankaccount" type="button">NewBankAccount</button>
+							<button class="btn btn-primary" to="/changepassword" type="button">ChangePassword</button>
+							<button class="btn btn-primary" to="/logout" type="button">Logout</button>
 						
 					</div>
 				</div>
