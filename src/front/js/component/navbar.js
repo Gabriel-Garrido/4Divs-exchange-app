@@ -6,22 +6,43 @@ export const Navbar = () => {
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
 
-			<div class="dropdown">
-				<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bars"></i></button>
-				<ul class="dropdown-menu">
-					<li><Link to="/record"><a class="dropdown-item" href="#">historial</a></Link></li>
-					<li><a class="dropdown-item" href="#">Another action</a></li>
-					<li><a class="dropdown-item" href="#">Something else here</a></li>
-				</ul>
-			</div>
+				<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fas fa-bars"></i></button>
 
-				<Link to="/demo"></Link>
-				
-				<div className="ml-auto">
-					<Link to="/">
-						<span className="navbar-brand mb-0 h1 fs-40" ><i class="fas fa-user"></i></span>
-					</Link>
+				<div class="offcanvas offcanvas-start " data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasScrollingLabel">Options</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+
+					
+					<div class="offcanvas-body d-flex flex-column mb-6 justify-content-evenly">
+						
+							<button class="btn btn-primary" type="button">Record</button>
+							<button class="btn btn-primary" type="button">NewBankAccount</button>
+							<button class="btn btn-primary" type="button">ChangePassword</button>
+							<button class="btn btn-primary" type="button">Logout</button>
+						
+					</div>
 				</div>
+
+				<button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fas fa-user"></i></button>
+
+				<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+					<div class="offcanvas-header">
+						<h3 class="offcanvas-title" id="offcanvasRightLabel">Future user function</h3>
+						<button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+
+					<div class="offcanvas-body d-flex flex-column mb-6 justify-content-evenly">
+						
+							<button class="btn btn-outline-secondary" type="button">Future functions</button>
+							<button class="btn btn-outline-secondary" type="button">Future functions</button>
+							<button class="btn btn-outline-secondary" type="button">Future functions</button>
+							<button class="btn btn-outline-secondary" type="button">Future functions</button>
+						
+					</div>
+				</div>
+
 			</div>
 		</nav>
 	);
