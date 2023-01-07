@@ -11,6 +11,8 @@ export const Demo = () => {
 			<ul className="list-group">
 				{store.demo.map((item, index) => {
 					return (
+						<div>
+						<h1>Options</h1>
 						<li
 							key={index}
 							className="list-group-item d-flex justify-content-between"
@@ -29,6 +31,7 @@ export const Demo = () => {
 								Change Color
 							</button>
 						</li>
+						</div>
 					);
 				})}
 			</ul>
