@@ -10,5 +10,6 @@ export const ReportAdmin = () => {
 			<h1>ReportAdmin</h1>
 			
 		</div>
+			
 	);
 };
