@@ -5,7 +5,7 @@ export const Navbar = () => {
 	// pendiente crear funcionalidad de boton Logout
 	return (
 		<body>
-		<nav className="navbar navbar-light bg-light">
+		<nav className="navbar navbar-light bg-light mb-4">
 			<div className="container">
 				{/* boton opciones */}
 				<button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fas fa-bars"></i></button>
