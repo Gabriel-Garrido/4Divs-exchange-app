@@ -26,8 +26,8 @@ export const Process = () => {
 				</div>
 				<div className="container">
 								
-					<Link to="/home"className="btn btn-danger m-2 col-3">Cancelar</Link>
-				<Link to="/record" className="btn btn-dark  m-2 col-3">Pagado</Link>
+					<Link to="/home"className="btn btn-danger m-2">Cancelar</Link>
+				<Link to="/record" className="btn btn-dark  m-2">Pagado</Link>
 				</div>	
 
 			</div>
