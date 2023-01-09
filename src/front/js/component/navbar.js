@@ -44,6 +44,8 @@ export const Navbar = () => {
 							<button class="btn btn-outline-secondary" type="button">Future functions</button>
 							<button class="btn btn-outline-secondary" type="button">Future functions</button>
 							<button class="btn btn-outline-secondary" type="button">Future functions</button>
+							<button class="btn btn-outline-secondary" type="button">Future functions</button>
+
 						
 					</div>
 				</div>
