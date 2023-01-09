@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
 	// pendiente crear funcionalidad de boton Logout
 	return (
+		<body>
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
 				{/* boton opciones */}
@@ -57,5 +58,6 @@ export const Navbar = () => {
 
 			</div>
 		</nav>
+		</body>
 	);
 }
