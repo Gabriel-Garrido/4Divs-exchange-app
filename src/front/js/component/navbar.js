@@ -7,26 +7,27 @@ export const Navbar = () => {
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
 				{/* boton opciones */}
-				<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fas fa-bars"></i></button>
+				<button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fas fa-bars"></i></button>
 
 				<div class="offcanvas offcanvas-start " data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 					<div class="offcanvas-header">
-						<h5 class="offcanvas-title" id="offcanvasScrollingLabel">Options</h5>
+						<p><i class="fas fa-bars"></i></p>
+						<h1 class="offcanvas-title" id="offcanvasScrollingLabel">Opciones</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 					</div>
 
 					<div class="offcanvas-body d-flex flex-column mb-6 justify-content-evenly" data-bs-toggle="offcanvas">
 						
-							<Link class="btn btn-primary" to="/home" type="button">Home</Link>
-							<Link class="btn btn-primary" to="/record" type="button">Record</Link>
-							<Link class="btn btn-primary" to="/newbankaccount" type="button">NewBankAccount</Link>
-							<Link class="btn btn-primary" to="/changepassword" type="button">ChangePassword</Link>
-							<Link class="btn btn-primary" to="/" type="button">Logout</Link>
+							<Link class="btn btn-dark" to="/home" type="button">  <i class="fas fa-home"></i> Home</Link>
+							<Link class="btn btn-dark" to="/record" type="button"> <i class="fas fa-history"></i> Historial</Link>
+							<Link class="btn btn-dark" to="/newbankaccount" type="button"><i class="fas fa-university"></i> Nueva cuenta bancaria</Link>
+							<Link class="btn btn-dark" to="/changepassword" type="button"><i class="fas fa-unlock-alt"></i> Cambiar contraseña</Link>
+							<Link class="btn btn-danger" to="/" type="button"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</Link>
 						
 					</div>
 				</div>
 
-				<Link class="btn btn-primary" to="/home" type="button">4Divs</Link>
+				<Link class="btn btn-dark" to="/home" type="button">4Divs</Link>
 
 				{/* boton opciones usuario */}
 				<button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fas fa-user"></i></button>
@@ -43,6 +44,8 @@ export const Navbar = () => {
 							<button class="btn btn-outline-secondary" type="button">Future functions</button>
 							<button class="btn btn-outline-secondary" type="button">Future functions</button>
 							<button class="btn btn-outline-secondary" type="button">Future functions</button>
+							<button class="btn btn-outline-secondary" type="button">Future functions</button>
+
 						
 					</div>
 				</div>
