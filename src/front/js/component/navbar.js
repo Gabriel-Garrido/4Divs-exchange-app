@@ -22,6 +22,11 @@ export const Navbar = () => {
 							<Link class="btn btn-dark" to="/record" type="button"> <i class="fas fa-history"></i> Historial</Link>
 							<Link class="btn btn-dark" to="/newbankaccount" type="button"><i class="fas fa-university"></i> Nueva cuenta bancaria</Link>
 							<Link class="btn btn-dark" to="/changepassword" type="button"><i class="fas fa-unlock-alt"></i> Cambiar contraseña</Link>
+
+							<Link class="btn btn-secondary" to="/homeadmin" type="button"><i class="fas fa-wrench"></i> Home Admin</Link>
+							<Link class="btn btn-secondary" to="/rateadmin" type="button"><i class="fas fa-wrench"></i> Cambiar Tasa</Link>
+							<Link class="btn btn-secondary" to="/reportadmin" type="button"><i class="fas fa-wrench"></i> Reportes</Link>
+							<Link class="btn btn-secondary" to="/verificationadmin" type="button"><i class="fas fa-wrench"></i> Verificar Perfiles</Link>
 							<Link class="btn btn-danger" to="/" type="button"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</Link>
 						
 					</div>
