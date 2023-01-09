@@ -31,7 +31,7 @@ export const ChangePassword = () => {
   			<label for="floatingPassword">Repetir Contraseña</label>
 			</div>
    
-    		<a href="#" className="btn btn-dark col-5">Cambiar</a>
+    		<a href="#" className="btn btn-dark fs-4 col-md-5">Cambiar</a>
 			</div>
   	</div>
 </div>
