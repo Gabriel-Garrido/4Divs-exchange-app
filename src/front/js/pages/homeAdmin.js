@@ -39,7 +39,16 @@ export const HomeAdmin = () => {
 							<p class="mb-1 text-start fs-6">Solicitado el 24-12-2022 14:30</p>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" placeholder="ID de transferencia" aria-label="ID de transferencia" aria-describedby="button-addon2"></input>
-									<button class="btn btn-outline-dark" type="button" id="button-addon2">Cambiar Status</button>
+									<div class="dropdown">
+										<button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+											Dropdown button
+										</button>
+										<ul class="dropdown-menu">
+											<li><a class="dropdown-item" href="#">Finalizar</a></li>
+											<li><a class="dropdown-item" href="#">Rechazar</a></li>
+											
+										</ul>
+									</div>
 								</div>
 						</div>
 
@@ -66,6 +75,9 @@ export const HomeAdmin = () => {
 						</div>
 
 					</div>
+
+					{/* Páginas */}
+
 					<nav class="mt-4 d-flex justify-content-center" aria-label="Page navigation example">
 						<ul class="pagination">
 							<li class="page-item">
