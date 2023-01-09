@@ -29,12 +29,15 @@ export const Login = () => {
 							</div>
 						</div>
 
-					<a href="#" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar</a>
+					<Link to="/home" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar usuario</Link>
+					<Link to="/homeadmin" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar empresa</Link>
+
+					<a href="#" class="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>
+
 					
 					<Link to="/restorepassword">Recuperar contraseña</Link>
 					</div>
 					
-
 				</div>
 				<div class="card-footer text-muted">
 					
