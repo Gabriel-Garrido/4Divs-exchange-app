@@ -17,20 +17,8 @@ export const Process = () => {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
 
-<<<<<<< HEAD
-				<div className="card">
-					<p className="fs-4">Transferir a:<br></br>
-					Empresa<br></br>
-					Rut<br></br>
-					Tipo de Cuenta <br></br>
-					Numero de Cuenta</p>
-				</div>
-				<div className="container">
-								
-					<Link to="/home"className="btn btn-danger m-2">Cancelar</Link>
-				<Link to="/record" className="btn btn-dark  m-2">Pagado</Link>
-				</div>	
-=======
+			
+
     return (
         <div class="card text-center">
             <div class="card-header fs-1">
@@ -41,7 +29,7 @@ export const Process = () => {
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
                         <p className="fs-5">1CLP x 890 USD</p>
->>>>>>> jcalderon-js-process
+
 
                         <div className="card">
                             <p className="fs-4">Transferir a:<br></br>
