@@ -17,10 +17,71 @@ export const VerificationAdmin = () => {
 			<div className="container">
 				<ul class="list-group list-group-flush">
 					<div className="d-flex flex-column">
-					<li class="list-group-item fs-4">Juan Perez <button className="btn btn-dark" id="eye"><i class="fas fa-eye"></i></button><button className="btn btn-dark">Verificar Perfil</button></li>
+					<li class="list-group-item fs-4">Juan Perez
+						<button id="eye" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<i class="fas fa-eye"></i>
+						</button>
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5" id="exampleModalLabel">Juan Perez</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										...
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+										<button type="button" class="btn btn-primary">Verificar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
 					</div>
-					<li class="list-group-item fs-4">Maria Parra <button className="btn btn-dark" id="eye"><i class="fas fa-eye"></i></button><button className="btn btn-dark">Verificar Perfil</button></li>
-					<li class="list-group-item fs-4">Pedro Garrido <button className="btn btn-dark" id="eye"><i class="fas fa-eye"></i></button><button className="btn btn-dark">Verificar Perfil</button></li>
+					<li class="list-group-item fs-4">Maria Parra <button id="eye" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<i class="fas fa-eye"></i>
+						</button>
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5" id="exampleModalLabel">Maria Parra</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										...
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+										<button type="button" class="btn btn-primary">Verificar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item fs-4">Pedro Garrido <button id="eye" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<i class="fas fa-eye"></i>
+						</button>
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5" id="exampleModalLabel">Pedro Garrido</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										...
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+										<button type="button" class="btn btn-primary">Verificar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
 				</ul>
 				</div>
 		</div>
