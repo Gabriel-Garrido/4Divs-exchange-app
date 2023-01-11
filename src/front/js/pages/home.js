@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
@@ -6,6 +6,19 @@ import "../../styles/home.css";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+	const [monto, setMonto] = useState("");
+	const [conversion, setConversion] = useState("");
+
+	const [rate, setRate] = useState(890);
+
+const handleConversion = () => {
+    setConversion(monto * rate);
+};
+const handleKeyPress = (event) => {
+    if (event.keyCode === 13) {
+        handleConversion();
+    }
+};
 
 	return (
 		<div className="text-center container mb-2 mt-3">
@@ -31,13 +44,12 @@ export const Home = () => {
 					<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
 						
 						<div className="input-group">
-							<input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar"></input>
-							<span className="input-group-text" id="basic-addon3">CLP</span>
+						<input type="number" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar" onChange={e => setMonto(e.target.value)} value={monto} onBlur={handleConversion} onKeyDown={handleKeyPress}></input>
+						<span className="input-group-text" id="basic-addon3">CLP</span>
 						</div>
 						<div className="form-text fs-5">Usted va a cambiar:</div>
-						<p className="fs-1">x CLP to x USD</p>
-					
-						
+						<p className="fs-1">{monto} CLP to {conversion} USD</p>
+
 						{/* Selección de cuenta bancaria */}
 							<div classList="container">
 					
