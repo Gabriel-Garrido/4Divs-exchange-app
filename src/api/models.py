@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class User(db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     rut = db.Column(db.String(11), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
@@ -26,7 +26,7 @@ class User(db.Model):
 
     def serialize(self):
         return {
-            "user_id": self.user_id,
+            "id": self.id,
             "rut": self.rut,
             "email": self.email,
             "validate_status": self.validate_status,
