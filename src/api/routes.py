@@ -16,3 +16,16 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/user/1', methods=['POST'])
+def new_user():
+
+    request = request.get_json()
+
+    return jsonify(request), 200
+
+@api.route('/user/1', methods=['GET'])
+def new_user():
+
+    response_body = User.serialize(self)
+    return response_body, 200
