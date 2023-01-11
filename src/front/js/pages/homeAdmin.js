@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const HomeAdmin = () => {
 	const { store, actions } = useContext(Context);
+	const [status, setStatus] = useState("pendiente");
 
 	return (
 		<div className="container text-center mt-5">
@@ -33,7 +34,7 @@ export const HomeAdmin = () => {
 						<div class="list-group-item">
 							<div class="d-flex w-100 justify-content-between">
 								<h5 class="mb-1 fs-4">Juan Perez</h5>
-								<span class="badge bg-warning rounded-pill">Pendiente</span>
+								<span className={`badge rounded-pill ${status === 'pendiente' ? 'bg-warning': status === 'finalizado' ? 'bg-success' : 'bg-danger' }`}>{status}</span>
 							</div>
 							<p class="mb-1 text-start fs-5">X CLP a X USD</p>
 							<p class="mb-1 text-start fs-6">Solicitado el 24-12-2022 14:30</p>
@@ -44,8 +45,8 @@ export const HomeAdmin = () => {
 											Dropdown button
 										</button>
 										<ul class="dropdown-menu">
-											<li><a class="dropdown-item" href="#">Finalizar</a></li>
-											<li><a class="dropdown-item" href="#">Rechazar</a></li>
+											<li><a class="dropdown-item" href="#" onClick={() => setStatus('finalizado')}>Finalizar</a></li>
+											<li><a class="dropdown-item" href="#" onClick={() => setStatus('rechazado')}>Rechazar</a></li>
 											
 										</ul>
 									</div>
