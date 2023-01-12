@@ -13,7 +13,6 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleEmailChange = (e) => {
     if (!emailRegex.test(e.target.value)) {
@@ -52,8 +51,8 @@ export const Login = () => {
               {passwordError && <p className="text-danger">{passwordError}</p>}
             </div>
 
-            <Link to="/home" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" disabled={isButtonDisabled}>Ingresar usuario</Link>
-            <Link to="/homeadmin" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" disabled={isButtonDisabled}>Ingresar empresa</Link>
+            <Link to="/home" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar usuario</Link>
+            <Link to="/homeadmin" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar empresa</Link>
 
             <a href="#" class="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>
             <Link to="/" >Regresar</Link>
