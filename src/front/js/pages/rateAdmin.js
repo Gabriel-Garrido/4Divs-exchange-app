@@ -1,9 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const RateAdmin = () => {
 	const { store, actions } = useContext(Context);
+
+	const [rate, setRate] = useState("");
+
+	const handleChange = e => {
+		setRate(e.target.value);
+	  };
+	
 
 	return (
 		
@@ -25,14 +32,23 @@ export const RateAdmin = () => {
 		</ul>
 		</div>
 		
-		<p className="fs-1">1 CLP / 890 USD</p>
+		<p className="fs-1">1 CLP / {rate} USD</p>
 		</div>
 		<div className="card-body row">
 		<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
 		<label className="fs-1">1 CLP to</label>
-		 <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Nuevo Precio"></input>
+		<input
+              type="number"
+              className="form-control"
+              id="basic-url"
+              aria-describedby="basic-addon3"
+              placeholder="Nuevo Precio"
+              onChange={handleChange}
+            ></input>
 		</div>
-		<button className="btn btn-dark col-4 offset-4">Cambiar</button>
+		<button className="btn btn-dark col-4 offset-4">
+  			Cambiar
+		</button>
 		</div>
 		</div>
 		
