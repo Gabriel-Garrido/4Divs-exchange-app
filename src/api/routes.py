@@ -8,7 +8,7 @@ from api.utils import generate_sitemap, APIException
 api = Blueprint('api', __name__)
 
 user_temp = [{
-    "user_id": "0",
+    "id": 1,
     "rut": "1234567-5",
     "email": "pepito@gmail.com",
     "password": "pepe123",
@@ -24,7 +24,7 @@ user_temp = [{
     "department": "1020",
     },
     {
-    "user_id": "1",
+    "id": 2,
     "rut": "1234567-5",
     "email": "pepito@gmail.com",
     "password": "pepe123",
@@ -40,7 +40,7 @@ user_temp = [{
     "department": "1020",
     },
     {
-    "user_id": "2",
+    "id": 3,
     "rut": "1234567-5",
     "email": "pepito@gmail.com",
     "password": "pepe123",
@@ -103,18 +103,24 @@ def get_user(user_id):
 
     return jsonify(user_temp[user_id]), 200
 
-@api.route('add_user/<int:user_id>', methods=['POST'])
-def add_user(user_id):
+@api.route('add_user', methods=['POST'])
+def add_user():
+    id=9
     req_Json = request.get_json()
-    req_Json["user_id"] = str(user_id)
+    req_Json["id"] = str(id)
     user_temp.append(req_Json)
     return jsonify(user_temp), 200
 
 @api.route('edit_user/<int:user_id>', methods=['PUT'])
 def edit_user(user_id):
     req_Json = request.get_json()
-    user_temp[user_id] = req_Json
-    return jsonify(user_temp), 200
+    for user in user_temp:
+        print(user["id"])
+        print(user_id)
+        if user["id"]==user_id:
+            user = req_Json
+            return jsonify(user_temp), 200
+    return "user not found", 404
 
 @api.route('delete_user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
@@ -195,6 +201,8 @@ def delete_bank_account(bank_account_id):
 
 @api.route('/get_all_transactions/', methods=['GET'])
 def get_all_transaction():
+
+    # agregar paginacion
 
     return jsonify(transaction_temp), 200
 

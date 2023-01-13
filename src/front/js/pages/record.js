@@ -5,6 +5,7 @@ import "../../styles/home.css";
 
 export const Record = () => {
 	const { store, actions } = useContext(Context);
+	
 	let recorItemList = [
 		{date: "30-12-2022 13:00", change: "X CLP a X USD en cuenta bancaria 2", status: "Pendiente"},
 		{date: "29-12-2022 16:00", change: "X CLP a X USD en cuenta bancaria 1", status: "Pendiente"},
