@@ -66,6 +66,5 @@ class Transaction(db.Model):
             "department": self.department,
 
 
-
             # do not serialize the password, its a security breach
         }
