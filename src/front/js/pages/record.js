@@ -1,9 +1,19 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
+import { RecordItem } from "../component/recordItem.js";
 import "../../styles/home.css";
 
 export const Record = () => {
 	const { store, actions } = useContext(Context);
+	let recorItemList = [
+		{date: "30-12-2022 13:00", change: "X CLP a X USD en cuenta bancaria 2", status: "Pendiente"},
+		{date: "29-12-2022 16:00", change: "X CLP a X USD en cuenta bancaria 1", status: "Pendiente"},
+		{date: "28-12-2022 11:00", change: "X CLP a X USD en cuenta bancaria 1", status: "Finalizado"},
+		{date: "27-12-2022 22:00", change: "X CLP a X USD en cuenta bancaria 2", status: "Rechazado"},
+		{date: "26-12-2022 03:00", change: "X CLP a X USD en cuenta bancaria 1", status: "Finalizado"},
+		{date: "25-12-2022 08:00", change: "X CLP a X USD en cuenta bancaria 3", status: "Finalizado"},
+		{date: "24-12-2022 14:00", change: "X CLP a X USD en cuenta bancaria 1", status: "Finalizado"}
+	]
 
 	return (
 		<div className="container">
@@ -14,41 +24,10 @@ export const Record = () => {
 				<div className="card-body row">
 					<div className="container col-12 col-md-10 offset-md-1">
 						<ul className="list-group">
-							<li className="list-group-item d-flex justify-content-between align-items-start">
-								<div className="ms-2 me-auto">
-								<div className="fw-bold">30-12-2022 14:00</div>
-								X CLP a X USD en cuenta bancaria 1
-								</div>
-								<span className="badge bg-success rounded-pill">Finalizado</span>
-							</li>
-							<li className="list-group-item d-flex justify-content-between align-items-start">
-								<div className="ms-2 me-auto">
-								<div className="fw-bold">28-12-2022 17:30</div>
-								X CLP a X USD en cuenta bancaria 3
-								</div>
-								<span className="badge bg-danger rounded-pill">Rechazado</span>
-							</li>
-							<li className="list-group-item d-flex justify-content-between align-items-start">
-								<div className="ms-2 me-auto">
-								<div className="fw-bold">27-12-2022 11:15</div>
-								X CLP a X USD en cuenta bancaria 1
-								</div>
-								<span className="badge bg-warning rounded-pill">Pendiente</span>
-							</li>
-							<li className="list-group-item d-flex justify-content-between align-items-start">
-								<div className="ms-2 me-auto">
-								<div className="fw-bold">25-12-2022 18:00</div>
-								X CLP a X USD en cuenta bancaria 2
-								</div>
-								<span className="badge bg-success rounded-pill">Finalizado</span>
-							</li>
-							<li className="list-group-item d-flex justify-content-between align-items-start">
-								<div className="ms-2 me-auto">
-								<div className="fw-bold">22-12-2022 13:15</div>
-								X CLP a X USD en cuenta bancaria 3
-								</div>
-								<span className="badge bg-warning rounded-pill">Pendiente</span>
-							</li>
+						{recorItemList.map(item => {
+							return <RecordItem date={item.date} change={item.change} status={item.status} />
+						})}
+							
 						</ul>
 					</div>
 
