@@ -20,6 +20,17 @@ const handleKeyPress = (event) => {
     }
 };
 
+const handleChange = e => {
+	const regex = /^\d*$/;
+	if (!regex.test(e.target.value)) {
+	  alert("Ingresa solo números");
+	  setMonto("");
+	} else {
+	  setMonto(e.target.value);
+	}
+  };
+  
+
 	return (
 		<div className="text-center container mb-2 mt-3">
 
@@ -32,23 +43,23 @@ const handleKeyPress = (event) => {
 							Seleccione divisa
 							</button>
 							<ul className="dropdown-menu">
-								<li><a className="dropdown-item" href="#">1 CLP / 890 USD</a></li>
+								<li><a className="dropdown-item" href="#">1 USD / 890 CLP</a></li>
 								<li><a className="dropdown-item text-secondary" href="#">...future options</a></li>
 								<li><a className="dropdown-item text-secondary" href="#">...future options</a></li>
 							</ul>
 						</div>
 					
-					<p className="fs-1">1 CLP / 890 USD</p>
+					<p className="fs-1">1 USD / 890 CLP</p>
 				</div>
 				<div className="card-body row">
 					<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
 						
 						<div className="input-group">
-						<input type="number" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar" onChange={e => setMonto(e.target.value)} value={monto} onBlur={handleConversion} onKeyDown={handleKeyPress}></input>
+						<input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar" onChange={handleChange} value={monto} onBlur={handleConversion} onKeyDown={handleKeyPress}></input>
 						<span className="input-group-text" id="basic-addon3">CLP</span>
 						</div>
 						<div className="form-text fs-5">Usted va a cambiar:</div>
-						<p className="fs-1">{monto} CLP to {conversion} USD</p>
+						<p className="fs-1">{monto} USD to {conversion} CLP</p>
 
 						{/* Selección de cuenta bancaria */}
 							<div classList="container">
