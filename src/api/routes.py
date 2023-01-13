@@ -232,3 +232,5 @@ def delete_transaction(transaction_id):
 
 
 
+
+    return jsonify(response_body), 200
