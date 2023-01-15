@@ -6,7 +6,7 @@ export const NewBankAccount = () => {
 	const { store, actions } = useContext(Context);
 
 	const LetrasRegex = /[a-zA-Z]+/;
-	const NumerosRegex = /	^[0-9]{9}$/;
+	const NumerosRegex = /^\d{1,14}$/;
 	const IdentidadRegex = /^[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]$/;
 
 	const [Letras, setLetras] = useState("");
@@ -26,8 +26,8 @@ export const NewBankAccount = () => {
 	  };
 
 	  const handleNumerosChange = (e) => {
-		if (!LetrasRegex.test(e.target.value)) {
-		  setNumerosError("Sólo numeros son válidas.");
+		if (!NumerosRegex.test(e.target.value)) {
+		  setNumerosError("Sólo numeros son válidas,maximo 14 digitos.");
 		} else {
 		  setNumerosError("");
 		}
@@ -35,8 +35,8 @@ export const NewBankAccount = () => {
 	  };
 
 	  const handleIdentidadChange = (e) => {
-		if (!LetrasRegex.test(e.target.value)) {
-		  setIdentidadError("Formato no válido.");
+		if (!IdentidadRegex.test(e.target.value)) {
+		  setIdentidadError("Formato valido ej. 1.111.111-1");
 		} else {
 		  setIdentidadError("");
 		}
@@ -77,7 +77,7 @@ export const NewBankAccount = () => {
 
 		  <div>
 		  <input type="text" id="accountnum" name="name" required
-       minlength="4" maxlength="22" size="35"  onChange={handleNumerosChange}/  >
+       minlength="4" maxlength="22" size="35"  onChange={handleNumerosChange}/>
 		  </div>
 		  {NumerosError && <p className="text-danger">{NumerosError}</p>}
 		  <div>
