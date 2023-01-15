@@ -1,9 +1,47 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const NewBankAccount = () => {
 	const { store, actions } = useContext(Context);
+
+	const LetrasRegex = /[a-zA-Z]+/;
+	const NumerosRegex = /^\d{1,14}$/;
+	const IdentidadRegex = /^[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]$/;
+
+	const [Letras, setLetras] = useState("");
+	const [Numeros, setNumeros] = useState("");
+	const [Identidad, setIdentidad] = useState("");
+	const [LetrasError, setLetrasError] = useState("");
+	const [NumerosError, setNumerosError] = useState("");
+	const [IdentidadError, setIdentidadError] = useState("");
+
+	const handleLetrasChange = (e) => {
+		if (!LetrasRegex.test(e.target.value)) {
+		  setLetrasError("Sólo letras son válidas.");
+		} else {
+		  setLetrasError("");
+		}
+		setLetras(e.target.value);
+	  };
+
+	  const handleNumerosChange = (e) => {
+		if (!NumerosRegex.test(e.target.value)) {
+		  setNumerosError("Sólo numeros son válidas,maximo 14 digitos.");
+		} else {
+		  setNumerosError("");
+		}
+		setNumeros(e.target.value);
+	  };
+
+	  const handleIdentidadChange = (e) => {
+		if (!IdentidadRegex.test(e.target.value)) {
+		  setIdentidadError("Formato valido ej. 1.111.111-1");
+		} else {
+		  setIdentidadError("");
+		}
+		setIdentidad(e.target.value);
+	  };
 
 	return (
 
@@ -11,7 +49,7 @@ export const NewBankAccount = () => {
 		
 <div className="card text-center row">
                  <div className="card-header fs-1">
-                    Nueva Cuenta Bancaria
+                    Nueva Cuenta Bancariaaaaa
                 </div>
   <div className="card-body d-flex flex-column aling-items-center ">
   <div className="container">
@@ -21,44 +59,45 @@ export const NewBankAccount = () => {
 
           <div>
               <input type="text" id="name" name="name" required
-       minlength="4" maxlength="17" size="35"/>
+       minlength="4" maxlength="17" size="35" onChange={handleLetrasChange}  />
 	      </div>
-
+		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
 		  <div>
 		  <label for="name">Tipo de Cuenta</label>
 		  </div>
 
 		  <div>
 		  <input type="text" id="name" name="name" required
-       minlength="4" maxlength="17" size="35"/>
+       minlength="4" maxlength="17" size="35" onChange={handleLetrasChange}/>
 		  </div>
-
+		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
 		  <div>
 		  <label for="name">Numero de Cuenta</label>
 		  </div>
 
 		  <div>
-		  <input type="text" id="name" name="name" required
-       minlength="4" maxlength="22" size="35"/>
+		  <input type="text" id="accountnum" name="name" required
+       minlength="4" maxlength="22" size="35"  onChange={handleNumerosChange}/>
 		  </div>
-
+		  {NumerosError && <p className="text-danger">{NumerosError}</p>}
 		  <div>
 		  <label for="name">Nombre del Titular</label>
 		  </div>
 
 		  <div>
 		  <input type="text" id="name" name="name" required
-       minlength="4" maxlength="17" size="35"/>
+       minlength="4" maxlength="17" size="35" onChange={handleLetrasChange}/>
 		  </div>
-
+		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
 		  <div>
 		  <label for="name">Documento de Identidad</label>
 		  </div>
 
 		  <div>
 		  <input type="text" id="name" name="name" required
-       minlength="4" maxlength="17" size="35"/>
+       minlength="4" maxlength="17" size="35" onChange={handleIdentidadChange}/>
 		  </div>
+		  {IdentidadError && <p className="text-danger">{IdentidadError}</p>}
 			</div>
 
         <a href="#" className="btn btn-dark col-8 offset-2 col-md-2 offset-md-5 mt-4">Guardar</a>
@@ -70,9 +109,6 @@ export const NewBankAccount = () => {
   
 </div>
 </div>
-
-		
-			
 
 	);
 };

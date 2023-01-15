@@ -60,7 +60,6 @@ const handleChange = e => {
 						</div>
 						<div className="form-text fs-5">Usted va a cambiar:</div>
 						<p className="fs-1"> to {conversion} USD</p>
-
 						{/* Selección de cuenta bancaria */}
 							<div classList="container">
 					
