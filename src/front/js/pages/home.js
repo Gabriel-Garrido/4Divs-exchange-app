@@ -12,7 +12,7 @@ export const Home = () => {
 	const [rate, setRate] = useState(890);
 
 const handleConversion = () => {
-    setConversion(monto * rate) ;
+    setConversion(monto / rate) ;
 };
 const handleKeyPress = (event) => {
     if (event.keyCode === 13) {
@@ -59,7 +59,7 @@ const handleChange = e => {
 							<span className="input-group-text" id="basic-addon3">CLP</span>
 						</div>
 						<div className="form-text fs-5">Usted va a cambiar:</div>
-						<p className="fs-1">{monto} CLP to {conversion} USD</p>
+						<p className="fs-1"> to {conversion} USD</p>
 
 						{/* Selección de cuenta bancaria */}
 							<div classList="container">
