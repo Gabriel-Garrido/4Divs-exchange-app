@@ -59,7 +59,7 @@ const handleChange = e => {
 						<span className="input-group-text" id="basic-addon3">CLP</span>
 						</div>
 						<div className="form-text fs-5">Usted va a cambiar:</div>
-						<p className="fs-1">{monto} USD to {conversion} CLP</p>
+						<p className="fs-1">{monto} CLP to {conversion} USD</p>
 
 						{/* Selección de cuenta bancaria */}
 							<div classList="container">
