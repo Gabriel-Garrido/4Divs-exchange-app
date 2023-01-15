@@ -55,7 +55,7 @@ const handleChange = e => {
 					<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
 						
 						<div className="input-group">
-							<input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar"></input>
+						<input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar" onChange={handleChange} value={monto} onBlur={handleConversion} onKeyDown={handleKeyPress}></input>
 							<span className="input-group-text" id="basic-addon3">CLP</span>
 						</div>
 						<div className="form-text fs-5">Usted va a cambiar:</div>
