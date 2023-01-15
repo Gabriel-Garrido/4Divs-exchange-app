@@ -6,6 +6,30 @@ import "../../styles/home.css";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+	const [monto, setMonto] = useState("");
+	const [conversion, setConversion] = useState("");
+
+	const [rate, setRate] = useState(890);
+
+const handleConversion = () => {
+    setConversion(monto * rate) ;
+};
+const handleKeyPress = (event) => {
+    if (event.keyCode === 13) {
+        handleConversion();
+    }
+};
+
+const handleChange = e => {
+	const regex = /^\d*$/;
+	if (!regex.test(e.target.value)) {
+	  alert("Ingresa solo números");
+	  setMonto("");
+	} else {
+	  setMonto(e.target.value);
+	}
+  };
+  
 
 	return (
 		<div className="text-center container mb-2 mt-3">
