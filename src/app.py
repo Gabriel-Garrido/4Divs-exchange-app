@@ -12,6 +12,7 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 
+
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
@@ -22,12 +23,12 @@ app.url_map.strict_slashes = False
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("postgres://", "postgresql://")
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("","postgresql://postgres:1148@localhost:5432/database")
 else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:1148@localhost:5432/database"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-MIGRATE = Migrate(app, db, compare_type = True)
+migrate = Migrate(app, db, compare_type = True)
 db.init_app(app)
 
 # Allow CORS requests to this API
