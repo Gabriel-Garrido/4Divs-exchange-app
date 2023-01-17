@@ -18,6 +18,7 @@ export const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+
   const handleEmailChange = (e) => {
     if (!emailRegex.test(e.target.value)) {
       setEmailError("Ingrese un correo electrónico válido.");
@@ -53,11 +54,13 @@ export const Login = () => {
     throw ("Invalid email or password format")
     }
     const data = await resp.json()
-    console.log (data)
+   
+   
+    
     // save your token in the localStorage
     //also you should set your user into the store using the setStore function
     localStorage.setItem("jwt-token", data.token);
-    
+    console.log(localStorage["jwt-token"])
     return data
     }
 
