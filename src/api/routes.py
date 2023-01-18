@@ -94,10 +94,10 @@ transaction_temp = [{
 @api.route('/get_all_users/', methods=['GET'])
 def get_all_users():
     users = User.query.all()
-    if (users is None):
+    if (users == []):
         return "users not found", 404
     else:
-        users = list(map(lambda x: x.rut,users))
+        users = list(map(lambda x: x.serialize(),users))
         return jsonify(users), 200
 
 @api.route('/get_user/<int:user_id>', methods=['GET'])
@@ -109,10 +109,13 @@ def get_user(user_id):
 
 @api.route('/add_user', methods=['POST'])
 def add_user():
-    user = User("17937461-2", "pepito2@gmail.com", "pepe1234", "pepe", "perez", "123456789", "04/02/1945", "argentino", "ingeniero", "los gatos 324", "2012")
+    req_Json = request.get_json()
+
+
+    user = User(req_Json["rut"], "pepito3@gmail.com", "pepe1234", True, "pepe", "perez", "123456783", "04/02/1945", "argentino", "ingeniero", 1000000,  "los gatos 324", "2012")
     db.session.add(user)
-    db.session.commit(user)
-    return jsonify(user), 201
+    db.session.commit()
+    return "user was created", 201
 
 @api.route('/edit_user/<int:user_id>', methods=['PUT'])
 def edit_user(user_id):

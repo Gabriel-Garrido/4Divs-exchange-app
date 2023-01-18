@@ -22,21 +22,28 @@ class User(db.Model):
     bank_accoutns = db.relationship("Bank_account", backref="user")
     transactions = db.relationship("Transaction", backref="user")
 
-    def __init__(self, rut, email, password, first_name, last_name, phone, birthdate, nationality, ocupation, particular_address, department):
+    def __init__(self, rut, email, password, validate_status, first_name, last_name, phone, birthdate, nationality, ocupation, monthly_income, particular_address, department):
         self.rut = rut
         self.email = email
         self.password = password
+        self.validate_status = validate_status
         self.first_name = first_name
         self.last_name = last_name
         self.phone = phone
         self.birthdate = birthdate
         self.nationality = nationality
         self.ocupation = ocupation
+        self.monthly_income = monthly_income
         self.particular_address = particular_address
         self.department = department
 
     def __repr__(self):
         return f"{self.rut}:{self.email}:{self.password}:{self.first_name}:{self.last_name}:{self.phone}:{self.birthdate}:{self.nationality}:{self.ocupation}:{self.particular_address}:{self.department}"
+
+    def serialize(self):
+        return {
+            "id": self.id
+        }
 
 class Change(db.Model):
     __tablename__ = 'changes'
