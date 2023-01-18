@@ -250,7 +250,7 @@ def add_transaction(transaction_id):
    id = 9
    req_Json = request.get_json()
    req_Json["id"] = id
-   transaction_temp
+   transaction_temp.append(req_Json)
 
 @api.route('edit_transaction/<int:transaction_id>', methods=['PUT'])
 def edit_transaction(transaction_id):
