@@ -2,9 +2,13 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
+//import jwt from 'jsonwebtoken';
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+//let myToken = localStorage.getItem("token");
+
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
@@ -13,6 +17,7 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
 
   const handleEmailChange = (e) => {
     if (!emailRegex.test(e.target.value)) {
@@ -31,6 +36,33 @@ export const Login = () => {
     }
     setPassword(e.target.value);
   };
+
+  const login_user = async (email, password) => {
+    console.log("Hello")
+    const resp = await fetch(`https://3001-gabrielgarr-4geeksproye-l1xuus0mhao.ws-us82.gitpod.io/api/token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: "pepito@gmail.com", password: "pepe123" })
+    })
+    
+    if(!resp.ok) throw Error("There was a problem in the login request")
+    
+    if(resp.status === 401){
+    throw("Invalid credentials")
+    }
+    else if(resp.status === 400){
+    throw ("Invalid email or password format")
+    }
+    const data = await resp.json()
+   
+   
+    
+    // save your token in the localStorage
+    //also you should set your user into the store using the setStore function
+    localStorage.setItem("jwt-token", data.token);
+    console.log(localStorage["jwt-token"])
+    return data
+    }
 
   return (
     <div className=" container text-center">
@@ -53,7 +85,7 @@ export const Login = () => {
 
             <Link to="/home" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar usuario</Link>
             <Link to="/homeadmin" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar empresa</Link>
-
+            <button  href='' class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={()=>login_user(email, password)}>Ingresar</button>
             <a href="#" class="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>
             <Link to="/" >Regresar</Link>
             <Link to="/restorepassword">Recuperar contraseña</Link>
