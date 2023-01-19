@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Transaction
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 
@@ -231,15 +231,13 @@ def delete_bank_account(bank_account_id):
 
 # Transaction endpoints
 
-
 @api.route('/get_all_transactions/', methods=['GET'])
-    # agregar paginacion
-def get_all_transaction():
+def get_all_transactions():
     transactions = Transaction.query.all()
     if (transactions == []):
         return "transactions not found", 404
     else:
-        transactions = list(map(lambda x: x.serialize(),transactions))
+        users = list(map(lambda x: x.serialize(),transactions))
         return jsonify(transactions), 200
 
 @api.route('/get_transaction/<int:transaction_id>', methods=['GET'])
