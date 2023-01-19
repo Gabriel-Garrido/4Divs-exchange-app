@@ -56,7 +56,6 @@ class User(db.Model):
             "monthly_income": self.monthly_income,
             "particular_address": self.particular_address,
             "department": self.department
-            
         }
 
 class Change(db.Model):
