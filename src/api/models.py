@@ -89,8 +89,28 @@ class Transaction(db.Model):
     transaction_amount = db.Column(db.Float(50), unique=False, nullable=False)
     transfer_bank_id = db.Column(db.String(50), unique=True, nullable=False)
 
+    def __init__(self, user_id, status, change_id, bank_account_id, date, time, transaction_amount, transfer_bank_id):
+        self.user_id = user_id
+        self.status = status
+        self.change_id = change_id
+        self.bank_account_id = bank_account_id
+        self.date = date
+        self.time = time
+        self.transaction_amount = transaction_amount
+        self.transfer_bank_id = transfer_bank_id
+
     def __repr__(self):
-        return "<Transaction %r>" %self.status
-        return "<Transaction %r>" %self.date
-        return "<Transaction %r>" %self.time
-        return "<Transaction %r>" %self.transfer_bank_id
+        return f"{self.user_id}:{self.status}:{self.change_id}:{self.bank_account_id}:{self.date}:{self.time}:{self.transaction_amount}:{self.transfer_bank_id}"
+        
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "status": self.status,
+            "change_id":self.change_id,
+            "bank_account_id":self.bank_account_id,
+            "date":self.date,
+            "time":self.time,
+            "transaction_amount":self.transaction_amount,
+            "transfer_bank_id":self.transfer_bank_id
+        }
