@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Bank_account
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 
@@ -187,8 +187,8 @@ def delete_change(change_id):
 
 @api.route('/get_all_bank_accounts/', methods=['GET'])
 def get_all_bank_account():
-    bank_accounts =  Bank_account.query.all()
-    if( bank_accounts == []):
+    bank_accounts = Bank_account.query.all()
+    if(bank_accounts == []):
         return "bank accounts not found", 404
     else:
         bank_accounts = list(map(lambda x: x.serialize(), bank_accounts))
