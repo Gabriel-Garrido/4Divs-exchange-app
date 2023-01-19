@@ -235,10 +235,12 @@ def delete_bank_account(bank_account_id):
 @api.route('/get_all_transactions/', methods=['GET'])
     # agregar paginacion
 def get_all_transaction():
-    if (bank_account_temp == []):
+    transactions = Transaction.query.all()
+    if (transactions == []):
         return "transactions not found", 404
     else:
-        return jsonify(bank_account_temp), 200
+        transactions = list(map(lambda x: x.serialize(),transactions))
+        return jsonify(transactions), 200
 
 @api.route('/get_transaction/<int:transaction_id>', methods=['GET'])
 def get_transaction(transaction_id):
