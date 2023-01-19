@@ -69,13 +69,33 @@ class Bank_account(db.Model):
     document_id = db.Column(db.String(100), unique=True, nullable=False)
     transactions = db.relationship("Transaction", backref="bank_account")
 
-    def __repr__(self):
-        return "<Bank_account %r>" %self.country
-        return "<Bank_account %r>" %self.account_number
-        return "<Bank_account %r>" %self.bank
-        return "<Bank_account %r>" %self.account_holder
-        return "<Bank_account %r>" %self.document_type
-        return "<Bank_account %r>" %self.document_id
+    def __init__ (self,user_id,country,account_number,bank,account_holder,document_type,document_id,transactions):
+        self.user_id = user_id
+        self.country = country
+        self.account_number = account_number
+        self.bank = bank
+        self.account_holder = account_holder
+        self.document_type = document_type
+        self.document_id = document_id
+        self.transactions = transactions
+
+    def __repr__ (self):
+        return f"{self.user_id}:{self.country}:{self.account_number}:{self.bank}:{self.account_holder}:{self.document_type}:{self.document_id}:{self.transactions}"
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "user_id":self.user_id,
+            "country": self.country,
+            "account_number": self.account_number,
+            "bank": self.bank,
+            "account_holder": self.account_holder,
+            "document_type": self.document_type,
+            "document_id": self.document_id,
+            "transactions": self.transactions
+
+
+        }
 
 class Transaction(db.Model):
     __tablename__ = 'transactions'

@@ -187,10 +187,12 @@ def delete_change(change_id):
 
 @api.route('/get_all_bank_accounts/', methods=['GET'])
 def get_all_bank_account():
-    if(bank_account_temp == []):
+    bank_accounts =  Bank_account.query.all()
+    if( bank_accounts == []):
         return "bank accounts not found", 404
     else:
-        return jsonify(bank_account_temp), 200
+        bank_accounts = list(map(lambda x: x.serialize(), bank_accounts))
+        return "ok", 200
 
 @api.route('/get_bank_account/<int:bank_account_id>', methods=['GET'])
 def get_bank_account(bank_account_id):
