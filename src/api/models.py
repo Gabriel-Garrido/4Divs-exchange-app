@@ -53,9 +53,23 @@ class Change(db.Model):
     exchange_rate = db.Column(db.Float(30), unique=False, nullable=False)
     transactions = db.relationship("Transaction", backref="change")
 
+    def __init__(self,origin_exchange,destination_exchange,exchange_rate,transactions):
+        self.origin_exchange = origin_exchange
+        self.destination_exchange = destination_exchange
+        self.exchange_rate = exchange_rate
+        self.transactions = transactions
+
     def __repr__(self):
-        return "<Change %r>" %self.origin_exchange
-        return "<Change %r>" %self.destination_exchange
+        return f"{self.origin_exchange}:{self.destination_exchange}:{self.exchange_rate}:{self.transactions}"
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "origin_exchange": self.origin_exchange,
+            "destination_exchange": self.destination_exchange,
+            "exchange_rate": self.exchange_rate,
+            "transactions": self.transactions
+        }
 
 class Bank_account(db.Model):
     __tablename__  = 'bank_accounts'

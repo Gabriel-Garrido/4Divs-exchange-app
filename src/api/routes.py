@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Bank_account
+from api.models import db, User, Bank_account,Transaction, Change
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 
@@ -137,13 +137,15 @@ def delete_user(user_id):
 
 
 # Change endpoints
+#cambios realizados 19ene en get all y post
 
 @api.route('/get_all_changes/', methods=['GET'])
 def get_all_changes():
-    if(user_temp == []):
+    changes = Change.query.all()
+    if(changes == []):
         return "change rates not found", 404
     else:
-        return jsonify(change_temp), 200
+        return jsonify(changes), 200
 
 @api.route('/get_change/<int:change_id>', methods=['GET'])
 def get_change(change_id):
@@ -155,11 +157,15 @@ def get_change(change_id):
 
 @api.route('add_change', methods=['POST'])
 def add_change():
-    id=9
     req_Json = request.get_json()
-    req_Json["id"] = id
-    change_temp.append(req_Json)
-    return jsonify(change_temp), 200
+
+
+    change = Change(req_Json["origin_exchange"], "destination_exchange", "exchange_rate", "transactions")
+    db.session.add(change)
+    db.session.commit()
+    return "change was created", 201
+
+
 
 @api.route('edit_change/<int:change_id>', methods=['PUT'])
 def edit_change(change_id):
@@ -202,13 +208,17 @@ def get_bank_account(bank_account_id):
         else:
             return "bank account not found", 404
 
+   #cambios realizados 19ene         
+
 @api.route('add_bank_account', methods=['POST'])
 def add_bank_account():
-    id = 9
     req_Json = request.get_json()
-    req_Json["id"] = id
-    bank_account_temp.append(req_Json)
-    return jsonify(bank_account_temp), 200
+
+
+    bank_account = Bank_account(req_Json["user_id"], "country", "account_number", "bank", "account_holder", "document_type", "document_id", "transactions")
+    db.session.add(bank_account)
+    db.session.commit()
+    return "bank account created", 201
     
 
 @api.route('edit_bank_account/<int:bank_account_id>', methods=['PUT'])
