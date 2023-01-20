@@ -30,11 +30,10 @@ def get_user(user_id):
 def add_user():
     req_Json = request.get_json()
 
-
-    user = User(req_Json["rut"], "pepito3@gmail.com", "pepe1234", True, "pepe", "perez", "123456783", "04/02/1945", "argentino", "ingeniero", 1000000,  "los gatos 324", "2012")
+    user = User(req_Json["rut"], req_Json["email"], req_Json["password"], req_Json["validate_status"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
     db.session.add(user)
     db.session.commit()
-    return "user was created", 201
+    return "user " + req_Json["email"] + " was created", 201
 
 @api.route('/edit_user/<int:user_id>', methods=['PUT'])
 def edit_user(user_id):
