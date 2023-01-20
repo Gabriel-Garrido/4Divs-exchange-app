@@ -145,6 +145,7 @@ def get_all_changes():
     if(changes == []):
         return "change rates not found", 404
     else:
+        changes = list(map(lambda x: x.serialize(),changes))
         return jsonify(changes), 200
 
 @api.route('/get_change/<int:change_id>', methods=['GET'])

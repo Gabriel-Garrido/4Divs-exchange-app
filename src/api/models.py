@@ -53,14 +53,13 @@ class Change(db.Model):
     exchange_rate = db.Column(db.Float(30), unique=False, nullable=False)
     transactions = db.relationship("Transaction", backref="change")
 
-    def __init__(self,origin_exchange,destination_exchange,exchange_rate,transactions):
+    def __init__(self,origin_exchange,destination_exchange,exchange_rate):
         self.origin_exchange = origin_exchange
         self.destination_exchange = destination_exchange
         self.exchange_rate = exchange_rate
-        self.transactions = transactions
 
     def __repr__(self):
-        return f"{self.origin_exchange}:{self.destination_exchange}:{self.exchange_rate}:{self.transactions}"
+        return f"{self.origin_exchange}:{self.destination_exchange}:{self.exchange_rate}"
 
     def serialize(self):
         return{
@@ -68,7 +67,6 @@ class Change(db.Model):
             "origin_exchange": self.origin_exchange,
             "destination_exchange": self.destination_exchange,
             "exchange_rate": self.exchange_rate,
-            "transactions": self.transactions
         }
 
 class Bank_account(db.Model):
@@ -83,7 +81,7 @@ class Bank_account(db.Model):
     document_id = db.Column(db.String(100), unique=True, nullable=False)
     transactions = db.relationship("Transaction", backref="bank_account")
 
-    def __init__ (self,user_id,country,account_number,bank,account_holder,document_type,document_id,transactions):
+    def __init__ (self,user_id,country,account_number,bank,account_holder,document_type,document_id):
         self.user_id = user_id
         self.country = country
         self.account_number = account_number
@@ -91,10 +89,9 @@ class Bank_account(db.Model):
         self.account_holder = account_holder
         self.document_type = document_type
         self.document_id = document_id
-        self.transactions = transactions
 
     def __repr__ (self):
-        return f"{self.user_id}:{self.country}:{self.account_number}:{self.bank}:{self.account_holder}:{self.document_type}:{self.document_id}:{self.transactions}"
+        return f"{self.user_id}:{self.country}:{self.account_number}:{self.bank}:{self.account_holder}:{self.document_type}:{self.document_id}"
 
     def serialize(self):
         return{
@@ -106,9 +103,6 @@ class Bank_account(db.Model):
             "account_holder": self.account_holder,
             "document_type": self.document_type,
             "document_id": self.document_id,
-            "transactions": self.transactions
-
-
         }
 
 class Transaction(db.Model):
