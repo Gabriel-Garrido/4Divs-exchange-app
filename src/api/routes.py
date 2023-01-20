@@ -198,7 +198,7 @@ def get_all_bank_account():
         return "bank accounts not found", 404
     else:
         bank_accounts = list(map(lambda x: x.serialize(), bank_accounts))
-        return "ok", 200
+        return jsonify(bank_accounts), 200
 
 @api.route('/get_bank_account/<int:bank_account_id>', methods=['GET'])
 def get_bank_account(bank_account_id):
@@ -215,7 +215,7 @@ def add_bank_account():
     req_Json = request.get_json()
 
 
-    bank_account = Bank_account(req_Json["user_id"], "country", "account_number", "bank", "account_holder", "document_type", "document_id", "transactions")
+    bank_account = Bank_account(req_Json["user_id"], req_Json["country"], req_Json["account_number"], req_Json["bank"], req_Json["account_holder"], req_Json["document_type"], req_Json["document_id"], req_Json["transactions"])
     db.session.add(bank_account)
     db.session.commit()
     return "bank account created", 201
