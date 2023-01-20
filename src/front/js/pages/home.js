@@ -12,8 +12,9 @@ export const Home = () => {
 	const [rate, setRate] = useState(890);
 
 const handleConversion = () => {
-    setConversion(monto / rate) ;
+    setConversion(Math.round((monto / rate) * 100) / 100);
 };
+
 const handleKeyPress = (event) => {
     if (event.keyCode === 13) {
         handleConversion();
