@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Bank_account,Transaction, Change
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 
@@ -56,13 +56,15 @@ def delete_user(user_id):
 
 
 # Change endpoints
+#cambios realizados 19ene en get all y post
 
 @api.route('/get_all_changes/', methods=['GET'])
 def get_all_changes():
-    if(user_temp == []):
+    changes = Change.query.all()
+    if(changes == []):
         return "change rates not found", 404
     else:
-        return jsonify(change_temp), 200
+        return jsonify(changes), 200
 
 @api.route('/get_change/<int:change_id>', methods=['GET'])
 def get_change(change_id):
@@ -74,11 +76,15 @@ def get_change(change_id):
 
 @api.route('add_change', methods=['POST'])
 def add_change():
-    id=9
     req_Json = request.get_json()
-    req_Json["id"] = id
-    change_temp.append(req_Json)
-    return jsonify(change_temp), 200
+
+
+    change = Change(req_Json["origin_exchange"], "destination_exchange", "exchange_rate", "transactions")
+    db.session.add(change)
+    db.session.commit()
+    return "change was created", 201
+
+
 
 @api.route('edit_change/<int:change_id>', methods=['PUT'])
 def edit_change(change_id):
@@ -106,10 +112,12 @@ def delete_change(change_id):
 
 @api.route('/get_all_bank_accounts/', methods=['GET'])
 def get_all_bank_account():
-    if(bank_account_temp == []):
+    bank_accounts = Bank_account.query.all()
+    if(bank_accounts == []):
         return "bank accounts not found", 404
     else:
-        return jsonify(bank_account_temp), 200
+        bank_accounts = list(map(lambda x: x.serialize(), bank_accounts))
+        return jsonify(bank_accounts), 200
 
 @api.route('/get_bank_account/<int:bank_account_id>', methods=['GET'])
 def get_bank_account(bank_account_id):
@@ -119,13 +127,17 @@ def get_bank_account(bank_account_id):
         else:
             return "bank account not found", 404
 
+   #cambios realizados 19ene         
+
 @api.route('add_bank_account', methods=['POST'])
 def add_bank_account():
-    id = 9
     req_Json = request.get_json()
-    req_Json["id"] = id
-    bank_account_temp.append(req_Json)
-    return jsonify(bank_account_temp), 200
+
+
+    bank_account = Bank_account(req_Json["user_id"], req_Json["country"], req_Json["account_number"], req_Json["bank"], req_Json["account_holder"], req_Json["document_type"], req_Json["document_id"], req_Json["transactions"])
+    db.session.add(bank_account)
+    db.session.commit()
+    return "bank account created", 201
     
 
 @api.route('edit_bank_account/<int:bank_account_id>', methods=['PUT'])
@@ -150,14 +162,15 @@ def delete_bank_account(bank_account_id):
 
 # Transaction endpoints
 
-
 @api.route('/get_all_transactions/', methods=['GET'])
     # agregar paginacion
 def get_all_transaction():
-    if (bank_account_temp == []):
+    transactions = Transaction.query.all()
+    if (transactions == []):
         return "transactions not found", 404
     else:
-        return jsonify(bank_account_temp), 200
+        transactions = list(map(lambda x: x.serialize(),transactions))
+        return jsonify(transactions), 200
 
 @api.route('/get_transaction/<int:transaction_id>', methods=['GET'])
 def get_transaction(transaction_id):
