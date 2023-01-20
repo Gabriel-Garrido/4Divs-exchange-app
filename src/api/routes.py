@@ -102,7 +102,8 @@ def get_all_users():
 
 @api.route('/get_user/<int:user_id>', methods=['GET'])
 def get_user(user_id):
-    for user in user_temp:
+    users = list(map(lambda x: x.serialize(),User.query.all()))
+    for user in users:
         if user["id"] == user_id:
             return jsonify(user), 200
     return "user not found", 404
@@ -205,7 +206,8 @@ def get_all_bank_account():
 
 @api.route('/get_bank_account/<int:bank_account_id>', methods=['GET'])
 def get_bank_account(bank_account_id):
-    for bank_account in bank_account_temp:
+    bank_accounts = list(map(lambda x: x.serialize(),Bank_account.query.all()))
+    for bank_account in bank_accounts:
         if bank_account["id"] == bank_account_id:
             return jsonify(bank_account), 200
         else:
@@ -256,9 +258,11 @@ def get_all_transaction():
         transactions = list(map(lambda x: x.serialize(),transactions))
         return jsonify(transactions), 200
 
+
 @api.route('/get_transaction/<int:transaction_id>', methods=['GET'])
 def get_transaction(transaction_id):
-    for transaction in transaction_temp:
+    transactions = list(map(lambda x: x.serialize(),Transaction.query.all()))
+    for transaction in transactions:
         if transaction["id"] == transaction_id:
             return jsonify(transaction), 200
         else:
