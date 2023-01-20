@@ -148,13 +148,15 @@ def get_all_changes():
         changes = list(map(lambda x: x.serialize(),changes))
         return jsonify(changes), 200
 
+#endpoint funcionando ok
 @api.route('/get_change/<int:change_id>', methods=['GET'])
 def get_change(change_id):
-    for change in change_temp:
+    changes = list(map(lambda x: x.serialize(),Change.query.all()))
+    for change in changes:
         if change["id"] == change_id:
             return jsonify(change), 200
         else:
-            return "change rate not found"
+            return "change not found", 404
 
 @api.route('add_change', methods=['POST'])
 def add_change():
