@@ -160,7 +160,7 @@ def add_change():
     req_Json = request.get_json()
 
 
-    change = Change(req_Json["origin_exchange"], "destination_exchange", "exchange_rate", "transactions")
+    change = Change(req_Json["origin_exchange"],req_Json["destination_exchange"], req_Json["exchange_rate"], req_Json["transactions"])
     db.session.add(change)
     db.session.commit()
     return "change was created", 201
