@@ -42,7 +42,20 @@ class User(db.Model):
 
     def serialize(self):
         return {
-            "id": self.id
+            "id": self.id,
+            "rut": self.rut,
+            "email": self.email,
+            "password": self.password,
+            "validate_status": self.validate_status,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "phone": self.phone,
+            "birthdate": self.birthdate,
+            "nationality": self.nationality,
+            "ocupation": self.ocupation,
+            "monthly_income": self.monthly_income,
+            "particular_address": self.particular_address,
+            "department": self.department
         }
 
 class Change(db.Model):
