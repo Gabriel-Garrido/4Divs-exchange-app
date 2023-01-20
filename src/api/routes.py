@@ -22,11 +22,12 @@ def get_all_users():
 
 @api.route('/get_user/<int:user_id>', methods=['GET'])
 def get_user(user_id):
-    users = list(map(lambda x: x.serialize(),User.query.all()))
-    for user in users:
-        if user["id"] == user_id:
-            return jsonify(user), 200
-    return "user not found", 404
+    user = User.query.get(user_id)
+    if user is None:
+        return "user not found", 404
+            
+    return user.serialize(), 200
+    
 
 @api.route('/add_user', methods=['POST'])
 def add_user():
@@ -40,22 +41,28 @@ def add_user():
 
 @api.route('/edit_user/<int:user_id>', methods=['PUT'])
 def edit_user(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        return "user not found", 404
+            
     req_Json = request.get_json()
-    for i, user in enumerate(user_temp):
-        if user["id"] == user_id:
-            user_temp[i] = req_Json
-            user_temp[i]["id"] = user_id
-            return jsonify(user_temp), 200
-    return "user not found", 404
+    if req_Json["first_name"] is not None:
+        user.first_name = req_Json["first_name"]
+        db.session.add(user)
+        db.session.commit()
+        return user.serialize(), 200
+
+    return "incorrect param", 400
 
 @api.route('delete_user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
-    for i, user in enumerate(user_temp):
-        if user["id"] == user_id:
-            del user_temp[i]
-            return jsonify(user_temp), 200
-    return "user not found", 404 
-
+    user = User.query.get(user_id)
+    if user is None:
+        return "user not found", 404
+            
+    db.session.delete(user)
+    db.session.commit()
+    return "user was deleted", 200
 
 # Change endpoints
 #cambios realizados 19ene en get all y post
