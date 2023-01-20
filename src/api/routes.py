@@ -267,7 +267,7 @@ def add_transaction():
     req_Json = request.get_json()
 
 
-    transaction = transaction(req_Json["user_id"], req_Json["status"], req_Json["change_id"], req_Json["bank_account_id"], req_Json["date"], req_Json["time"], req_Json["transaction_amount"], req_Json["transfer_bank_id"])
+    transaction = Transaction(req_Json["user_id"], req_Json["status"], req_Json["change_id"], req_Json["bank_account_id"], req_Json["date"], req_Json["time"], req_Json["transaction_amount"], req_Json["transfer_bank_id"])
     db.session.add(transaction)
     db.session.commit()
     return "transaction created", 201
