@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
 	// pendiente crear funcionalidad de boton Logout
 
-	const [admin, setAdmin] = useState(false)
-
+	const [admin, setAdmin] = useState(true)
+	
 	// crear funcion que cambie el stado de admin
 
 	return (
@@ -30,7 +30,7 @@ export const Navbar = () => {
 							<Link className="btn btn-dark" to="/newbankaccount" type="button"><i className="fas fa-university"></i> Nueva cuenta bancaria</Link>
 							<Link className="btn btn-dark" to="/changepassword" type="button"><i className="fas fa-unlock-alt"></i> Cambiar contraseña</Link>
 
-							{admin? <Link className="btn btn-dark" to="/rateadmin" type="button"><i className="fas fa-sync"></i> Cambiar Tasa</Link> : <></>}
+							{admin?<Link className="btn btn-dark" to="/rateadmin" type="button"><i className="fas fa-sync"></i> Cambiar Tasa</Link> : <></>}
 							<Link className="btn btn-dark" to="/reportadmin" type="button"><i className="fas fa-download"></i> Reportes</Link>
 							<Link className="btn btn-dark" to="/verificationadmin" type="button"><i className="fas fa-user-check"></i> Verificar Perfiles</Link>
 							<Link className="btn btn-danger" to="/" type="button"><i className="fas fa-sign-out-alt"></i> Cerrar sesión</Link>

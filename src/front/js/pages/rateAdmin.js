@@ -48,15 +48,17 @@ export const RateAdmin = () => {
 					<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
 						<h2>Tasa Nueva</h2>
 						<label className="fs-1">1 USD to</label>
-						<input
-							type="form-floating"
-							className="form-control"
-							id="basic-url"
-							aria-describedby="basic-addon3"
-							placeholder="Nuevo Precio"
-							onChange={handleChange}
-							></input>
-
+						<div className="input-group">
+							<input
+								type="form-floating"
+								className="form-control"
+								id="basic-url"
+								aria-describedby="basic-addon3"
+								placeholder="Nuevo Precio"
+								onChange={handleChange}
+								></input>
+							<span className="input-group-text" id="basic-url">CLP</span>
+						</div>
 					</div>
 					{rateError && <p className="text-danger">{rateError}</p>}
 					<button className="btn btn-dark col-4 offset-4">

@@ -4,32 +4,48 @@ import { Link } from "react-router-dom";
 
 import "../../styles/home.css";
 
-export const Home = () => {
+export const Home = (props) => {
 	const { store, actions } = useContext(Context);
-	const [monto, setMonto] = useState("");
+	const [mount, setMount] = useState("");
+	const [mountError, setMountError] = useState("");
+
 	const [conversion, setConversion] = useState("");
-	const [rate, setRate] = useState(890);
 
-const handleConversion = () => {
-    setConversion(Math.round((monto / rate) * 100) / 100);
-};
+	const handleChange = (e) => {
+		const regex = /^\d*$/;
+		if (!regex.test(e.target.value)) {
+			setMountError("Debe ingresar valor en números");
+			setMount("");
+		} else {
+			setMountError("");
+			setMount(e.target.value);
+			setConversion(Math.round((e.target.value / props.rate) * 100) / 100)
+		}
+	};
+	async function processTransaction() {
+		let data = {
+			"user_id": 3, 
+			"status": true, 
+			"change_id": 1, 
+			"bank_account_id": 6, 
+			"date": "21/01/2023", 
+			"time": "20:00", 
+			"transaction_amount": mount, 
+			"transfer_bank_id": "not defined"
+		}  
 
-const handleKeyPress = (event) => {
-    if (event.keyCode === 13) {
-        handleConversion();
-    }
-};
-
-const handleChange = e => {
-	const regex = /^\d*$/;
-	if (!regex.test(e.target.value)) {
-	  alert("Ingresa solo números");
-	  setMonto("");
-	} else {
-	  setMonto(e.target.value);
+		await fetch("https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/add_transaction",{
+			method: ["POST"],
+			headers: {
+			 "Content-type": "application/json; charset=utf-8",
+			 "Access-Control-Allow-Origin": "*",
+			},
+			body: JSON.stringify(data)
+		})
+		console.log(mount)
+		console.log(conversion)
 	}
-  };
-  
+	
 	return (
 		<div className="text-center container mb-2 mt-3">
 
@@ -48,17 +64,19 @@ const handleChange = e => {
 							</ul>
 						</div>
 					
-					<p className="fs-1">1 USD / 890 CLP</p>
+					<p className="fs-1">1 USD / {props.rate} CLP</p>
 				</div>
 				<div className="card-body row">
 					<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
 						
 						<div className="input-group">
-						<input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar" onChange={handleChange} value={monto} onBlur={handleConversion} onKeyDown={handleKeyPress}></input>
+						<input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar" onChange={handleChange}></input>
 							<span className="input-group-text" id="basic-addon3">CLP</span>
 						</div>
+						{mountError && <p className="text-danger">{mountError}</p>}
 						<div className="form-text fs-5">Usted va a cambiar:</div>
-						<p className="fs-1"> to {conversion} USD</p>
+						<p className="fs-1"> {mount} CLP to {conversion} USD</p>
+
 						{/* Selección de cuenta bancaria */}
 							<div className="container">
 					
@@ -94,7 +112,7 @@ const handleChange = e => {
 						{/* /Selección de cuenta bancaria */}
 
 
-						<Link to="/process" className="btn btn-dark col-8 offset-2 col-md-4 offset-md-4 fs-4">Procesar cambio</Link>
+						<Link onClick={() => processTransaction()} to="/process" className="btn btn-dark col-8 offset-2 col-md-4 offset-md-4 fs-4">Procesar cambio</Link>
 				</div>
 			</div>
 			

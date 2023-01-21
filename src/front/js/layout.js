@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
@@ -22,12 +22,15 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { NavbarAdmin } from "./component/navbarAdmin";
 
+
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
     // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
+    const [rate, setRate] = useState(850);
+    
     return (
         <div>
             <BrowserRouter basename={basename}>
@@ -38,7 +41,7 @@ const Layout = () => {
                         <Route element={<Login />} path="/" />
                         <Route element={<RestorePassword />} path="/restorepassword" />
                         <Route element={<ChangePassword />} path="/changepassword" />
-                        <Route element={<Home />} path="/home" />
+                        <Route element={<Home rate={rate}/>} path="/home" />
                         <Route element={<Process />} path="/process" />
                         <Route element={<NewBankAccount />} path="/newbankaccount" />
                         <Route element={<Record />} path="/record" />
