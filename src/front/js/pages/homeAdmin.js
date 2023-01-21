@@ -13,13 +13,13 @@ export const HomeAdmin = () => {
 					<h1 className="fs-1">Órdenes</h1>
 					<div className="container d-flex justify-content-evenly">
 						<div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-							<input type="checkbox" className="btn-check" id="btncheck1" autocomplete="off"></input>
+							<input type="checkbox" className="btn-check" id="btncheck1" autoComplete="off"></input>
 							<label className="btn btn-outline-success" htmlFor="btncheck1">Finalizado</label>
 
-							<input type="checkbox" className="btn-check" id="btncheck2" autocomplete="off"></input>
+							<input type="checkbox" className="btn-check" id="btncheck2" autoComplete="off"></input>
 							<label className="btn btn-outline-warning mx-md-4" htmlFor="btncheck2">Pendiente</label>
 
-							<input type="checkbox" className="btn-check" id="btncheck3" autocomplete="off"></input>
+							<input type="checkbox" className="btn-check" id="btncheck3" autoComplete="off"></input>
 							<label className="btn btn-outline-danger" htmlFor="btncheck3">Rechazado</label>
 						</div>
 						<button type="button" className="btn btn-dark"><i className="fas fa-filter"></i></button>

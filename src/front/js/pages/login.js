@@ -5,10 +5,9 @@ import "../../styles/home.css";
 //import jwt from 'jsonwebtoken';
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-//let myToken = localStorage.getItem("token");
-
+let myToken = null;
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
@@ -30,7 +29,7 @@ export const Login = () => {
 
   const handlePasswordChange = (e) => {
     if (!passwordRegex.test(e.target.value)) {
-      setPasswordError("La contraseña debe tener al menos 7 caracteres y un número.");
+      setPasswordError("La contraseña debe tener al menos 8 caracteres y un número.");
     } else {
       setPasswordError("");
     }
@@ -38,7 +37,6 @@ export const Login = () => {
   };
 
   const login_user = async (email, password) => {
-    console.log(email + " " + password)
     const resp = await fetch(`https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/token`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -55,13 +53,11 @@ export const Login = () => {
     }
     const data = await resp.json()
    
-   
-    
     // save your token in the localStorage
     //also you should set your user into the store using the setStore function
     localStorage.setItem("jwt-token", data.token);
-    console.log(localStorage["jwt-token"])
-    return console.log(data)
+    myToken = localStorage["jwt-token"]
+    return console.log(myToken)
     }
 
     // ----------------------FETCH LOGIN-------------------------
@@ -69,14 +65,10 @@ export const Login = () => {
     async function loginDataFetch() {
       let response = await fetch(`https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/get_all_users`, {
         method: ["GET"]
-  
       })
       const data = await response.json()
-      
       console.log(data)
-      
     }
-
     // ----------------------/FETCH LOGIN-------------------------
 
 
