@@ -31,7 +31,7 @@ export const RestorePassword = () => {
 		<div className="container">
              <div className="form-floating mb-2 col-12 col-md-6 offset-md-3">
              <input type="email" className="form-control" id="floatingPassword" placeholder="Correo" onChange={handleEmailChange}></input>
-             <label for="floatingPassword">Correo</label>
+             <label htmlFor="floatingPassword">Correo</label>
               </div>
 			  {emailError && <p className="text-danger">{emailError}</p>}
     		<a href="#" className="btn btn-dark col-5">Enviar</a>

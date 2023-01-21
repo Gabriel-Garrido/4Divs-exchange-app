@@ -9,20 +9,20 @@ export const ReportAdmin = () => {
     <div className="container">
       <div className="text-center mt-5">
 
-          <div class="card text-center">
-            <div class="card-header">
+          <div className="card text-center">
+            <div className="card-header">
               <h1>Reporte</h1>
             </div>
-            <div class="card-body">
+            <div className="card-body">
               <button className="btn btn-dark mb-4 mt-1">Descargar Reporte general</button>
-              <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Rut usuario" aria-label="Recipient's username" aria-describedby="button-addon2"></input>
-              <button class="btn btn-dark" type="button" id="button-addon2">Descargar reporte usuario</button>
+              <div className="input-group mb-3">
+              <input type="text" className="form-control" placeholder="Rut usuario" aria-label="Recipient's username" aria-describedby="button-addon2"></input>
+              <button className="btn btn-dark" type="button" id="button-addon2">Descargar reporte usuario</button>
             </div>
 
 
             </div>
-            <div class="card-footer text-muted">
+            <div className="card-footer text-muted">
             </div>
           </div>
     </div>

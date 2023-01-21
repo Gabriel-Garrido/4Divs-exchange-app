@@ -5,7 +5,7 @@ import "../../styles/home.css";
 //import jwt from 'jsonwebtoken';
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/;
 
 //let myToken = localStorage.getItem("token");
 
@@ -30,7 +30,7 @@ export const Login = () => {
 
   const handlePasswordChange = (e) => {
     if (!passwordRegex.test(e.target.value)) {
-      setPasswordError("La contraseña debe tener al menos 8 caracteres y un número.");
+      setPasswordError("La contraseña debe tener al menos 7 caracteres y un número.");
     } else {
       setPasswordError("");
     }
@@ -38,11 +38,11 @@ export const Login = () => {
   };
 
   const login_user = async (email, password) => {
-    console.log("Hello")
-    const resp = await fetch(`https://3001-gabrielgarr-4geeksproye-l1xuus0mhao.ws-us82.gitpod.io/api/token`, {
+    console.log(email + " " + password)
+    const resp = await fetch(`https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/token`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "pepito@gmail.com", password: "pepe123" })
+    body: JSON.stringify({ "email": email, "password": password })
     })
     
     if(!resp.ok) throw Error("There was a problem in the login request")
@@ -61,37 +61,53 @@ export const Login = () => {
     //also you should set your user into the store using the setStore function
     localStorage.setItem("jwt-token", data.token);
     console.log(localStorage["jwt-token"])
-    return data
+    return console.log(data)
     }
+
+    // ----------------------FETCH LOGIN-------------------------
+
+    async function loginDataFetch() {
+      let response = await fetch(`https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/get_all_users`, {
+        method: ["GET"]
+  
+      })
+      const data = await response.json()
+      
+      console.log(data)
+      
+    }
+
+    // ----------------------/FETCH LOGIN-------------------------
+
 
   return (
     <div className=" container text-center">
-      <div class="card text-center">
-        <div class="card-header fs-1">Bienvenido</div>
-        <div class="card-body">
-          <div class="container row">
-            <div class="mb-3 col-12 col-md-6 offset-md-3">
-              <div class="form-floating mb-3">
-			  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" onChange={handleEmailChange}></input>
-                <label for="floatingInput">Email</label>
+      <div className="card text-center">
+        <div className="card-header fs-1">Bienvenido</div>
+        <div className="card-body">
+          <div className="container row">
+            <div className="mb-3 col-12 col-md-6 offset-md-3">
+              <div className="form-floating mb-3">
+			  <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" onChange={handleEmailChange}></input>
+                <label htmlFor="floatingInput">Email</label>
               </div>
               {emailError && <p className="text-danger">{emailError}</p>}
-              <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" onChange={handlePasswordChange}></input>
-                <label for="floatingPassword">Password</label>
+              <div className="form-floating">
+                <input type="password" className="form-control" id="floatingPassword" placeholder="Password" onChange={handlePasswordChange}></input>
+                <label htmlFor="floatingPassword">Password</label>
               </div>
               {passwordError && <p className="text-danger">{passwordError}</p>}
             </div>
 
-            <Link to="/home" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar usuario</Link>
-            <Link to="/homeadmin" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar empresa</Link>
-            <button  href='' class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={()=>login_user(email, password)}>Ingresar</button>
-            <a href="#" class="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>
+            <Link to="/home" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar usuario</Link>
+            <Link to="/homeadmin" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar empresa</Link>
+            <button  href='' className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={()=>login_user(email, password)}>Ingresar</button>
+            <a href="#" className="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>
             <Link to="/" >Regresar</Link>
             <Link to="/restorepassword">Recuperar contraseña</Link>
           </div>
         </div>
-        <div class="card-footer text-muted"></div>
+        <div className="card-footer text-muted"></div>
       </div>
     </div>
   );

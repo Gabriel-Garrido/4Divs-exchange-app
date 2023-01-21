@@ -54,7 +54,7 @@ export const NewBankAccount = () => {
   <div className="card-body d-flex flex-column aling-items-center ">
   <div className="container">
 		 <div>
-           <label for="name">Nombre de Banco</label>
+           <label htmlFor="name">Nombre de Banco</label>
         </div>
 
           <div>
@@ -63,7 +63,7 @@ export const NewBankAccount = () => {
 	      </div>
 		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
 		  <div>
-		  <label for="name">Tipo de Cuenta</label>
+		  <label htmlFor="name">Tipo de Cuenta</label>
 		  </div>
 
 		  <div>
@@ -72,7 +72,7 @@ export const NewBankAccount = () => {
 		  </div>
 		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
 		  <div>
-		  <label for="name">Numero de Cuenta</label>
+		  <label htmlFor="name">Numero de Cuenta</label>
 		  </div>
 
 		  <div>
@@ -81,7 +81,7 @@ export const NewBankAccount = () => {
 		  </div>
 		  {NumerosError && <p className="text-danger">{NumerosError}</p>}
 		  <div>
-		  <label for="name">Nombre del Titular</label>
+		  <label htmlFor="name">Nombre del Titular</label>
 		  </div>
 
 		  <div>
@@ -90,7 +90,7 @@ export const NewBankAccount = () => {
 		  </div>
 		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
 		  <div>
-		  <label for="name">Documento de Identidad</label>
+		  <label htmlFor="name">Documento de Identidad</label>
 		  </div>
 
 		  <div>

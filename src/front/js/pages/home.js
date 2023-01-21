@@ -64,26 +64,26 @@ const handleChange = e => {
 						{/* Selección de cuenta bancaria */}
 							<div classList="container">
 					
-								<button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-									Seleccione cuenta bancaria  <i class="fas fa-caret-down"></i>
+								<button className="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+									Seleccione cuenta bancaria  <i className="fas fa-caret-down"></i>
 								</button>
 								
-								<div class="collapse" id="collapseExample">
-									<div class="card card-body">
+								<div className="collapse" id="collapseExample">
+									<div className="card card-body">
 										
-										<ul class="list-group">
+										<ul className="list-group">
 						
-											<input type="radio" class="btn-check" name="options" id="option1" autocomplete="off"></input>
-											<label class="btn btn-outline-dark" for="option1">Cuenta bancaria 1</label>
+											<input type="radio" className="btn-check" name="options" id="option1" autocomplete="off"></input>
+											<label className="btn btn-outline-dark" htmlFor="option1">Cuenta bancaria 1</label>
 
-											<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off"></input>
-											<label class="btn btn-outline-dark" for="option2">Cuenta bancaria 2</label>
+											<input type="radio" className="btn-check" name="options" id="option2" autocomplete="off"></input>
+											<label className="btn btn-outline-dark" htmlFor="option2">Cuenta bancaria 2</label>
 
-											<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off"></input>
-											<label class="btn btn-outline-dark" for="option3">Cuenta bancaria 3</label>
+											<input type="radio" className="btn-check" name="options" id="option3" autocomplete="off"></input>
+											<label className="btn btn-outline-dark" htmlFor="option3">Cuenta bancaria 3</label>
 
-											<input type="radio" class="btn-check" name="options" id="option4" autocomplete="off"></input>
-											<label class="btn btn-outline-dark" for="option4">Cuenta bancaria 4</label>
+											<input type="radio" className="btn-check" name="options" id="option4" autocomplete="off"></input>
+											<label className="btn btn-outline-dark" htmlFor="option4">Cuenta bancaria 4</label>
 										
 										</ul>
 									</div>

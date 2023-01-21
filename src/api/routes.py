@@ -221,10 +221,12 @@ def delete_transaction(transaction_id):
 
 @api.route('/token', methods=['POST'])
 def create_token():
+    users = list(map(lambda x: x.serialize(),User.query.all()))
+
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     found_user=None
-    for i, user in enumerate(user_temp):
+    for user in users:
         if user["email"] == email:
             found_user=user
     if found_user is  None:

@@ -15,68 +15,68 @@ export const VerificationAdmin = () => {
 
 				<div className="card">
 			<div className="container">
-				<ul class="list-group list-group-flush">
+				<ul className="list-group list-group-flush">
 					<div className="d-flex flex-column">
-					<li class="list-group-item fs-4">Juan Perez
-						<button id="eye" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<i class="fas fa-eye"></i>
+					<li className="list-group-item fs-4">Juan Perez
+						<button id="eye" type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<i className="fas fa-eye"></i>
 						</button>
-						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title fs-5" id="exampleModalLabel">Juan Perez</h1>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div className="modal-dialog">
+								<div className="modal-content">
+									<div className="modal-header">
+										<h1 className="modal-title fs-5" id="exampleModalLabel">Juan Perez</h1>
+										<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
-									<div class="modal-body">
+									<div className="modal-body">
 										...
 									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
-										<button type="button" class="btn btn-primary">Verificar</button>
+									<div className="modal-footer">
+										<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+										<button type="button" className="btn btn-primary">Verificar</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</li>
 					</div>
-					<li class="list-group-item fs-4">Maria Parra <button id="eye" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<i class="fas fa-eye"></i>
+					<li className="list-group-item fs-4">Maria Parra <button id="eye" type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<i className="fas fa-eye"></i>
 						</button>
-						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title fs-5" id="exampleModalLabel">Maria Parra</h1>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div className="modal-dialog">
+								<div className="modal-content">
+									<div className="modal-header">
+										<h1 className="modal-title fs-5" id="exampleModalLabel">Maria Parra</h1>
+										<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
-									<div class="modal-body">
+									<div className="modal-body">
 										...
 									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
-										<button type="button" class="btn btn-primary">Verificar</button>
+									<div className="modal-footer">
+										<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+										<button type="button" className="btn btn-primary">Verificar</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</li>
-					<li class="list-group-item fs-4">Pedro Garrido <button id="eye" type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<i class="fas fa-eye"></i>
+					<li className="list-group-item fs-4">Pedro Garrido <button id="eye" type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<i className="fas fa-eye"></i>
 						</button>
-						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title fs-5" id="exampleModalLabel">Pedro Garrido</h1>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div className="modal-dialog">
+								<div className="modal-content">
+									<div className="modal-header">
+										<h1 className="modal-title fs-5" id="exampleModalLabel">Pedro Garrido</h1>
+										<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
-									<div class="modal-body">
+									<div className="modal-body">
 										...
 									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
-										<button type="button" class="btn btn-primary">Verificar</button>
+									<div className="modal-footer">
+										<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Rechazar</button>
+										<button type="button" className="btn btn-primary">Verificar</button>
 									</div>
 								</div>
 							</div>
@@ -110,7 +110,7 @@ export const VerificationAdmin = () => {
 
 		
  	</div>
-	 <div class="card-footer text-muted">
+	 <div className="card-footer text-muted">
     2 days ago
   </div>
   

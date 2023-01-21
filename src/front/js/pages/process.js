@@ -20,11 +20,11 @@ export const Process = () => {
 			
 
     return (
-        <div class="card text-center">
-            <div class="card-header fs-1">
+        <div className="card text-center">
+            <div className="card-header fs-1">
                 En Proceso
             </div>
-            <div class="card-body">
+            <div className="card-body">
                 <div className="container">
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
@@ -52,7 +52,7 @@ export const Process = () => {
 
 
             </div>
-            <div class="card-footer text-muted">
+            <div className="card-footer text-muted">
             </div>
         </div>
     );
