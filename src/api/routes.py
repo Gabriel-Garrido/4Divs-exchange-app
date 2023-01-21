@@ -8,6 +8,86 @@ from flask_jwt_extended import create_access_token
 
 api = Blueprint('api', __name__)
 
+user_temp = [{
+    "id": 1,
+    "rut": "1234567-5",
+    "email": "pepito@gmail.com",
+    "password": "pepe123",
+    "validate_status": "True",
+    "first_name": "Pepito111",
+    "last_name": "Perez111",
+    "phone": "987654321",
+    "birthdate": "01-02-1983",
+    "nationality": "chilena",
+    "ocupation": "arquitecto",
+    "monthly_income": "2000000",
+    "particular_address": "los arboles 1234",
+    "department": "1020"
+    },
+    {
+    "id": 2,
+    "rut": "1234567-5",
+    "email": "pepito@gmail.com",
+    "password": "pepe123",
+    "validate_status": "True",
+    "first_name": "Pepito222",
+    "last_name": "Perez222",
+    "phone": "987654321",
+    "birthdate": "01-02-1983",
+    "nationality": "chilena",
+    "ocupation": "arquitecto",
+    "monthly_income": "2000000",
+    "particular_address": "los arboles 1234",
+    "department": "1020"
+    },
+    {
+    "id": 3,
+    "rut": "1234567-5",
+    "email": "pepito@gmail.com",
+    "password": "pepe123",
+    "validate_status": "True",
+    "first_name": "Pepito333",
+    "last_name": "Perez333",
+    "phone": "987654321",
+    "birthdate": "01-02-1983",
+    "nationality": "chilena",
+    "ocupation": "arquitecto",
+    "monthly_income": "2000000",
+    "particular_address": "los arboles 1234",
+    "department": "1020"
+}]
+
+change_temp = [{
+    "id": 1,
+    "origin_exchange": "CLP",
+    "destination_exchange": "USD",
+    "exchange_rate": "890"
+}]
+
+bank_account_temp = [{
+    "id": 1,
+    "user": "1234567-5",
+    "country": "USA",
+    "account_number": "123456789",
+    "bank": "City Bank",
+    "account_holder": "Pepito Perez",
+    "document_type": "passaport",
+    "document_id": "817916"
+    }]
+
+transaction_temp = [{
+    "id": 1,
+    "user": "1234567-5",
+    "status": "True",
+    "change_id": "1",
+    "bank_account_id": "1",
+    "date": "28-12-2022",
+    "time": "14:00",
+    "transaction_amount": "500000",
+    "transfer_bank_id": "6475830485768"
+    }]
+
+
 
 # User endpoints
 
@@ -33,11 +113,10 @@ def get_user(user_id):
 def add_user():
     req_Json = request.get_json()
 
-
-    user = User(req_Json["rut"], "pepito3@gmail.com", "pepe1234", True, "pepe", "perez", "123456783", "04/02/1945", "argentino", "ingeniero", 1000000,  "los gatos 324", "2012")
+    user = User(req_Json["rut"], req_Json["email"], req_Json["password"], req_Json["validate_status"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
     db.session.add(user)
     db.session.commit()
-    return "user was created", 201
+    return "user " + req_Json["email"] + " was created", 201
 
 @api.route('/edit_user/<int:user_id>', methods=['PUT'])
 def edit_user(user_id):
