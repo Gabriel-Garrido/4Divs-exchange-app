@@ -9,7 +9,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 let myToken = null;
 
-export const Login = () => {
+export const Login = (props) => {
   const { store, actions } = useContext(Context);
 
   const [email, setEmail] = useState("");
@@ -64,10 +64,16 @@ export const Login = () => {
 
     async function loginDataFetch() {
       let response = await fetch(`https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/get_all_users`, {
-        method: ["GET"]
+        method: ["GET"],
+        headers: {
+          "Content-type": "application/json; charset=utf-8",
+          "Access-Control-Allow-Origin": "*",
+        }
       })
       const data = await response.json()
-      console.log(data)
+      props.setUserId(data[0].id)
+      props.setAdmin(true)
+      console.log(props.userId)
     }
     // ----------------------/FETCH LOGIN-------------------------
 
@@ -92,7 +98,7 @@ export const Login = () => {
             </div>
 
             <Link to="/home" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar usuario</Link>
-            <Link to="/homeadmin" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar empresa</Link>
+            <Link to="/homeadmin" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={loginDataFetch} >Ingresar empresa</Link>
             <button  href='' className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={()=>login_user(email, password)}>Ingresar</button>
             <a href="#" className="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>
             <Link to="/" >Regresar</Link>

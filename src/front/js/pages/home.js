@@ -1,15 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 import "../../styles/home.css";
 
+
 export const Home = (props) => {
 	const { store, actions } = useContext(Context);
 	const [mount, setMount] = useState("");
 	const [mountError, setMountError] = useState("");
-
 	const [conversion, setConversion] = useState("");
+
+	console.log("rate2 = " + props.rate)
 
 	const handleChange = (e) => {
 		const regex = /^\d*$/;
@@ -22,16 +24,18 @@ export const Home = (props) => {
 			setConversion(Math.round((e.target.value / props.rate) * 100) / 100)
 		}
 	};
+
+//-------------fetch POST transaction ok -------------------------
 	async function processTransaction() {
 		let data = {
 			"user_id": 3, 
 			"status": true, 
-			"change_id": 1, 
+			"change_id": props.changeId, 
 			"bank_account_id": 6, 
 			"date": "21/01/2023", 
 			"time": "20:00", 
 			"transaction_amount": mount, 
-			"transfer_bank_id": "not defined"
+			"transfer_bank_id": "not defined1"
 		}  
 
 		await fetch("https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/add_transaction",{
@@ -45,7 +49,8 @@ export const Home = (props) => {
 		console.log(mount)
 		console.log(conversion)
 	}
-	
+//-------------/fetch POST transaction-------------------------------
+
 	return (
 		<div className="text-center container mb-2 mt-3">
 

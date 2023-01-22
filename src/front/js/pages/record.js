@@ -6,25 +6,25 @@ import "../../styles/home.css";
 export const Record = () => {
 	const { store, actions } = useContext(Context);
 	const [recordItems, setRecordItems] = useState([])
-	useEffect(() => {recordItemFetch()}, [])
+	useEffect(() => {recordItemFetch()},[])
 
 	async function recordItemFetch() {
-		let response = await fetch("https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/get_all_transactions",
-		{
-			method: ['GET'],
-			headers: {}
+		try{
+			const response = await fetch("https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/get_all_transactions",
+			{
+				method: ['GET'],
+				headers: {
+					"Content-type": "application/json; charset=utf-8",
+					"Access-Control-Allow-Origin": "*",
+				}});
+			const data = await response.json()
+			setRecordItems(data)
+			
+		}catch (error) {
+			console.log('there is a problem with fetch:' + error.message);
+		  	}
+		  	console.log(recordItems)
 		}
-		);
-		let data = await response.json()
-		setRecordItems(data)
-
-		
-
-		return console.log(recordItems)
-		
-	}
-	
-
 
 	let recorItemList = [
 

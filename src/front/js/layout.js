@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
@@ -25,11 +25,35 @@ import { NavbarAdmin } from "./component/navbarAdmin";
 
 //create your first component
 const Layout = () => {
+    const [rate, setRate] = useState("");
+    const [changeId, setChangeId] = useState("")    
+    const [userId, setUserId] = useState("")
+    const [admin, setAdmin] = useState(false)
+
+//-------------fetch GET change -------------------------------------
+    
+    async function getChangeFetch() {
+        let response = await fetch("https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/get_all_changes", {
+            method: ["GET"],
+            headers: {
+                "Content-type": "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin": "*",
+            },
+        })
+        let data = await response.json()
+        setRate(data[0].exchange_rate)
+        setChangeId(data[0].id)
+    }
+    getChangeFetch()
+    
+
+//-------------/fetch GET change -------------------------------------
+
+
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
     // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
-    const [rate, setRate] = useState(850);
     
     return (
         <div>
@@ -38,15 +62,15 @@ const Layout = () => {
                     <Navbar />
 
                     <Routes>
-                        <Route element={<Login />} path="/" />
+                        <Route element={<Login setUserId={setUserId} userId={userId} setAdmin={setAdmin} />} path="/" />
                         <Route element={<RestorePassword />} path="/restorepassword" />
                         <Route element={<ChangePassword />} path="/changepassword" />
-                        <Route element={<Home rate={rate}/>} path="/home" />
+                        <Route element={<Home rate={rate} changeId={changeId} />} path="/home" />
                         <Route element={<Process />} path="/process" />
                         <Route element={<NewBankAccount />} path="/newbankaccount" />
                         <Route element={<Record />} path="/record" />
                         <Route element={<HomeAdmin />} path="/homeadmin" />
-                        <Route element={<RateAdmin />} path="/rateadmin" />
+                        {admin ? <Route element={<RateAdmin />} path="/rateadmin" /> : <></>}
                         <Route element={<ReportAdmin />} path="/reportadmin" />
                         <Route element={<VerificationAdmin />} path="/verificationadmin" />
 
