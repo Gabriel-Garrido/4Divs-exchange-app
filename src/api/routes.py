@@ -89,7 +89,7 @@ def add_change():
     req_Json = request.get_json()
 
 
-    change = Change(req_Json["origin_exchange"],req_Json["destination_exchange"], req_Json["exchange_rate"], req_Json["transactions"])
+    change = Change(req_Json["origin_exchange"],req_Json["destination_exchange"], req_Json["exchange_rate"])
     db.session.add(change)
     db.session.commit()
     return "change was created", 201
@@ -145,7 +145,7 @@ def add_bank_account():
     req_Json = request.get_json()
 
 
-    bank_account = Bank_account(req_Json["user_id"], req_Json["country"], req_Json["account_number"], req_Json["bank"], req_Json["account_holder"], req_Json["document_type"], req_Json["document_id"], req_Json["transactions"])
+    bank_account = Bank_account(req_Json["user_id"], req_Json["country"], req_Json["account_number"], req_Json["bank"], req_Json["account_holder"], req_Json["document_type"], req_Json["document_id"])
     db.session.add(bank_account)
     db.session.commit()
     return "bank account created", 201

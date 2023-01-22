@@ -37,8 +37,8 @@ export const Login = (props) => {
   };
 
   const login_user = async (email, password) => {
-    const resp = await fetch(`https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/token`, {
-    method: "POST",
+    const resp = await fetch(`${props.URL_API}/api/token`, {
+    method: ["POST"],
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ "email": email, "password": password })
     })
@@ -63,7 +63,9 @@ export const Login = (props) => {
     // ----------------------FETCH LOGIN-------------------------
 
     async function loginDataFetch() {
-      let response = await fetch(`https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/get_all_users`, {
+      props.setAdmin(true)
+
+      let response = await fetch(`${props.URL_API}/api/get_all_users`, {
         method: ["GET"],
         headers: {
           "Content-type": "application/json; charset=utf-8",
@@ -72,11 +74,14 @@ export const Login = (props) => {
       })
       const data = await response.json()
       props.setUserId(data[0].id)
-      props.setAdmin(true)
       console.log(props.userId)
     }
     // ----------------------/FETCH LOGIN-------------------------
 
+    function userAdmin () {
+      props.setAdmin(false)
+      console.log(props.admin)
+    }
 
   return (
     <div className=" container text-center">
@@ -97,7 +102,7 @@ export const Login = (props) => {
               {passwordError && <p className="text-danger">{passwordError}</p>}
             </div>
 
-            <Link to="/home" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar usuario</Link>
+            <Link to="/home" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={userAdmin}>Ingresar usuario</Link>
             <Link to="/homeadmin" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={loginDataFetch} >Ingresar empresa</Link>
             <button  href='' className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={()=>login_user(email, password)}>Ingresar</button>
             <a href="#" className="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>

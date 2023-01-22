@@ -28,17 +28,17 @@ export const Home = (props) => {
 //-------------fetch POST transaction ok -------------------------
 	async function processTransaction() {
 		let data = {
-			"user_id": 3, 
+			"user_id": 1, 
 			"status": true, 
 			"change_id": props.changeId, 
-			"bank_account_id": 6, 
+			"bank_account_id": 1, 
 			"date": "21/01/2023", 
 			"time": "20:00", 
 			"transaction_amount": mount, 
 			"transfer_bank_id": "not defined1"
 		}  
 
-		await fetch("https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/add_transaction",{
+		await fetch(`${props.URL_API}/api/add_transaction`,{
 			method: ["POST"],
 			headers: {
 			 "Content-type": "application/json; charset=utf-8",

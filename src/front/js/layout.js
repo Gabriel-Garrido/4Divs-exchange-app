@@ -20,11 +20,10 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { NavbarAdmin } from "./component/navbarAdmin";
-
 
 //create your first component
 const Layout = () => {
+    const URL_API = "https://3001-gabrielgarr-4geeksproye-b221n57ad5u.ws-us83.gitpod.io"
     const [rate, setRate] = useState("");
     const [changeId, setChangeId] = useState("")    
     const [userId, setUserId] = useState("")
@@ -33,7 +32,7 @@ const Layout = () => {
 //-------------fetch GET change -------------------------------------
     
     async function getChangeFetch() {
-        let response = await fetch("https://3001-gabrielgarr-4geeksproye-i4kluan14jz.ws-us83.gitpod.io/api/get_all_changes", {
+        let response = await fetch(`${URL_API}/api/get_all_changes`, {
             method: ["GET"],
             headers: {
                 "Content-type": "application/json; charset=utf-8",
@@ -59,20 +58,20 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop> 
-                    <Navbar />
+                    <Navbar admin={admin} />
 
                     <Routes>
                         <Route element={<Login setUserId={setUserId} userId={userId} setAdmin={setAdmin} />} path="/" />
-                        <Route element={<RestorePassword />} path="/restorepassword" />
-                        <Route element={<ChangePassword />} path="/changepassword" />
-                        <Route element={<Home rate={rate} changeId={changeId} />} path="/home" />
-                        <Route element={<Process />} path="/process" />
-                        <Route element={<NewBankAccount />} path="/newbankaccount" />
-                        <Route element={<Record />} path="/record" />
-                        <Route element={<HomeAdmin />} path="/homeadmin" />
-                        {admin ? <Route element={<RateAdmin />} path="/rateadmin" /> : <></>}
-                        <Route element={<ReportAdmin />} path="/reportadmin" />
-                        <Route element={<VerificationAdmin />} path="/verificationadmin" />
+                        <Route element={<RestorePassword URL_API={URL_API} />} path="/restorepassword" />
+                        <Route element={<ChangePassword URL_API={URL_API} />} path="/changepassword" />
+                        {!admin ? <Route element={<Home rate={rate} changeId={changeId} URL_API={URL_API} />} path="/home" /> : <></>}
+                        {!admin ? <Route element={<Process URL_API={URL_API} />} path="/process" /> : <></>}
+                        {!admin ? <Route element={<NewBankAccount URL_API={URL_API} />} path="/newbankaccount" /> : <></>}
+                        {!admin ? <Route element={<Record URL_API={URL_API} />} path="/record" /> : <></>}
+                        {admin ? <Route element={<HomeAdmin URL_API={URL_API} />} path="/homeadmin" /> : <></>}
+                        {admin ? <Route element={<RateAdmin URL_API={URL_API} />} path="/rateadmin" /> : <></>}
+                        {admin ? <Route element={<ReportAdmin URL_API={URL_API} />} path="/reportadmin" /> : <></>}
+                        {admin ? <Route element={<VerificationAdmin URL_API={URL_API} />} path="/verificationadmin" /> : <></>}
 
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
