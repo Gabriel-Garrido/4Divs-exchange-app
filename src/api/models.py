@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
 
 db = SQLAlchemy()
 
@@ -19,13 +21,13 @@ class User(db.Model):
     monthly_income = db.Column(db.Integer, unique=False, nullable=False)
     particular_address = db.Column(db.String(120), unique=False, nullable=False)
     department = db.Column(db.String(120), unique=False, nullable=False)
+    admin = db.Column(db.Boolean(), unique=False, nullable=False)
     bank_accoutns = db.relationship("Bank_account", backref="user")
     transactions = db.relationship("Transaction", backref="user")
 
     def __init__(self, rut, email, password, validate_status, first_name, last_name, phone, birthdate, nationality, ocupation, monthly_income, particular_address, department):
         self.rut = rut
         self.email = email
-        self.password = password
         self.validate_status = validate_status
         self.first_name = first_name
         self.last_name = last_name
@@ -36,16 +38,16 @@ class User(db.Model):
         self.monthly_income = monthly_income
         self.particular_address = particular_address
         self.department = department
+        self.admin = admin
 
     def __repr__(self):
-        return f"{self.rut}:{self.email}:{self.password}:{self.first_name}:{self.last_name}:{self.phone}:{self.birthdate}:{self.nationality}:{self.ocupation}:{self.particular_address}:{self.department}"
+        return f"{self.rut}:{self.email}:{self.first_name}:{self.last_name}:{self.phone}:{self.birthdate}:{self.nationality}:{self.ocupation}:{self.particular_address}:{self.department}:{self.admin}"
 
     def serialize(self):
         return {
             "id": self.id,
             "rut": self.rut,
             "email": self.email,
-            "password": self.password,
             "validate_status": self.validate_status,
             "first_name": self.first_name,
             "last_name": self.last_name,
@@ -55,7 +57,8 @@ class User(db.Model):
             "ocupation": self.ocupation,
             "monthly_income": self.monthly_income,
             "particular_address": self.particular_address,
-            "department": self.department
+            "department": self.department,
+            "admin": self.admin
         }
 
 class Change(db.Model):
@@ -125,23 +128,22 @@ class Transaction(db.Model):
     status = db.Column(db.String(11), unique=False, nullable=False)
     change_id = db.Column(db.Integer, db.ForeignKey('changes.id'), nullable=False)
     bank_account_id = db.Column(db.Integer, db.ForeignKey('bank_accounts.id'), nullable=False)
-    date = db.Column(db.String(50), unique=False, nullable=False)
-    time = db.Column(db.String(50), unique=False, nullable=False)
     transaction_amount = db.Column(db.Float(50), unique=False, nullable=False)
-    transfer_bank_id = db.Column(db.String(50), unique=True, nullable=False)
+    transfer_bank_id = db.Column(db.String(50), unique=True, nullable=True)
+    date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    def __init__(self, user_id, status, change_id, bank_account_id, date, time, transaction_amount, transfer_bank_id):
+    def __init__(self, user_id, status, change_id, bank_account_id, transaction_amount, transfer_bank_id):
         self.user_id = user_id
         self.status = status
         self.change_id = change_id
         self.bank_account_id = bank_account_id
-        self.date = date
-        self.time = time
         self.transaction_amount = transaction_amount
         self.transfer_bank_id = transfer_bank_id
 
+        
+
     def __repr__(self):
-        return f"{self.user_id}:{self.status}:{self.change_id}:{self.bank_account_id}:{self.date}:{self.time}:{self.transaction_amount}:{self.transfer_bank_id}"
+        return f"{self.user_id}:{self.status}:{self.change_id}:{self.bank_account_id}:{self.transaction_amount}:{self.transfer_bank_id}"
         
     def serialize(self):
         return {
@@ -150,8 +152,7 @@ class Transaction(db.Model):
             "status": self.status,
             "change_id":self.change_id,
             "bank_account_id":self.bank_account_id,
-            "date":self.date,
-            "time":self.time,
             "transaction_amount":self.transaction_amount,
-            "transfer_bank_id":self.transfer_bank_id
+            "transfer_bank_id":self.transfer_bank_id,
+            "date_time": self.date_time
         }
