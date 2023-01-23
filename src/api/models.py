@@ -10,7 +10,6 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rut = db.Column(db.String(11), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
     validate_status = db.Column(db.Boolean(), unique=False, nullable=False)
     first_name = db.Column(db.String(30), unique=False, nullable=False)
     last_name = db.Column(db.String(30), unique=False, nullable=False)
@@ -25,7 +24,7 @@ class User(db.Model):
     bank_accoutns = db.relationship("Bank_account", backref="user")
     transactions = db.relationship("Transaction", backref="user")
 
-    def __init__(self, rut, email, password, validate_status, first_name, last_name, phone, birthdate, nationality, ocupation, monthly_income, particular_address, department):
+    def __init__(self, rut, email, validate_status, first_name, last_name, phone, birthdate, nationality, ocupation, monthly_income, particular_address, department):
         self.rut = rut
         self.email = email
         self.validate_status = validate_status
@@ -38,10 +37,10 @@ class User(db.Model):
         self.monthly_income = monthly_income
         self.particular_address = particular_address
         self.department = department
-        self.admin = admin
+    
 
     def __repr__(self):
-        return f"{self.rut}:{self.email}:{self.first_name}:{self.last_name}:{self.phone}:{self.birthdate}:{self.nationality}:{self.ocupation}:{self.particular_address}:{self.department}:{self.admin}"
+        return f"{self.rut}:{self.email}:{self.first_name}:{self.last_name}:{self.phone}:{self.birthdate}:{self.nationality}:{self.ocupation}:{self.particular_address}:{self.department}"
 
     def serialize(self):
         return {
