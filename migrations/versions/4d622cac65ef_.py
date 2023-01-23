@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 224f5ec7dfd8
+Revision ID: 4d622cac65ef
 Revises: 
-Create Date: 2023-01-23 22:43:37.468027
+Create Date: 2023-01-23 23:48:33.739862
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '224f5ec7dfd8'
+revision = '4d622cac65ef'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,6 +29,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('rut', sa.String(length=11), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
+    sa.Column('password', sa.String(length=20), nullable=False),
     sa.Column('validate_status', sa.Boolean(), nullable=False),
     sa.Column('first_name', sa.String(length=30), nullable=False),
     sa.Column('last_name', sa.String(length=30), nullable=False),
@@ -70,8 +71,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['bank_account_id'], ['bank_accounts.id'], ),
     sa.ForeignKeyConstraint(['change_id'], ['changes.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('transfer_bank_id')
+    sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 
