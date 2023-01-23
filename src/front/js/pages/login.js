@@ -12,12 +12,11 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
-
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  const [email, setEmail] = useState("");
+ 
 
   const handleEmailChange = (e) => {
     if (!emailRegex.test(e.target.value)) {
@@ -85,7 +84,7 @@ export const Login = () => {
 
             <Link to="/home" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar usuario</Link>
             <Link to="/homeadmin" class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar empresa</Link>
-            <button  href='' class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={()=>login_user(email, password)}>Ingresar</button>
+            <button class="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4">Ingresar</button>
             <a href="#" class="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>
             <Link to="/" >Regresar</Link>
             <Link to="/restorepassword">Recuperar contraseña</Link>
