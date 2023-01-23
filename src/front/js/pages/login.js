@@ -10,6 +10,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 let myToken = null;
 
 export const Login = (props) => {
+  console.log(props)
   const { store, actions } = useContext(Context);
 
   const [email, setEmail] = useState("");

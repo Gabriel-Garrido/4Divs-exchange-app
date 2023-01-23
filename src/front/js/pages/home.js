@@ -30,12 +30,12 @@ export const Home = (props) => {
 		let data = {
 			"user_id": 1, 
 			"status": true, 
-			"change_id": props.changeId, 
+			"change_id": 1, 
 			"bank_account_id": 1, 
 			"date": "21/01/2023", 
 			"time": "20:00", 
 			"transaction_amount": mount, 
-			"transfer_bank_id": "not defined4"
+			"transfer_bank_id": "not defined5"
 		}  
 
 		await fetch(`${props.URL_API}/api/add_transaction`,{

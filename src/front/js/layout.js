@@ -23,7 +23,7 @@ import { Footer } from "./component/footer";
 
 //create your first component
 const Layout = () => {
-    const URL_API = "https://3001-gabrielgarr-4geeksproye-b221n57ad5u.ws-us83.gitpod.io"
+    const URL_API = process.env.BACKEND_URL
     const [rate, setRate] = useState("");
     const [changeId, setChangeId] = useState("")    
     const [userId, setUserId] = useState(1)
@@ -61,7 +61,7 @@ const Layout = () => {
                     <Navbar admin={admin} />
 
                     <Routes>
-                        <Route element={<Login setUserId={setUserId} userId={userId} setAdmin={setAdmin} />} path="/" />
+                        <Route element={<Login setUserId={setUserId} URL_API={URL_API} userId={userId} setAdmin={setAdmin} />} path="/" />
                         <Route element={<RestorePassword URL_API={URL_API} />} path="/restorepassword" />
                         <Route element={<ChangePassword URL_API={URL_API} admin={admin} userId={userId} />} path="/changepassword" />
                         {!admin ? <Route element={<Home rate={rate} changeId={changeId} URL_API={URL_API} />} path="/home" /> : <></>}

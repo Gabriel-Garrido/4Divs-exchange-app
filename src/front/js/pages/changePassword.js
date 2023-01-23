@@ -6,10 +6,11 @@ import "../../styles/home.css";
 export const ChangePassword = (props) => {
 
 	const { store, actions } = useContext(Context);
+  
+  
+  //---------------------Validation-----------------------------
+  
   const [activateButton, setActivateButton] = useState(false)
-
-//---------------------Validation-----------------------------
-
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
   const [password1, setPassword1] = useState("");
   const [passwordError1, setPasswordError1] = useState("");
@@ -18,37 +19,30 @@ export const ChangePassword = (props) => {
 
   const handlePasswordChange1 = (e) => {
     if (!passwordRegex.test(e.target.value)) {
-      setPasswordError1("La contraseña debe tener al menos 8 caracteres y un número.");
+      setPasswordError1("La contraseña debe tener al menos 8 caracteres y un número.")
     }else {
-      if (e.target.value!="" && password2 != "") {
-        if (e.target.value != password2) {
-          setPasswordError2("los password no coinciden")
-        }else{
-          setPasswordError1("");
-        }
-      }
+      setPasswordError1("")
+      setPassword1(e.target.value);
+      checkPassword(e.target.value, password2)
     }
-    setPassword1(e.target.value);
-    checkPassword(e.target.value, password2)
   };
 
   const handlePasswordChange2 = (e) => {
     if (!passwordRegex.test(e.target.value)) {
-      setPasswordError2("La contraseña debe tener al menos 8 caracteres y un número.");
-    }else if (password1!="" && e.target.value!="" && password1 != e.target.value) {
-      setPasswordError2("los password no coinciden");
+      setPasswordError2("La contraseña debe tener al menos 8 caracteres y un número.")
     }else {
       setPasswordError2("");
+      setPassword2(e.target.value);
+      checkPassword(password1, e.target.value)
     }
-    setPassword2(e.target.value);
-    checkPassword(password1, e.target.value)
   };
 
   function checkPassword (a,b) {
-    if (a==b) {
-      setActivateButton(true)
-    }else {
-      setActivateButton(false)
+      if (a==b) {
+        setActivateButton(true)
+      }else {
+        setPasswordError2("los password no coinciden")
+        setActivateButton(false)
     }
   }
 
