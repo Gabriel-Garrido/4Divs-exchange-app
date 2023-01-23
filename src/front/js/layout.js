@@ -26,7 +26,7 @@ const Layout = () => {
     const URL_API = "https://3001-gabrielgarr-4geeksproye-b221n57ad5u.ws-us83.gitpod.io"
     const [rate, setRate] = useState("");
     const [changeId, setChangeId] = useState("")    
-    const [userId, setUserId] = useState("")
+    const [userId, setUserId] = useState(1)
     const [admin, setAdmin] = useState(false)
 
 //-------------fetch GET change -------------------------------------
@@ -63,7 +63,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Login setUserId={setUserId} userId={userId} setAdmin={setAdmin} />} path="/" />
                         <Route element={<RestorePassword URL_API={URL_API} />} path="/restorepassword" />
-                        <Route element={<ChangePassword URL_API={URL_API} />} path="/changepassword" />
+                        <Route element={<ChangePassword URL_API={URL_API} admin={admin} userId={userId} />} path="/changepassword" />
                         {!admin ? <Route element={<Home rate={rate} changeId={changeId} URL_API={URL_API} />} path="/home" /> : <></>}
                         {!admin ? <Route element={<Process URL_API={URL_API} />} path="/process" /> : <></>}
                         {!admin ? <Route element={<NewBankAccount URL_API={URL_API} />} path="/newbankaccount" /> : <></>}

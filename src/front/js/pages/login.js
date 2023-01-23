@@ -65,7 +65,7 @@ export const Login = (props) => {
     async function loginDataFetch() {
       props.setAdmin(true)
 
-      let response = await fetch(`${props.URL_API}/api/get_all_users`, {
+      let response = await fetch(`${props.URL_API}/api/get_user_by_email/${email}`, {
         method: ["GET"],
         headers: {
           "Content-type": "application/json; charset=utf-8",

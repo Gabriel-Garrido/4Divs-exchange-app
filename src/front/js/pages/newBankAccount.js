@@ -59,7 +59,7 @@ export const NewBankAccount = () => {
 
           <div>
               <input type="text" id="name" name="name" required
-       minlength="4" maxlength="17" size="35" onChange={handleLetrasChange}  />
+       minLength="4" maxLength="17" size="35" onChange={handleLetrasChange}  />
 	      </div>
 		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
 		  <div>
@@ -68,7 +68,7 @@ export const NewBankAccount = () => {
 
 		  <div>
 		  <input type="text" id="name" name="name" required
-       minlength="4" maxlength="17" size="35" onChange={handleLetrasChange}/>
+       minLength="4" maxLength="17" size="35" onChange={handleLetrasChange}/>
 		  </div>
 		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
 		  <div>
@@ -77,7 +77,7 @@ export const NewBankAccount = () => {
 
 		  <div>
 		  <input type="text" id="accountnum" name="name" required
-       minlength="4" maxlength="22" size="35"  onChange={handleNumerosChange}/>
+       minLength="4" maxLength="22" size="35"  onChange={handleNumerosChange}/>
 		  </div>
 		  {NumerosError && <p className="text-danger">{NumerosError}</p>}
 		  <div>
@@ -86,7 +86,7 @@ export const NewBankAccount = () => {
 
 		  <div>
 		  <input type="text" id="name" name="name" required
-       minlength="4" maxlength="17" size="35" onChange={handleLetrasChange}/>
+       minLength="4" maxLength="17" size="35" onChange={handleLetrasChange}/>
 		  </div>
 		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
 		  <div>
@@ -95,7 +95,7 @@ export const NewBankAccount = () => {
 
 		  <div>
 		  <input type="text" id="name" name="name" required
-       minlength="4" maxlength="17" size="35" onChange={handleIdentidadChange}/>
+       minLength="4" maxLength="17" size="35" onChange={handleIdentidadChange}/>
 		  </div>
 		  {IdentidadError && <p className="text-danger">{IdentidadError}</p>}
 			</div>

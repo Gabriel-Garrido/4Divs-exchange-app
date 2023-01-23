@@ -44,8 +44,8 @@ def edit_user(user_id):
         return "user not found", 404
             
     req_Json = request.get_json()
-    if req_Json["first_name"] is not None:
-        user.first_name = req_Json["first_name"]
+    if req_Json["password"] is not None:
+        user.password = req_Json["password"]
         db.session.add(user)
         db.session.commit()
         return user.serialize(), 200

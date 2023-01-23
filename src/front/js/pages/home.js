@@ -35,7 +35,7 @@ export const Home = (props) => {
 			"date": "21/01/2023", 
 			"time": "20:00", 
 			"transaction_amount": mount, 
-			"transfer_bank_id": "not defined1"
+			"transfer_bank_id": "not defined4"
 		}  
 
 		await fetch(`${props.URL_API}/api/add_transaction`,{
