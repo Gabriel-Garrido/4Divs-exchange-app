@@ -24,10 +24,10 @@ class User(db.Model):
     bank_accoutns = db.relationship("Bank_account", backref="user")
     transactions = db.relationship("Transaction", backref="user")
 
-    def __init__(self, rut, email, validate_status, first_name, last_name, phone, birthdate, nationality, ocupation, monthly_income, particular_address, department):
+    def __init__(self, rut, email, first_name, last_name, phone, birthdate, nationality, ocupation, monthly_income, particular_address, department):
         self.rut = rut
         self.email = email
-        self.validate_status = validate_status
+        self.validate_status = True
         self.first_name = first_name
         self.last_name = last_name
         self.phone = phone
@@ -37,6 +37,7 @@ class User(db.Model):
         self.monthly_income = monthly_income
         self.particular_address = particular_address
         self.department = department
+        self.admin = False
     
 
     def __repr__(self):
@@ -128,12 +129,12 @@ class Transaction(db.Model):
     change_id = db.Column(db.Integer, db.ForeignKey('changes.id'), nullable=False)
     bank_account_id = db.Column(db.Integer, db.ForeignKey('bank_accounts.id'), nullable=False)
     transaction_amount = db.Column(db.Float(50), unique=False, nullable=False)
-    transfer_bank_id = db.Column(db.String(50), unique=True, nullable=True)
+    transfer_bank_id = db.Column(db.String(50), unique=False, nullable=True)
     date_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    def __init__(self, user_id, status, change_id, bank_account_id, transaction_amount, transfer_bank_id):
+    def __init__(self, user_id, change_id, bank_account_id, transaction_amount, transfer_bank_id):
         self.user_id = user_id
-        self.status = status
+        self.status = "Pendiente"
         self.change_id = change_id
         self.bank_account_id = bank_account_id
         self.transaction_amount = transaction_amount
