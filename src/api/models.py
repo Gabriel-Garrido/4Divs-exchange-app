@@ -63,6 +63,14 @@ class User(db.Model):
             "admin": self.admin
         }
 
+    def serializeLogin(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "password": self.password,
+            "admin": self.admin
+        }
+
 class Change(db.Model):
     __tablename__ = 'changes'
     id = db.Column(db.Integer, primary_key=True)

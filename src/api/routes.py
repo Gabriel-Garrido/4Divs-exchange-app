@@ -201,8 +201,6 @@ def get_transaction(transaction_id):
         else:
             return "transaction not found", 404
 
-            
-
 
 @api.route('add_transaction', methods=['POST'])
 def add_transaction():
@@ -231,7 +229,7 @@ def delete_transaction(transaction_id):
 
 @api.route('/token', methods=['POST'])
 def create_token():
-    users = list(map(lambda x: x.serialize(),User.query.all()))
+    users = list(map(lambda x: x.serializeLogin(),User.query.all()))
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     found_user=None

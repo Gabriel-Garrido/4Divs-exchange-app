@@ -38,6 +38,7 @@ export const Login = (props) => {
   };
 
   const login_user = async (email, password) => {
+    console.log(email + " " + password)
     const resp = await fetch(`${props.URL_API}/api/token`, {
     method: ["POST"],
     headers: { "Content-Type": "application/json" },
