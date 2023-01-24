@@ -4,38 +4,24 @@ import { RecordItem } from "../component/recordItem.js";
 import "../../styles/home.css";
 
 export const Record = (props) => {
-	const { store, actions } = useContext(Context);
 	useEffect(()=>{recordItemFetch()},[])
-	let recordItems =[]
+	const [recordItems, setRecordItems] = useState([])
 	const recordItemFetch = async () => {
 		try{
-			const response = await fetch(`${URL_API}/api/get_all_transactions`,{
+			const response = await fetch(`${props.URL_API}/api/get_all_transactions`,{
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
 				}});
 			const data = await response.json();
-			recordItems = data;
-            console.log(recordItems)
+			return setRecordItems(data)
 		}catch (error) {
 			console.log('there is a problem with fetch:' + error.message);
-		  	}
 		}
-        
-	
+		}
 
-	let recorItemList = [
+		console.log(recordItems)
 
-		{id: 1, date: "29-12-2022 16:00", change: "X CLP a X USD en cuenta bancaria 2", status: "Pendiente"},
-		{id: 2, date: "29-12-2022 16:00", change: "X CLP a X USD en cuenta bancaria 1", status: "Pendiente"},
-		{id: 3, date: "28-12-2022 11:00", change: "X CLP a X USD en cuenta bancaria 1", status: "Finalizado"},
-		{id: 4, date: "27-12-2022 22:00", change: "X CLP a X USD en cuenta bancaria 2", status: "Rechazado"},
-		{id: 5, date: "26-12-2022 03:00", change: "X CLP a X USD en cuenta bancaria 1", status: "Finalizado"},
-		{id: 6, date: "25-12-2022 08:00", change: "X CLP a X USD en cuenta bancaria 3", status: "Finalizado"},
-		{id: 7, date: "24-12-2022 14:00", change: "X CLP a X USD en cuenta bancaria 1", status: "Finalizado"}
-
-	]
-	console.log(recordItems)
 	return (
 		<div className="container">
 			<div className="card text-center">
