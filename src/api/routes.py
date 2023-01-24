@@ -26,13 +26,21 @@ def get_user(user_id):
         return "user not found", 404
             
     return user.serialize(), 200
+
+@api.route('/get_user_by_email/<user_email>', methods=['GET'])
+def get_user_by_email(user_email):
+    user = User.query.filter(User.email == user_email).first()
+    if user is None:
+        return "user not found", 404
+            
+    return user.serialize(), 200    
     
 
 @api.route('/add_user', methods=['POST'])
 def add_user():
     req_Json = request.get_json()
 
-    user = User(req_Json["rut"], req_Json["email"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
+    user = User(req_Json["rut"], req_Json["email"],req_Json["password"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
     db.session.add(user)
     db.session.commit()
     return "user " + req_Json["email"] + " was created", 201
@@ -192,6 +200,8 @@ def get_transaction(transaction_id):
             return jsonify(transaction), 200
         else:
             return "transaction not found", 404
+
+            
 
 
 @api.route('add_transaction', methods=['POST'])
