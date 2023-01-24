@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 7802db42a51b
+Revision ID: 4d622cac65ef
 Revises: 
-Create Date: 2023-01-18 23:22:52.949332
+Create Date: 2023-01-23 23:48:33.739862
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7802db42a51b'
+revision = '4d622cac65ef'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,7 +29,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('rut', sa.String(length=11), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
-    sa.Column('password', sa.String(length=80), nullable=False),
+    sa.Column('password', sa.String(length=20), nullable=False),
     sa.Column('validate_status', sa.Boolean(), nullable=False),
     sa.Column('first_name', sa.String(length=30), nullable=False),
     sa.Column('last_name', sa.String(length=30), nullable=False),
@@ -40,6 +40,7 @@ def upgrade():
     sa.Column('monthly_income', sa.Integer(), nullable=False),
     sa.Column('particular_address', sa.String(length=120), nullable=False),
     sa.Column('department', sa.String(length=120), nullable=False),
+    sa.Column('admin', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('phone'),
@@ -64,15 +65,13 @@ def upgrade():
     sa.Column('status', sa.String(length=11), nullable=False),
     sa.Column('change_id', sa.Integer(), nullable=False),
     sa.Column('bank_account_id', sa.Integer(), nullable=False),
-    sa.Column('date', sa.String(length=50), nullable=False),
-    sa.Column('time', sa.String(length=50), nullable=False),
     sa.Column('transaction_amount', sa.Float(precision=50), nullable=False),
-    sa.Column('transfer_bank_id', sa.String(length=50), nullable=False),
+    sa.Column('transfer_bank_id', sa.String(length=50), nullable=True),
+    sa.Column('date_time', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['bank_account_id'], ['bank_accounts.id'], ),
     sa.ForeignKeyConstraint(['change_id'], ['changes.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('transfer_bank_id')
+    sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 

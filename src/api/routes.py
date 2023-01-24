@@ -26,13 +26,21 @@ def get_user(user_id):
         return "user not found", 404
             
     return user.serialize(), 200
+
+@api.route('/get_user_by_email/<user_email>', methods=['GET'])
+def get_user_by_email(user_email):
+    user = User.query.filter(User.email == user_email).first()
+    if user is None:
+        return "user not found", 404
+            
+    return user.serialize(), 200    
     
 
 @api.route('/add_user', methods=['POST'])
 def add_user():
     req_Json = request.get_json()
 
-    user = User(req_Json["rut"], req_Json["email"], req_Json["password"], req_Json["validate_status"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
+    user = User(req_Json["rut"], req_Json["email"],req_Json["password"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
     db.session.add(user)
     db.session.commit()
     return "user " + req_Json["email"] + " was created", 201
@@ -193,13 +201,15 @@ def get_transaction(transaction_id):
         else:
             return "transaction not found", 404
 
+            
+
 
 @api.route('add_transaction', methods=['POST'])
 def add_transaction():
     req_Json = request.get_json()
 
 
-    transaction = Transaction(req_Json["user_id"], req_Json["status"], req_Json["change_id"], req_Json["bank_account_id"], req_Json["date"], req_Json["time"], req_Json["transaction_amount"], req_Json["transfer_bank_id"])
+    transaction = Transaction(req_Json["user_id"], req_Json["change_id"], req_Json["bank_account_id"], req_Json["transaction_amount"], req_Json["transfer_bank_id"])
     db.session.add(transaction)
     db.session.commit()
     return "transaction created", 201
