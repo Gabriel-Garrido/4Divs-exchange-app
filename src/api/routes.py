@@ -54,6 +54,8 @@ def edit_user(user_id):
     req_Json = request.get_json()
     if req_Json["password"] is not None:
         user.password = req_Json["password"]
+        user.admin = req_Json["admin"]
+        user.email = req_Json["email"]
         db.session.add(user)
         db.session.commit()
         return user.serialize(), 200
@@ -145,6 +147,15 @@ def get_bank_account(bank_account_id):
             return jsonify(bank_account), 200
         else:
             return "bank account not found", 404
+
+@api.route('/get_bank_account_by_user_id/<int:user_id>', methods=['GET'])
+def get_bank_account_by_user_id(user_id):
+    all_bank_accounts = list(map(lambda x: x.serialize(),Bank_account.query.all()))
+    user_bank_accounts = []
+    for bank_account in all_bank_accounts:
+        if bank_account["user_id"] == user_id:
+            user_bank_accounts.append(bank_account)
+    return jsonify(user_bank_accounts), 200
 
    #cambios realizados 19ene         
 

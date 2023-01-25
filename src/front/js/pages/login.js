@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 //import jwt from 'jsonwebtoken';
 
@@ -10,14 +10,11 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 let myToken = null;
 
 export const Login = (props) => {
-  console.log(props)
-  const { store, actions } = useContext(Context);
-
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
 
   const handleEmailChange = (e) => {
     if (!emailRegex.test(e.target.value)) {
@@ -26,6 +23,7 @@ export const Login = (props) => {
       setEmailError("");
     }
     setEmail(e.target.value);
+
   };
 
   const handlePasswordChange = (e) => {
@@ -37,6 +35,7 @@ export const Login = (props) => {
     setPassword(e.target.value);
   };
 
+// ----------------------Login token-------------------------
   const login_user = async (email, password) => {
     console.log(email + " " + password)
     const resp = await fetch(`${props.URL_API}/api/token`, {
@@ -44,9 +43,7 @@ export const Login = (props) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ "email": email, "password": password })
     })
-    
     if(!resp.ok) throw Error("There was a problem in the login request")
-    
     if(resp.status === 401){
     throw("Invalid credentials")
     }
@@ -54,35 +51,36 @@ export const Login = (props) => {
     throw ("Invalid email or password format")
     }
     const data = await resp.json()
-   
-    // save your token in the localStorage
-    //also you should set your user into the store using the setStore function
+
     localStorage.setItem("jwt-token", data.token);
     myToken = localStorage["jwt-token"]
+    loginDataFetch(email)
     return console.log(myToken)
     }
+// ----------------------/Login token-------------------------
 
-    // ----------------------FETCH LOGIN-------------------------
 
-    async function loginDataFetch() {
-      props.setAdmin(true)
+// ----------------------GET user data-------------------------
+    async function loginDataFetch(email) {
 
-      let response = await fetch(`${props.URL_API}/api/get_user_by_email/${email}`, {
+      const response = await fetch(`${props.URL_API}/api/get_user_by_email/${email}`, {
         method: ["GET"],
         headers: {
           "Content-type": "application/json; charset=utf-8",
-          "Access-Control-Allow-Origin": "*",
-        }
-      })
+        }});
       const data = await response.json()
-      props.setUserId(data[0].id)
-      console.log(props.userId)
+      props.setUser(data)
+      return render(data)
     }
-    // ----------------------/FETCH LOGIN-------------------------
-
-    function userAdmin () {
-      props.setAdmin(false)
-      console.log(props.admin)
+// ----------------------/GET user data-------------------------
+    
+  function render(loginData) { 
+      console.log(loginData)
+      if (loginData.admin) {
+      navigate("/homeadmin")
+      } else {
+      navigate("/home");
+      }
     }
 
   return (
@@ -103,9 +101,6 @@ export const Login = (props) => {
               </div>
               {passwordError && <p className="text-danger">{passwordError}</p>}
             </div>
-
-            <Link to="/home" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={userAdmin}>Ingresar usuario</Link>
-            <Link to="/homeadmin" className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={loginDataFetch} >Ingresar empresa</Link>
             <button  href='' className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={()=>login_user(email, password)}>Ingresar</button>
             <a href="#" className="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>
             <Link to="/" >Regresar</Link>

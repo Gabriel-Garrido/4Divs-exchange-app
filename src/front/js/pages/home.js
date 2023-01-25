@@ -1,15 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import { BankAccountItem } from "../component/bankAccountItem.js";
 
 import "../../styles/home.css";
 
 
 export const Home = (props) => {
+	useEffect(() => {bankAccountFetch()},[])
+	
 	const { store, actions } = useContext(Context);
 	const [mount, setMount] = useState("");
 	const [mountError, setMountError] = useState("");
 	const [conversion, setConversion] = useState("");
+	const [selectedBankAccount, setSelectedBankAccount] = useState({})
 
 	console.log("rate2 = " + props.rate)
 
@@ -25,10 +29,27 @@ export const Home = (props) => {
 		}
 	};
 
+//-------------fetch GET bank account-------------------------
+	const bankAccountFetch = async () => {
+		try{
+			const response = await fetch(`${props.URL_API}/api/get_bank_account_by_user_id/${props.user.id}`,{
+				method: ['GET'],
+				headers: {
+					"Content-type": "application/json",
+				}});
+			const data = await response.json();
+			return props.setBankAccount(data)
+		}catch (error) {
+			console.log('there is a problem with fetch:' + error.message);
+		}
+		}
+//-------------/fetch GET bank account-------------------------
+
+
 //-------------fetch POST transaction ok -------------------------
 	async function processTransaction() {
 		let data = {
-			"user_id": 1, 
+			"user_id": props.user.id, 
 			"status": true, 
 			"change_id": 1, 
 			"bank_account_id": 1, 
@@ -83,32 +104,19 @@ export const Home = (props) => {
 						<p className="fs-1"> {mount} CLP to {conversion} USD</p>
 
 						{/* Selección de cuenta bancaria */}
-							<div className="container">
+							<div className="container text-center">
 					
-								<button className="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-									Seleccione cuenta bancaria  <i className="fas fa-caret-down"></i>
-								</button>
+					
+										
+							<select className="form-select btn btn-outline-dark" aria-label="Default select example">
+
+								<option selected>Open this select menu</option>
+								{props.bankAccount.map(item => {
+									return <BankAccountItem key={item.id} selectedBankAccount={selectedBankAccount} setSelectedBankAccount={setSelectedBankAccount} bankAccountItem={item} URL_API={props.URL_API}/>
+								})}
+										
+							</select>
 								
-								<div className="collapse" id="collapseExample">
-									<div className="card card-body">
-										
-										<ul className="list-group">
-						
-											<input type="radio" className="btn-check" name="options" id="option1" autoComplete="off"></input>
-											<label className="btn btn-outline-dark" htmlFor="option1">Cuenta bancaria 1</label>
-
-											<input type="radio" className="btn-check" name="options" id="option2" autoComplete="off"></input>
-											<label className="btn btn-outline-dark" htmlFor="option2">Cuenta bancaria 2</label>
-
-											<input type="radio" className="btn-check" name="options" id="option3" autoComplete="off"></input>
-											<label className="btn btn-outline-dark" htmlFor="option3">Cuenta bancaria 3</label>
-
-											<input type="radio" className="btn-check" name="options" id="option4" autoComplete="off"></input>
-											<label className="btn btn-outline-dark" htmlFor="option4">Cuenta bancaria 4</label>
-										
-										</ul>
-									</div>
-								</div>
 
 
 							</div>

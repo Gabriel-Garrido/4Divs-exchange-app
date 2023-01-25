@@ -23,14 +23,14 @@ export const Navbar = (props) => {
 
 					<div className="offcanvas-body d-flex flex-column mb-6 justify-content-evenly" data-bs-toggle="offcanvas">
 						
-							{!props.admin?<Link className="btn btn-dark" to="/home" type="button">  <i className="pe-none fas fa-home"></i> Home</Link> : <></>}
-							{!props.admin?<Link className="btn btn-dark" to="/record" type="button"> <i className="pe-none fas fa-history"></i> Historial</Link> : <></>}
-							{!props.admin?<Link className="btn btn-dark" to="/newbankaccount" type="button"><i className="pe-none fas fa-university"></i> Nueva cuenta bancaria</Link> : <></>}
+							{!props.user.admin?<Link className="btn btn-dark" to="/home" type="button">  <i className="pe-none fas fa-home"></i> Home</Link> : <></>}
+							{!props.user.admin?<Link className="btn btn-dark" to="/record" type="button"> <i className="pe-none fas fa-history"></i> Historial</Link> : <></>}
+							{!props.user.admin?<Link className="btn btn-dark" to="/newbankaccount" type="button"><i className="pe-none fas fa-university"></i> Nueva cuenta bancaria</Link> : <></>}
 							<Link className="btn btn-dark" to="/changepassword" type="button"><i className="pe-none fas fa-unlock-alt"></i> Cambiar contraseña</Link>
 
-							{props.admin?<Link className="btn btn-dark" to="/rateadmin" type="button"><i className="pe-none fas fa-sync"></i> Cambiar Tasa</Link> : <></>}
-							{props.admin?<Link className="btn btn-dark" to="/reportadmin" type="button"><i className="pe-none fas fa-download"></i> Reportes</Link> : <></>}
-							{props.admin?<Link className="btn btn-dark" to="/verificationadmin" type="button"><i className="pe-none fas fa-user-check"></i> Verificar Perfiles</Link> : <></>}
+							{props.user.admin?<Link className="btn btn-dark" to="/rateadmin" type="button"><i className="pe-none fas fa-sync"></i> Cambiar Tasa</Link> : <></>}
+							{props.user.admin?<Link className="btn btn-dark" to="/reportadmin" type="button"><i className="pe-none fas fa-download"></i> Reportes</Link> : <></>}
+							{props.user.admin?<Link className="btn btn-dark" to="/verificationadmin" type="button"><i className="pe-none fas fa-user-check"></i> Verificar Perfiles</Link> : <></>}
 							<Link className="btn btn-danger" to="/" type="button"><i className="pe-none fas fa-sign-out-alt"></i> Cerrar sesión</Link>
 						
 					</div>
