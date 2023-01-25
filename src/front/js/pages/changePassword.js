@@ -1,9 +1,10 @@
 import React, { useContext , useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const ChangePassword = (props) => {
+  const navigate = useNavigate()
 
 	const { store, actions } = useContext(Context);
   
@@ -52,20 +53,30 @@ export const ChangePassword = (props) => {
 
 async function changePasswordFetch() {
 
-  let data = {"password": password2}
+  let data = {
+    "password": password2,
+    "email": props.user.email,
+    "admin": props.user.admin
+  } 
   try {
-    await fetch (`${props.URL_API}/api/edit_user/${props.userId}`, {
+    await fetch (`${props.URL_API}/api/edit_user/${props.user.id}`, {
       method: ["PUT"],
 			headers: {
 			 "Content-type": "application/json; charset=utf-8",
 			 "Access-Control-Allow-Origin": "*",
 			},
 			body: JSON.stringify(data)
+      
 
     })
   }catch (error) {
   console.error(error)
 }
+if (props.user.admin) {
+  navigate("/homeadmin")
+  } else {
+  navigate("/home");
+  }
 }
 
 //---------------------/Fetch-----------------------------
@@ -93,8 +104,8 @@ async function changePasswordFetch() {
             {passwordError2 && <p className="text-danger">{passwordError2}</p>}
 
           </div>
-          {props.admin&&activateButton?<button to="/homeadmin" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
-          {!props.admin&&activateButton?<button to="/home" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
+          {props.user.admin &&activateButton?<button to="/homeadmin" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
+          {!props.user.admin &&activateButton?<button to="/home" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
           {!activateButton?<button className="btn btn-dark fs-4 col-md-5 disabled" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
 
           <div className="modal" tabIndex="-1" id="exampleModal">
