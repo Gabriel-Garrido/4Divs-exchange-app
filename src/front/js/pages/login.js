@@ -15,10 +15,12 @@ export const Login = (props) => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState(false)
 
   const handleEmailChange = (e) => {
     if (!emailRegex.test(e.target.value)) {
       setEmailError("Ingrese un correo electrónico válido.");
+      
     } else {
       setEmailError("");
     }
@@ -43,18 +45,24 @@ export const Login = (props) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ "email": email, "password": password })
     })
-    if(!resp.ok) throw Error("There was a problem in the login request")
-    if(resp.status === 401){
-    throw("Invalid credentials")
-    }
-    else if(resp.status === 400){
-    throw ("Invalid email or password format")
-    }
-    const data = await resp.json()
+      if(!resp.ok) {
+        setLoginError(true)
+        throw Error("There was a problem in the login request")
+      }
+      if(resp.status === 401){
+        setLoginError(true)
+        throw("Invalid credentials")
+        
+      }else if(resp.status === 400){
+        setLoginError(true)
+        throw ("Invalid email or password format")
 
-    localStorage.setItem("jwt-token", data.token);
-    loginDataFetch(email)
-    }
+        }
+        const data = await resp.json()
+
+        localStorage.setItem("jwt-token", data.token);
+        loginDataFetch(email)
+      }
 // ----------------------/Login token-------------------------
 
 
@@ -99,9 +107,9 @@ export const Login = (props) => {
               </div>
               {passwordError && <p className="text-danger">{passwordError}</p>}
             </div>
+            {loginError?<p className="text-danger">Error en login</p>:<></>}
             <button  href='' className="btn btn-dark mb-4 col-6 offset-3 col-md-4 offset-md-4" onClick={()=>login_user(email, password)}>Ingresar</button>
             <a href="#" className="btn btn-secondary mb-4 col-6 offset-3 col-md-4 offset-md-4 disable">Crear cuenta</a>
-            <Link to="/" >Regresar</Link>
             <Link to="/restorepassword">Recuperar contraseña</Link>
           </div>
         </div>
