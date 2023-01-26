@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Bank_account,Transaction, Change
 from api.utils import generate_sitemap, APIException
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required
 
 api = Blueprint('api', __name__)
 
@@ -214,9 +214,10 @@ def get_transaction(transaction_id):
 
 
 @api.route('add_transaction', methods=['POST'])
+# @jwt_required
 def add_transaction():
     req_Json = request.get_json()
-
+    
 
     transaction = Transaction(req_Json["user_id"], req_Json["change_id"], req_Json["bank_account_id"], req_Json["transaction_amount"], req_Json["transfer_bank_id"])
     db.session.add(transaction)

@@ -13,9 +13,9 @@ export const Home = (props) => {
 	const [mount, setMount] = useState("");
 	const [mountError, setMountError] = useState("");
 	const [conversion, setConversion] = useState("");
-	const [selectedBankAccount, setSelectedBankAccount] = useState({})
+	const [selectedBankAccount, setSelectedBankAccount] = useState("")
 
-	console.log("rate2 = " + props.rate)
+	console.log("rate = " + props.rate)
 
 	const handleChange = (e) => {
 		const regex = /^\d*$/;
@@ -38,10 +38,12 @@ export const Home = (props) => {
 					"Content-type": "application/json",
 				}});
 			const data = await response.json();
-			return props.setBankAccount(data)
+			props.setBankAccount(data)
+			setSelectedBankAccount(data[2].id)
 		}catch (error) {
 			console.log('there is a problem with fetch:' + error.message);
 		}
+
 		}
 //-------------/fetch GET bank account-------------------------
 
@@ -52,11 +54,11 @@ export const Home = (props) => {
 			"user_id": props.user.id, 
 			"status": true, 
 			"change_id": 1, 
-			"bank_account_id": 1, 
+			"bank_account_id": selectedBankAccount, 
 			"date": "21/01/2023", 
 			"time": "20:00", 
 			"transaction_amount": mount, 
-			"transfer_bank_id": "not defined5"
+			"transfer_bank_id": "not defined"
 		}  
 
 		await fetch(`${props.URL_API}/api/add_transaction`,{
@@ -67,10 +69,18 @@ export const Home = (props) => {
 			},
 			body: JSON.stringify(data)
 		})
-		console.log(mount)
-		console.log(conversion)
+		console.log("Transaction= " + mount + " CLP to " + conversion + " USD in bank account " + selectedBankAccount)
 	}
 //-------------/fetch POST transaction-------------------------------
+
+const handleChangeBank = e => {
+    console.log(e.target.value);
+    setSelectedBankAccount(e.target.value);
+  };
+
+  if (!localStorage.getItem("jwt-token"))
+  	return <></>
+
 
 	return (
 		<div className="text-center container mb-2 mt-3">
@@ -105,14 +115,21 @@ export const Home = (props) => {
 
 						{/* Selección de cuenta bancaria */}
 							<div className="container text-center">
-					
-					
-										
-							<select className="form-select btn btn-outline-dark" aria-label="Default select example">
+				
+							<select 
+								value={selectedBankAccount} 
+								onChange={handleChangeBank}
+								className="form-select" 
+								aria-label="Default select example"
 
-								<option selected>Open this select menu</option>
+							>
+
 								{props.bankAccount.map(item => {
-									return <BankAccountItem key={item.id} selectedBankAccount={selectedBankAccount} setSelectedBankAccount={setSelectedBankAccount} bankAccountItem={item} URL_API={props.URL_API}/>
+									return <BankAccountItem 
+										key={item.id} 
+										item={item} 
+										URL_API={props.URL_API}
+									/>
 								})}
 										
 							</select>
