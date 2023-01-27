@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import Dist from "webpack-merge";
@@ -6,9 +6,15 @@ import Dist from "webpack-merge";
 const rateRegex = /^\d*$/;
 
 export const RateAdmin = () => {
+
+	useEffect(()=>{apiExternal()},[])
+
+//-------------------------validations-----------------------------
 	const { store, actions } = useContext(Context);
 	const [rate, setRate] = useState("");
 	const [rateError, setRateError] = useState("");
+	const [dolarActual, setDolarActual] = useState("");
+	const [activeButton, setActiveButton] = useState(false);
 
 
 	
@@ -21,14 +27,32 @@ export const RateAdmin = () => {
 			setRate(e.target.value);
 		  }
 		};
+//-------------------------/validations-----------------------------
+
+
+//-------------------------external API-----------------------------
+		async function apiExternal() {
+			try{
+				const response = await fetch('https://mindicador.cl/api/dolar')
+				const data = await response.json()
+				return setDolarActual(data.serie[0].valor)
+			}catch (error) {
+				console.log('there is a problem with fetch:' + error.message);
+			}
+		}
+//-------------------------/external API-----------------------------
+
+
+		
 
 	return (
 		
 		<div className="text-center container mb-2 mt-3">
 
 			<div className="card text-center">
-				<h1>Cambio de Tasa</h1>
+					<h5>Hoy el valor del dolar observado es: {dolarActual}</h5>
 				<div className="card-header">
+				<h1>Cambio de Tasa</h1>
 					<h2>Tasa Actual</h2>
 					
 					<div className="dropdown mb-3">

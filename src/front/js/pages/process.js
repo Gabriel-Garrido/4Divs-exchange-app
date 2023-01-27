@@ -2,8 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
+import propTypes from "prop-types";
 
-export const Process = () => {
+export const Process = (props) => {
     const { store, actions } = useContext(Context);
     const [timeLeft, setTimeLeft] = useState(900);
     useEffect(() => {
@@ -28,7 +29,7 @@ export const Process = () => {
                 <div className="container">
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
-                        <p className="fs-5">1CLP x 890 USD</p>
+                        <p className="fs-5">1 CLP x {props.rate} USD</p>
 
 
                         <div className="card">
@@ -39,8 +40,8 @@ export const Process = () => {
                                 Numero de Cuenta</p>
                         </div>
                         <div className="container">
-                            <Link to="/home" className="btn btn-danger m-2 col-3">Cancelar</Link>
-                            <Link to="/record" className={`btn btn-dark m-2 col-3 ${timeLeft === 0 ? 'disabled' : ''}`}>Pagado</Link>
+                            <Link to="/home" className="btn btn-danger m-2 col-3">Realizar nueva transacción</Link>
+                            <Link to="/record" className={`btn btn-dark m-2 col-3 ${timeLeft === 0 ? 'disabled' : ''}`}>Ver historial</Link>
                         </div>
 
                     </div>

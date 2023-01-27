@@ -62,8 +62,8 @@ const Layout = () => {
                         <Route element={<RestorePassword URL_API={URL_API} user={user} />} path="/restorepassword" />
                         <Route element={<ChangePassword URL_API={URL_API} admin={user.admin} user={user} />} path="/changepassword" />
                         {!user.admin ? <Route element={<Home rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} changeId={changeId} user={user} URL_API={URL_API} />} path="/home" /> : <></>}
-                        {!user.admin ? <Route element={<Process URL_API={URL_API} bankAccount={bankAccount} setBankAccount={setBankAccount} user={user}/>} path="/process" /> : <></>}
-                        {!user.admin ? <Route element={<NewBankAccount URL_API={URL_API} bankAccount={bankAccount} setBankAccount={setBankAccount} user={user}/>} path="/newbankaccount" /> : <></>}
+                        {!user.admin ? <Route element={<Process URL_API={URL_API} rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} user={user}/>} path="/process" /> : <></>}
+                        {!user.admin ? <Route element={<NewBankAccount URL_API={URL_API} bankAccount={bankAccount} user={user}/>} path="/newbankaccount" /> : <></>}
                         {!user.admin ? <Route element={<Record URL_API={URL_API} user={user}/>} path="/record" /> : <></>}
                         {user.admin ? <Route element={<HomeAdmin URL_API={URL_API} user={user}/>} path="/homeadmin" /> : <></>}
                         {user.admin ? <Route element={<RateAdmin URL_API={URL_API} user={user}/>} path="/rateadmin" /> : <></>}
