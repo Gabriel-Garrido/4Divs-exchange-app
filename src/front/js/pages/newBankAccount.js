@@ -7,7 +7,7 @@ export const NewBankAccount = () => {
 	
 
 //-----------------------Validations--------------------------------
-	const LetrasRegex = /[a-zA-Z]+/;
+	const LetrasRegex = /^[a-zA-Z]+$/;
 	const NumerosRegex = /^\d{1,14}$/;
 	const IdentidadRegex = /^[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]$/;
 

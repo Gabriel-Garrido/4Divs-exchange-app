@@ -4,12 +4,9 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Bank_account,Transaction, Change
 from api.utils import generate_sitemap, APIException
-<<<<<<< HEAD
 from flask_jwt_extended import create_access_token, jwt_required
-=======
 from flask_jwt_extended import create_access_token
 from  werkzeug.security import generate_password_hash, check_password_hash
->>>>>>> jcalderon-db-api
 
 api = Blueprint('api', __name__)
 
