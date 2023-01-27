@@ -14,8 +14,6 @@ import { RateAdmin } from "./pages/rateAdmin"
 import { ReportAdmin } from "./pages/reportAdmin"
 import { VerificationAdmin } from "./pages/verificationAdmin"
 
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -73,9 +71,6 @@ const Layout = () => {
                         {user.admin ? <Route element={<ReportAdmin URL_API={URL_API} user={user}/>} path="/reportadmin" /> : <></>}
                         {user.admin ? <Route element={<VerificationAdmin URL_API={URL_API} user={user}/>} path="/verificationadmin" /> : <></>}
 
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<h1>Not found!</h1>} />
 
                     </Routes>
                     <Footer />

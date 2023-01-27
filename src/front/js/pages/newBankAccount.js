@@ -4,111 +4,114 @@ import "../../styles/home.css";
 
 export const NewBankAccount = () => {
 	const { store, actions } = useContext(Context);
+	
 
+//-----------------------Validations--------------------------------
 	const LetrasRegex = /[a-zA-Z]+/;
 	const NumerosRegex = /^\d{1,14}$/;
 	const IdentidadRegex = /^[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]$/;
 
-	const [Letras, setLetras] = useState("");
-	const [Numeros, setNumeros] = useState("");
-	const [Identidad, setIdentidad] = useState("");
-	const [LetrasError, setLetrasError] = useState("");
-	const [NumerosError, setNumerosError] = useState("");
-	const [IdentidadError, setIdentidadError] = useState("");
+	const [bankName, setBankName] = useState("");
+	const [bankNameError, setBankNameError] = useState("");	
+	const [accountType, setAccountType] = useState("");
+	const [accountTypeError, setAccountTypeError] = useState("");
+	const [holderName, setHolderName] = useState("");
+	const [holderNameError, setHolderNameError] = useState("");
+	const [accountNumber, setAccountNumber] = useState("");
+	const [accountNumberError, setAccountNumberError] = useState("");
+	const [identity, setIdentity] = useState("");
+	const [identityError, setIdentityError] = useState("");
 
-	const handleLetrasChange = (e) => {
+	const handleBankNameChange = (e) => {
 		if (!LetrasRegex.test(e.target.value)) {
-		  setLetrasError("Sólo letras son válidas.");
+			setBankNameError("Sólo letras son válidas.");
 		} else {
-		  setLetrasError("");
+			setBankNameError("");
 		}
-		setLetras(e.target.value);
+		setBankName(e.target.value);
 	  };
 
-	  const handleNumerosChange = (e) => {
+	const handleAccountTypeChange = (e) => {
+		if (!LetrasRegex.test(e.target.value)) {
+			setAccountTypeError("Sólo letras son válidas.");
+		} else {
+			setAccountTypeError("");
+		}
+		setAccountType(e.target.value);
+	  };
+
+	const handleHolderNameChange = (e) => {
+		if (!LetrasRegex.test(e.target.value)) {
+		  setHolderNameError("Sólo letras son válidas.");
+		} else {
+		  setHolderNameError("");
+		}
+		setHolderName(e.target.value);
+	  };
+
+	  const handleAccountNumberChange = (e) => {
 		if (!NumerosRegex.test(e.target.value)) {
-		  setNumerosError("Sólo numeros son válidas,maximo 14 digitos.");
+		  setAccountNumberError("Sólo numeros son válidas,maximo 14 digitos.");
 		} else {
-		  setNumerosError("");
+		  setAccountNumberError("");
 		}
-		setNumeros(e.target.value);
+		setAccountNumber(e.target.value);
 	  };
 
-	  const handleIdentidadChange = (e) => {
+	  const handleIdentityChange = (e) => {
 		if (!IdentidadRegex.test(e.target.value)) {
-		  setIdentidadError("Formato valido ej. 1.111.111-1");
+			setIdentityError("Formato valido ej. 1.111.111-1");
 		} else {
-		  setIdentidadError("");
+			setIdentityError("");
 		}
-		setIdentidad(e.target.value);
-	  };
+		setIdentity(e.target.value);
+	  }
+//-----------------------/Validations--------------------------------
+
 
 	return (
-
 		<div className="container">
-		
-<div className="card text-center row">
-                 <div className="card-header fs-1">
-                    Nueva Cuenta Bancariaaaaa
-                </div>
-  <div className="card-body d-flex flex-column aling-items-center ">
-  <div className="container">
-		 <div>
-           <label htmlFor="name">Nombre de Banco</label>
-        </div>
+			<div className="card text-center row">
+				<div className="card-header fs-1">
+					Nueva Cuenta Bancaria
+				</div>
+				<div className="card-body d-flex flex-column aling-items-center ">
+					<div className="container">
+						<label htmlFor="bankName">Nombre de Banco</label>
+						<div>
+							<input type="text" id="bankName" name="bankName" required minLength="4" maxLength="17" size="35" onChange={handleBankNameChange}  />
+							{bankNameError && <p className="text-danger">{bankNameError}</p>}
+						</div>
 
-          <div>
-              <input type="text" id="name" name="name" required
-       minLength="4" maxLength="17" size="35" onChange={handleLetrasChange}  />
-	      </div>
-		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
-		  <div>
-		  <label htmlFor="name">Tipo de Cuenta</label>
-		  </div>
+						<label htmlFor="accountType">Tipo de Cuenta</label>
+						<div>
+							<input type="text" id="accountType" name="accountType" requiredminLength="4" maxLength="17" size="35" onChange={handleAccountTypeChange}/>
+							{accountTypeError && <p className="text-danger">{accountTypeError}</p>}
+						</div>
 
-		  <div>
-		  <input type="text" id="name" name="name" required
-       minLength="4" maxLength="17" size="35" onChange={handleLetrasChange}/>
-		  </div>
-		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
-		  <div>
-		  <label htmlFor="name">Numero de Cuenta</label>
-		  </div>
+						<label htmlFor="accountNumber">Numero de Cuenta</label>
+						<div>
+							<input type="text" id="accountNumber" name="accountNumber" required	minLength="4" maxLength="22" size="35"  onChange={handleAccountNumberChange}/>
+							{accountNumberError && <p className="text-danger">{accountNumberError}</p>}
+						</div>
 
-		  <div>
-		  <input type="text" id="accountnum" name="name" required
-       minLength="4" maxLength="22" size="35"  onChange={handleNumerosChange}/>
-		  </div>
-		  {NumerosError && <p className="text-danger">{NumerosError}</p>}
-		  <div>
-		  <label htmlFor="name">Nombre del Titular</label>
-		  </div>
+						<label htmlFor="holderName">Nombre del Titular</label>
+						<div>
+							<input type="text" id="holderName" name="holderName" required minLength="4" maxLength="17" size="35" onChange={handleHolderNameChange}/>
+							{holderNameError && <p className="text-danger">{holderNameError}</p>}
+						</div>
 
-		  <div>
-		  <input type="text" id="name" name="name" required
-       minLength="4" maxLength="17" size="35" onChange={handleLetrasChange}/>
-		  </div>
-		  {LetrasError && <p className="text-danger">{LetrasError}</p>}
-		  <div>
-		  <label htmlFor="name">Documento de Identidad</label>
-		  </div>
-
-		  <div>
-		  <input type="text" id="name" name="name" required
-       minLength="4" maxLength="17" size="35" onChange={handleIdentidadChange}/>
-		  </div>
-		  {IdentidadError && <p className="text-danger">{IdentidadError}</p>}
+						<label htmlFor="identity">Documento de Identidad</label>
+						<div>
+							<input type="text" id="identity" name="identity" required minLength="4" maxLength="17" size="35" onChange={handleIdentityChange}/>
+							{identityError && <p className="text-danger">{identityError}</p>}
+						</div>
+					</div>
+        			<a href="#" className="btn btn-dark col-8 offset-2 col-md-2 offset-md-5 mt-4">Guardar</a>
+				</div>
+				<div className="card-footer text-muted"></div>
 			</div>
-
-        <a href="#" className="btn btn-dark col-8 offset-2 col-md-2 offset-md-5 mt-4">Guardar</a>
-    
-  </div>
-  
-  <div className="card-footer text-muted">
-  </div>
-  
-</div>
-</div>
+		</div>
 
 	);
 };

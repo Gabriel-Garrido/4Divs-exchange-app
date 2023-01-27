@@ -10,7 +10,6 @@ export const ChangePassword = (props) => {
   
   
   //---------------------Validation-----------------------------
-  
   const [activateButton, setActivateButton] = useState(false)
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
   const [password1, setPassword1] = useState("");
@@ -46,7 +45,6 @@ export const ChangePassword = (props) => {
         setActivateButton(false)
     }
   }
-
 //---------------------/Validation-----------------------------
 
 //---------------------Fetch-----------------------------
@@ -72,15 +70,17 @@ async function changePasswordFetch() {
   }catch (error) {
   console.error(error)
 }
-if (props.user.admin) {
-  navigate("/homeadmin")
-  } else {
-  navigate("/home");
-  }
 }
 
 //---------------------/Fetch-----------------------------
 
+function redirect() {
+  if (props.user.admin) {
+    navigate("/homeadmin")
+    } else {
+    navigate("/home");
+    }
+}
 
 	return (
 
@@ -118,7 +118,7 @@ if (props.user.admin) {
                     <p>Su contraseña ha sido cambiada</p>
                 </div>
                 <div className="modal-footer">
-                  <button className="btn btn-dark" data-bs-dismiss="modal">Aceptar</button>
+                  <button className="btn btn-dark" onClick={redirect} data-bs-dismiss="modal">Aceptar</button>
                 </div>
               </div>
             </div>
