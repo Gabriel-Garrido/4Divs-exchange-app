@@ -10,7 +10,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rut = db.Column(db.String(11), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(20), unique=False, nullable=False)
+    password = db.Column(db.String(10000), unique=False, nullable=False)
     validate_status = db.Column(db.Boolean(), unique=False, nullable=False)
     first_name = db.Column(db.String(30), unique=False, nullable=False)
     last_name = db.Column(db.String(30), unique=False, nullable=False)
@@ -60,14 +60,6 @@ class User(db.Model):
             "monthly_income": self.monthly_income,
             "particular_address": self.particular_address,
             "department": self.department,
-            "admin": self.admin
-        }
-
-    def serializeLogin(self):
-        return {
-            "id": self.id,
-            "email": self.email,
-            "password": self.password,
             "admin": self.admin
         }
 
