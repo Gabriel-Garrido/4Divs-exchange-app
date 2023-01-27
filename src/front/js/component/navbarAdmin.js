@@ -25,7 +25,6 @@ export const NavbarAdmin = () => {
 							<Link className="btn btn-danger" to="/" type="button"><i className="fas fa-sign-out-alt"></i> Cerrar sesión</Link>
                     </div>
                   
-
                 </div>
                 <Link className="btn btn-dark" to="/homeadmin" type="button">4Divs</Link>
 
