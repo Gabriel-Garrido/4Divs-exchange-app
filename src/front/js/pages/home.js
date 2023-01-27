@@ -39,7 +39,7 @@ export const Home = (props) => {
 				}});
 			const data = await response.json();
 			props.setBankAccount(data)
-			setSelectedBankAccount(data[2].id)
+			setSelectedBankAccount(data[0].id)
 		}catch (error) {
 			console.log('there is a problem with fetch:' + error.message);
 		}
@@ -50,9 +50,10 @@ export const Home = (props) => {
 
 //-------------fetch POST transaction ok -------------------------
 	async function processTransaction() {
+
 		let data = {
 			"user_id": props.user.id, 
-			"status": true, 
+			"status": "", 
 			"change_id": 1, 
 			"bank_account_id": selectedBankAccount, 
 			"date": "21/01/2023", 
@@ -65,7 +66,6 @@ export const Home = (props) => {
 			method: ["POST"],
 			headers: {
 			 "Content-type": "application/json; charset=utf-8",
-			 "Access-Control-Allow-Origin": "*",
 			},
 			body: JSON.stringify(data)
 		})

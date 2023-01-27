@@ -35,7 +35,6 @@ const Layout = () => {
             method: ["GET"],
             headers: {
                 "Content-type": "application/json; charset=utf-8",
-                "Access-Control-Allow-Origin": "*",
             },
         })
         let data = await response.json()
