@@ -62,7 +62,7 @@ export const RecordItem = (props) => {
 		<li className="list-group-item d-flex justify-content-between align-items-start">
             <div className="ms-2 me-auto">
                 <div className="fw-bold">{transaction.date_time}</div>
-                <p>{transaction.transaction_amount} CLP a {transform.toFixed(2)} USD en {bank_account.account_number} del banco {bank_account.bank}</p>
+                <p>{transaction.transaction_amount} CLP a {transform.toFixed(2)} USD en la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
             </div>
             <span className={statusPill}>{transaction.status}</span>
 		</li>

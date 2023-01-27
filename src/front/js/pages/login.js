@@ -76,6 +76,8 @@ export const Login = (props) => {
         }});
       const data = await response.json()
       props.setUser(data)
+      localStorage.setItem("admin", data.admin);
+
       return render(data)
     }
 // ----------------------/GET user data-------------------------

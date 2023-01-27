@@ -17,11 +17,11 @@ export const Record = (props) => {
 				}});
 			const data = await response.json();
 			return setRecordItems(data)
+
 		}catch (error) {
 			console.log('there is a problem with fetch:' + error.message);
 		}
 		}
-		console.log(recordItems)
 
 	return (
 		<div className="container">

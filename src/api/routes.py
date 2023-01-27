@@ -45,12 +45,14 @@ def add_user():
     db.session.commit()
     return "user " + req_Json["email"] + " was created", 201
 
+
+
+
 @api.route('/edit_user/<int:user_id>', methods=['PUT'])
 def edit_user(user_id):
     user = User.query.get(user_id)
     if user is None:
-        return "user not found", 404
-            
+        return "user not found", 404    
     req_Json = request.get_json()
     if req_Json["password"] is not None:
         user.password = req_Json["password"]
@@ -61,6 +63,10 @@ def edit_user(user_id):
         return user.serialize(), 200
 
     return "incorrect param", 400
+
+
+
+
 
 @api.route('delete_user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
@@ -116,17 +122,6 @@ def edit_change(change_id):
             return jsonify(change_temp), 200
     return "change rate not found", 404
 
-@api.route('delete_change/<int:change_id>', methods=['DELETE'])
-def delete_change(change_id):
-    for i, change in enumerate(change_temp):
-        if change["id"] == change_id:
-            del change_temp[i]
-            return jsonify(change_temp), 200
-        
-    return "change rate not found", 404
-    
-
-
 # Bank_account endpoints
 
 
@@ -141,12 +136,11 @@ def get_all_bank_account():
 
 @api.route('/get_bank_account/<int:bank_account_id>', methods=['GET'])
 def get_bank_account(bank_account_id):
-    bank_accounts = list(map(lambda x: x.serialize(),Bank_account.query.all()))
-    for bank_account in bank_accounts:
-        if bank_account["id"] == bank_account_id:
-            return jsonify(bank_account), 200
-        else:
-            return "bank account not found", 404
+    bank_account = Bank_account.query.get(bank_account_id)
+    if bank_account is None:
+        return "bank_account not found", 404
+            
+    return bank_account.serialize(), 200
 
 @api.route('/get_bank_account_by_user_id/<int:user_id>', methods=['GET'])
 def get_bank_account_by_user_id(user_id):
@@ -224,19 +218,32 @@ def add_transaction():
     db.session.commit()
     return "transaction created", 201
 
+
+
+
+
 @api.route('edit_transaction/<int:transaction_id>', methods=['PUT'])
 def edit_transaction(transaction_id):
+    transaction = Transaction.query.get(transaction_id)
+    if transaction is None:
+        return "transaction not found", 404    
     req_Json = request.get_json()
-    transaction_temp[transaction_id] = req_Json
-    return jsonify(transaction_temp), 200
+    if req_Json["status"] is not None:
+        transaction.status = req_Json["status"]
+        db.session.add(transaction)
+        db.session.commit()
+    return "Status de la transacción cambiado a " + req_Json["status"], 200
+
 
 @api.route('delete_transaction/<int:transaction_id>', methods=['DELETE'])
 def delete_transaction(transaction_id):
-    req_Json = request.get_json()
-    del transaction_temp[transaction_id]
-    return jsonify(transaction_temp), 200
-
-    return jsonify(response_body), 200
+    transaction = User.query.get(transaction_id)
+    if transaction is None:
+        return "transaction not found", 404
+            
+    db.session.delete(transaction)
+    db.session.commit()
+    return "transaction was deleted", 200
 
 
 @api.route('/token', methods=['POST'])

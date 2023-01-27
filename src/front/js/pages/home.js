@@ -15,7 +15,7 @@ export const Home = (props) => {
 	const [conversion, setConversion] = useState("");
 	const [selectedBankAccount, setSelectedBankAccount] = useState("")
 
-	console.log("rate = " + props.rate)
+	console.log("Change rate is = " + props.rate)
 
 	const handleChange = (e) => {
 		const regex = /^\d*$/;
@@ -69,12 +69,11 @@ export const Home = (props) => {
 			},
 			body: JSON.stringify(data)
 		})
-		console.log("Transaction= " + mount + " CLP to " + conversion + " USD in bank account " + selectedBankAccount)
+		console.log("Transaction= " + mount + " CLP to " + conversion + " USD in bank account number " + selectedBankAccount)
 	}
 //-------------/fetch POST transaction-------------------------------
 
 const handleChangeBank = e => {
-    console.log(e.target.value);
     setSelectedBankAccount(e.target.value);
   };
 
