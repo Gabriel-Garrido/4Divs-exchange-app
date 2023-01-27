@@ -214,7 +214,7 @@ def get_transaction(transaction_id):
 
 
 @api.route('/add_transaction', methods=['POST'])
-# @jwt_required
+@jwt_required()
 def add_transaction():
     req_Json = request.get_json()
     
