@@ -21,6 +21,7 @@ import { Footer } from "./component/footer";
 
 //create your first component
 const Layout = () => {
+    const admin = localStorage.getItem("admin")
     const URL_API = process.env.BACKEND_URL
     const [rate, setRate] = useState("");
     const [changeId, setChangeId] = useState("")    
@@ -65,10 +66,10 @@ const Layout = () => {
                         {!user.admin ? <Route element={<Process URL_API={URL_API} rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} user={user}/>} path="/process" /> : <></>}
                         {!user.admin ? <Route element={<NewBankAccount URL_API={URL_API} bankAccount={bankAccount} user={user}/>} path="/newbankaccount" /> : <></>}
                         {!user.admin ? <Route element={<Record URL_API={URL_API} user={user}/>} path="/record" /> : <></>}
-                        {user.admin ? <Route element={<HomeAdmin URL_API={URL_API} user={user}/>} path="/homeadmin" /> : <></>}
-                        {user.admin ? <Route element={<RateAdmin URL_API={URL_API} user={user}/>} path="/rateadmin" /> : <></>}
-                        {user.admin ? <Route element={<ReportAdmin URL_API={URL_API} user={user}/>} path="/reportadmin" /> : <></>}
-                        {user.admin ? <Route element={<VerificationAdmin URL_API={URL_API} user={user}/>} path="/verificationadmin" /> : <></>}
+                        {admin? <Route element={<HomeAdmin URL_API={URL_API} user={user}/>} path="/homeadmin" /> : <></>}
+                        {admin? <Route element={<RateAdmin URL_API={URL_API} user={user}/>} path="/rateadmin" /> : <></>}
+                        {admin? <Route element={<ReportAdmin URL_API={URL_API} user={user}/>} path="/reportadmin" /> : <></>}
+                        {admin? <Route element={<VerificationAdmin URL_API={URL_API} user={user}/>} path="/verificationadmin" /> : <></>}
 
 
                     </Routes>

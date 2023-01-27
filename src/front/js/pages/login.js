@@ -75,8 +75,8 @@ export const Login = (props) => {
           "Content-type": "application/json; charset=utf-8",
         }});
       const data = await response.json()
-      props.setUser(data)
       localStorage.setItem("admin", data.admin);
+      props.setUser(data)
 
       return render(data)
     }

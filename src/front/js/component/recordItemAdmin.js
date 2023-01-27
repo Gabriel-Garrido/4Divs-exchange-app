@@ -2,9 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
 
 export const RecordItemAdmin = (props) => {
+
     const navigate = useNavigate()
 	useEffect(()=>{changeFetch(), bankAccountFetch(), userFetch()},[])
     let transaction = props.transactions
+    console.log(transaction.id)
 
     const [change, setChange] = useState([])
     const [bank_account, setBank_account] = useState([])
@@ -62,20 +64,19 @@ export const RecordItemAdmin = (props) => {
           } 
           try {
             await fetch (`${props.URL_API}/api/edit_transaction/${transaction.id}`, {
-              method: ["PUT"],
-                    headers: {
-                     "Content-type": "application/json; charset=utf-8",
-                    },
-                    body: JSON.stringify(data)
+                method: ["PUT"],
+                headers: {
+                    "Content-type": "application/json; charset=utf-8",
+                },
+                body: JSON.stringify(data)
                     
             })
             setStatus(newStatus)
-            console.log("se cambio el estado a " + newStatus)
+            console.log("se cambio el estado a " + newStatus + transaction.id)
 
           }catch (error) {
           console.error(error)
         }  
-        this.forceUpdate()
     }    
         
 	return (
