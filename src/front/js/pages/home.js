@@ -43,7 +43,6 @@ export const Home = (props) => {
 		}catch (error) {
 			console.log('there is a problem with fetch:' + error.message);
 		}
-
 		}
 //-------------/fetch GET bank account-------------------------
 
