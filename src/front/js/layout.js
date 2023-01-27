@@ -67,7 +67,7 @@ const Layout = () => {
                         {!user.admin ? <Route element={<NewBankAccount URL_API={URL_API} bankAccount={bankAccount} user={user}/>} path="/newbankaccount" /> : <></>}
                         {!user.admin ? <Route element={<Record URL_API={URL_API} user={user}/>} path="/record" /> : <></>}
                         {admin? <Route element={<HomeAdmin URL_API={URL_API} user={user}/>} path="/homeadmin" /> : <></>}
-                        {admin? <Route element={<RateAdmin URL_API={URL_API} user={user}/>} path="/rateadmin" /> : <></>}
+                        {admin? <Route element={<RateAdmin URL_API={URL_API} rate={rate} setRate={setRate} user={user}/>} path="/rateadmin" /> : <></>}
                         {admin? <Route element={<ReportAdmin URL_API={URL_API} user={user}/>} path="/reportadmin" /> : <></>}
                         {admin? <Route element={<VerificationAdmin URL_API={URL_API} user={user}/>} path="/verificationadmin" /> : <></>}
 

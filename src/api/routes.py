@@ -114,13 +114,19 @@ def add_change():
 
 @api.route('edit_change/<int:change_id>', methods=['PUT'])
 def edit_change(change_id):
+    change = Change.query.get(change_id)
+    if change is None:
+        return "change not found", 404    
     req_Json = request.get_json()
-    for i, change in enumerate(change_temp):
-        if change["id"] == change_id:
-            change_temp[i] = req_Json
-            change_temp[i]["id"] = change_id
-            return jsonify(change_temp), 200
-    return "change rate not found", 404
+    if req_Json["exchange_rate"] is not None:
+        change.origin_exchange = req_Json["origin_exchange"]
+        change.destination_exchange = req_Json["destination_exchange"]
+        change.exchange_rate = req_Json["exchange_rate"]
+        db.session.add(change)
+        db.session.commit()
+        return change.serialize(), 200
+
+    return "incorrect param", 400
 
 # Bank_account endpoints
 

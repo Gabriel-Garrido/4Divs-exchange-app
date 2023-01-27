@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import Dist from "webpack-merge";
+import { Link, useNavigate } from "react-router-dom"
+
 
 const rateRegex = /^\d*$/;
 
-export const RateAdmin = () => {
+export const RateAdmin = (props) => {
+	const navigate = useNavigate()
 
 	useEffect(()=>{apiExternal()},[])
 
@@ -15,18 +18,25 @@ export const RateAdmin = () => {
 	const [rateError, setRateError] = useState("");
 	const [dolarActual, setDolarActual] = useState("");
 	const [activeButton, setActiveButton] = useState(false);
-
-
 	
 	const handleChange = (e) => {
 		if (!rateRegex.test(e.target.value)) {
 			setRateError("Debe ingresar valor en números");
-			setRate("")
 		  } else {
 			setRateError("");
-			setRate(e.target.value);
-		  }
+		}
+		setRate(e.target.value);
+		activateButton()
 		};
+
+	function activateButton() {
+		if (rateError=="") {
+			setActiveButton(true)
+		}else{
+			setActiveButton(false)
+		}
+ }
+		
 //-------------------------/validations-----------------------------
 
 
@@ -42,6 +52,28 @@ export const RateAdmin = () => {
 		}
 //-------------------------/external API-----------------------------
 
+	async function changeRateFetch() {
+		let data = {
+			"origin_exchange": "CLP",
+    		"destination_exchange": "USD",
+			"exchange_rate": rate
+		}
+		try {
+			await fetch (`${props.URL_API}/api/edit_change/1`, {
+			  method: ["PUT"],
+					headers: {
+					 "Content-type": "application/json; charset=utf-8",
+					 'Access-Control-Allow-Origin':"*"
+					},
+					body: JSON.stringify(data)
+			})
+		  }catch (error) {
+		  console.error(error)
+		}
+		props.setRate(rate)
+		navigate("/homeadmin")
+
+	}
 
 		
 
@@ -53,7 +85,7 @@ export const RateAdmin = () => {
 					<h5>Hoy el valor del dolar observado es: {dolarActual}</h5>
 				<div className="card-header">
 				<h1>Cambio de Tasa</h1>
-					<h2>Tasa Actual</h2>
+					<h2>Tasa Actual: {props.rate} CLP = 1 USD</h2>
 					
 					<div className="dropdown mb-3">
 						<button className="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,12 +98,13 @@ export const RateAdmin = () => {
 						</ul>
 					</div>
 					
-					<p className="fs-1">1 USD / {rate} CLP</p>
 				</div>
 				<div className="card-body row">
 					<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
-						<h2>Tasa Nueva</h2>
-						<label className="fs-1">1 USD to</label>
+						<h2>Tasa Nueva</h2>					
+						<p className="fs-1">1 USD / {rate} CLP</p>
+
+						<label className="fs-4">1 USD to</label>
 						<div className="input-group">
 							<input
 								type="form-floating"
@@ -85,9 +118,11 @@ export const RateAdmin = () => {
 						</div>
 					</div>
 					{rateError && <p className="text-danger">{rateError}</p>}
-					<button className="btn btn-dark col-4 offset-4">
+					{activeButton?<button onClick={changeRateFetch} className="btn btn-dark col-4 offset-4">
 						Cambiar
-					</button>
+					</button>:<button className="btn btn-secondary col-4 offset-4">
+						Cambiar
+					</button>}
 				</div>
 			</div>
 		
