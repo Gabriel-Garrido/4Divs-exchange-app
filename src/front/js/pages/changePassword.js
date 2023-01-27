@@ -9,7 +9,7 @@ export const ChangePassword = (props) => {
 	const { store, actions } = useContext(Context);
   
   
-  //---------------------Validation-----------------------------
+  //---------------------Validation-------------------------------------------
   const [activateButton, setActivateButton] = useState(false)
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
   const [password1, setPassword1] = useState("");
@@ -45,10 +45,9 @@ export const ChangePassword = (props) => {
         setActivateButton(false)
     }
   }
-//---------------------/Validation-----------------------------
+//---------------------/Validation-------------------------------------
 
-//---------------------Fetch-----------------------------
-
+//---------------------Fetch------------------------------------------
 async function changePasswordFetch() {
 
   let data = {
@@ -70,8 +69,7 @@ async function changePasswordFetch() {
   console.error(error)
 }
 }
-
-//---------------------/Fetch-----------------------------
+//---------------------/Fetch-----------------------------------------
 
 function redirect() {
   if (props.user.admin) {

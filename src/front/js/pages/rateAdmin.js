@@ -35,8 +35,7 @@ export const RateAdmin = (props) => {
 		}else{
 			setActiveButton(false)
 		}
- }
-		
+ }	
 //-------------------------/validations-----------------------------
 
 
@@ -52,6 +51,8 @@ export const RateAdmin = (props) => {
 		}
 //-------------------------/external API-----------------------------
 
+
+//-------------------------Change PUT fetch-----------------------------
 	async function changeRateFetch() {
 		let data = {
 			"origin_exchange": "CLP",
@@ -72,15 +73,14 @@ export const RateAdmin = (props) => {
 		}
 		props.setRate(rate)
 		navigate("/homeadmin")
-
 	}
+//-------------------------/Change PUT fetch-----------------------------
+
 
 		
-
 	return (
 		
 		<div className="text-center container mb-2 mt-3">
-
 			<div className="card text-center">
 					<h5>Hoy el valor del dolar observado es: {dolarActual}</h5>
 				<div className="card-header">
@@ -125,7 +125,6 @@ export const RateAdmin = (props) => {
 					</button>}
 				</div>
 			</div>
-		
 		</div>
 	);
 };

@@ -84,12 +84,6 @@ export const NewBankAccount = (props) => {
 			setButtonActivate(true)
 		}
 	  }
-
-	  
-	  
-	  
-	  
-	  
 //-----------------------/Validations--------------------------------
 
 
@@ -116,11 +110,6 @@ async function createBankAccount() {
 	console.log(`Se creó la cuenta bancaria del usuario ${props.user.first_name} del banco ${bankName}`)
 	navigate("/home")
 }
-
-
-
-
-
 //-------------------POST new bank account----------------------------
 
 	return (

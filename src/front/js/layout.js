@@ -19,7 +19,6 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
-//create your first component
 const Layout = () => {
     const admin = localStorage.getItem("admin")
     const URL_API = process.env.BACKEND_URL
@@ -30,7 +29,6 @@ const Layout = () => {
   
 
 //-------------fetch GET change -------------------------------------
-    
     async function getChangeFetch() {
         let response = await fetch(`${URL_API}/api/get_all_changes`, {
             method: ["GET"],
@@ -43,13 +41,8 @@ const Layout = () => {
         setChangeId(data[0].id)
     }
     getChangeFetch()
-    
-
 //-------------/fetch GET change -------------------------------------
 
-
-    //the basename is used when your project is published in a subdirectory and not in the root of the domain
-    // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
     
     return (

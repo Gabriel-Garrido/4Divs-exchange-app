@@ -6,6 +6,7 @@ import { sendEmail } from "../service/emailService.js";
 export const RestorePassword = () => {
 	const { store, actions } = useContext(Context);
 
+//----------------------------Validations--------------------------------	
 	const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 	const [email, setEmail] = useState("");
@@ -34,6 +35,8 @@ export const RestorePassword = () => {
 		}
 		setEmail(e.target.value);
 	  };
+//----------------------------/Validations--------------------------------	
+
 
 	return (
 		<div className="container">

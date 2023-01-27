@@ -37,7 +37,7 @@ export const Login = (props) => {
     setPassword(e.target.value);
   };
 
-// ----------------------Login token-------------------------
+// ----------------------Login token---------------------------------
   const login_user = async (email, password) => {
     console.log(email + " " + password)
     const resp = await fetch(`${props.URL_API}/api/token`, {
@@ -63,10 +63,10 @@ export const Login = (props) => {
         localStorage.setItem("jwt-token", data.token);
         loginDataFetch(email)
       }
-// ----------------------/Login token-------------------------
+// ----------------------/Login token----------------------------------
 
 
-// ----------------------GET user data-------------------------
+// ----------------------GET user data---------------------------------
     async function loginDataFetch(email) {
 
       const response = await fetch(`${props.URL_API}/api/get_user_by_email/${email}`, {
@@ -80,7 +80,7 @@ export const Login = (props) => {
 
       return render(data)
     }
-// ----------------------/GET user data-------------------------
+// ----------------------/GET user data--------------------------------
     
   function render(loginData) { 
       console.log(loginData)

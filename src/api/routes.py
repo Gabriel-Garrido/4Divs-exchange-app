@@ -79,7 +79,6 @@ def delete_user(user_id):
     return "user was deleted", 200
 
 # Change endpoints
-#cambios realizados 19ene en get all y post
 
 @api.route('/get_all_changes/', methods=['GET'])
 def get_all_changes():
@@ -129,7 +128,6 @@ def edit_change(change_id):
     return "incorrect param", 400
 
 # Bank_account endpoints
-
 
 @api.route('/get_all_bank_accounts/', methods=['GET'])
 def get_all_bank_account():

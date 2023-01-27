@@ -2,9 +2,6 @@ import React, { Component } from "react";
 
 export const Footer = () => (
 	<footer className="footer mt-auto py-3 text-center">
-		<p>
-			Made with <i className="fa fa-heart text-danger" /> by{" "}
-			<a href="http://www.4geeksacademy.com">4Divs</a>
-		</p>
+		<p className="fs-6 ">Contacto equipo desarrollo 4Divs <i class="far fa-envelope"></i> 4divsapp@gmail.com</p>
 	</footer>
 );
