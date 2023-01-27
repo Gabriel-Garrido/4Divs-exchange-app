@@ -10,7 +10,6 @@ export const ChangePassword = (props) => {
   
   
   //---------------------Validation-----------------------------
-  
   const [activateButton, setActivateButton] = useState(false)
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
   const [password1, setPassword1] = useState("");
@@ -46,7 +45,6 @@ export const ChangePassword = (props) => {
         setActivateButton(false)
     }
   }
-
 //---------------------/Validation-----------------------------
 
 //---------------------Fetch-----------------------------
@@ -72,7 +70,6 @@ async function changePasswordFetch() {
   }catch (error) {
   console.error(error)
 }
-
 }
 
 //---------------------/Fetch-----------------------------

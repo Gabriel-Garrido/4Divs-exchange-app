@@ -4,23 +4,21 @@ import "../../styles/home.css";
 
 export const NewBankAccount = () => {
 	const { store, actions } = useContext(Context);
+	
 
+//-----------------------Validations--------------------------------
 	const LetrasRegex = /[a-zA-Z]+/;
 	const NumerosRegex = /^\d{1,14}$/;
 	const IdentidadRegex = /^[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]$/;
 
 	const [bankName, setBankName] = useState("");
-	const [bankNameError, setBankNameError] = useState("");
-	
+	const [bankNameError, setBankNameError] = useState("");	
 	const [accountType, setAccountType] = useState("");
 	const [accountTypeError, setAccountTypeError] = useState("");
-
 	const [holderName, setHolderName] = useState("");
 	const [holderNameError, setHolderNameError] = useState("");
-
 	const [accountNumber, setAccountNumber] = useState("");
 	const [accountNumberError, setAccountNumberError] = useState("");
-
 	const [identity, setIdentity] = useState("");
 	const [identityError, setIdentityError] = useState("");
 
@@ -67,7 +65,9 @@ export const NewBankAccount = () => {
 			setIdentityError("");
 		}
 		setIdentity(e.target.value);
-	  };
+	  }
+//-----------------------/Validations--------------------------------
+
 
 	return (
 		<div className="container">
