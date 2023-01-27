@@ -5,8 +5,6 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Bank_account,Transaction, Change
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required
-from flask_jwt_extended import create_access_token
-from  werkzeug.security import generate_password_hash, check_password_hash
 
 api = Blueprint('api', __name__)
 
@@ -29,24 +27,20 @@ def get_user(user_id):
             
     return user.serialize(), 200
 
-@api.route('/login', methods=['POST'])
-def login():
+@api.route('/get_user_by_email/<user_email>', methods=['GET'])
+def get_user_by_email(user_email):
     user = User.query.filter(User.email == user_email).first()
-    password = check_password_hash(user.password, "password")
     if user is None:
         return "user not found", 404
-    else:
-
             
-     return user.serializeLogin(), 200    
+    return user.serialize(), 200    
     
- #asa
+
 @api.route('/add_user', methods=['POST'])
 def add_user():
     req_Json = request.get_json()
-    password = generate_password_hash(req_Json["password"])
 
-    user = User(req_Json["rut"], req_Json["email"],password, req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
+    user = User(req_Json["rut"], req_Json["email"],req_Json["password"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
     db.session.add(user)
     db.session.commit()
     return "user " + req_Json["email"] + " was created", 201
@@ -219,7 +213,7 @@ def get_transaction(transaction_id):
             return "transaction not found", 404
 
 
-@api.route('add_transaction', methods=['POST'])
+@api.route('/add_transaction', methods=['POST'])
 # @jwt_required
 def add_transaction():
     req_Json = request.get_json()
@@ -258,4 +252,3 @@ def create_token():
         return jsonify({"msg": "Bad username or password"}), 401
     access_token = create_access_token(identity=found_user["id"])
     return jsonify({ "token": access_token, "user_id": found_user["id"] })
-
