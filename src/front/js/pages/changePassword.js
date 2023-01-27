@@ -61,7 +61,6 @@ async function changePasswordFetch() {
       method: ["PUT"],
 			headers: {
 			 "Content-type": "application/json; charset=utf-8",
-			 "Access-Control-Allow-Origin": "*",
 			},
 			body: JSON.stringify(data)
       
