@@ -30,6 +30,7 @@ def get_user(user_id):
 @api.route('/get_user_by_email/<user_email>', methods=['GET'])
 def get_user_by_email(user_email):
     user = User.query.filter(User.email == user_email).first()
+    ecrypyted
     if user is None:
         return "user not found", 404
             
