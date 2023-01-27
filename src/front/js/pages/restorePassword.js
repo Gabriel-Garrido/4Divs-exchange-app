@@ -10,15 +10,11 @@ export const RestorePassword = () => {
 
 	const [email, setEmail] = useState("");
   	const [emailError, setEmailError] = useState("");
-	const [user, setUser] = useState({
-		email: "mail@mail.com",
-		name: "Jhon Doe",
-	  });
+	const [user, setUser] = useState("");
 
 	  const verify = (_) => {
-		if (email.localeCompare(user.email) != 0) throw Error("Invalid Email");
 		let params = {
-		  to_email: user.email,
+		  to_email: email,
 		  to_name: user.name,
 		  to_link: link,
 		};
