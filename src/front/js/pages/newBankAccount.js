@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { Link, useNavigate } from "react-router-dom"
+
 
 export const NewBankAccount = (props) => {
 	const { store, actions } = useContext(Context);
+	const navigate = useNavigate()
 	
 
 //-----------------------Validations--------------------------------
@@ -111,6 +114,7 @@ async function createBankAccount() {
 		body: JSON.stringify(data)
 	})
 	console.log(`Se creó la cuenta bancaria del usuario ${props.user.first_name} del banco ${bankName}`)
+	navigate("/home")
 }
 
 
