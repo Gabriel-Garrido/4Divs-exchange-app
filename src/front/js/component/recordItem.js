@@ -10,6 +10,7 @@ export const RecordItem = (props) => {
     const [bank_account, setBank_account] = useState([])
 
 
+//------------------------------------All Fetch----------------------------------------
     const changeFetch = async () => {
         try{
             const response = await fetch(`${props.URL_API}/api/get_change/${transaction.change_id}`,{
@@ -39,10 +40,7 @@ export const RecordItem = (props) => {
         }
         }
         console.log(bank_account)
-
-
-
-
+//------------------------------------/All Fetch----------------------------------------
 
 
     let statusPill = null

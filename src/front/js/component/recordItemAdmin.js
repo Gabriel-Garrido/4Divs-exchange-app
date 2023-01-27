@@ -16,6 +16,7 @@ export const RecordItemAdmin = (props) => {
 
     let transform = transaction.transaction_amount / change.exchange_rate
 
+//---------------------------------All fetch GET----------------------------------------
     const changeFetch = async () => {
         try{
             const response = await fetch(`${props.URL_API}/api/get_change/${transaction.change_id}`,{
@@ -57,7 +58,10 @@ export const RecordItemAdmin = (props) => {
             console.log('there is a problem with fetch:' + error.message);
         }
         }
+//---------------------------------/All fetch----------------------------------------
 
+
+//-----------------------------Change status Fetch------------------------------------
     const changeStatus = async(newStatus) => {
         let data = {
             "status": newStatus
@@ -78,6 +82,8 @@ export const RecordItemAdmin = (props) => {
           console.error(error)
         }  
     }    
+//-----------------------------/Change status Fetch------------------------------------
+
         
 	return (
 		<div className="list-group-item">
