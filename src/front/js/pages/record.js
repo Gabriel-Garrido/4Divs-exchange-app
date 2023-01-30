@@ -4,6 +4,9 @@ import { RecordItem } from "../component/recordItem.js";
 import "../../styles/home.css";
 
 export const Record = (props) => {
+
+	if (!localStorage.getItem("jwt-token"))
+  	return <></>
 	
 	useEffect(()=>{recordItemFetch()},[])
 	const [recordItems, setRecordItems] = useState([])

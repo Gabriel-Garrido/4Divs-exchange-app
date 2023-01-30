@@ -167,7 +167,6 @@ def delete_bank_account(bank_account_id):
 
 # -----------------------Transactions endpoints-------------------------------
 @api.route('/get_all_transactions/', methods=['GET'])
-    # agregar paginacion
 def get_all_transaction():
     transactions = Transaction.query.all()
     if (transactions == []):

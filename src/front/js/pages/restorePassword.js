@@ -6,6 +6,9 @@ import { sendEmail } from "../service/emailService.js";
 export const RestorePassword = () => {
 	const { store, actions } = useContext(Context);
 
+	if (!localStorage.getItem("jwt-token"))
+  	return <></>
+
 //----------------------------Validations--------------------------------	
 	const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 

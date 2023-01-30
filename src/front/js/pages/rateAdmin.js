@@ -10,6 +10,9 @@ const rateRegex = /^\d*$/;
 export const RateAdmin = (props) => {
 	const navigate = useNavigate()
 
+	if (!localStorage.getItem("jwt-token"))
+  	return <></>
+
 	useEffect(()=>{apiExternal()},[])
 
 //-------------------------validations-----------------------------

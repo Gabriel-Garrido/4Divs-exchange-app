@@ -80,7 +80,6 @@ const handleChangeBank = e => {
   if (!localStorage.getItem("jwt-token"))
   	return <></>
 
-
 	return (
 		<div className="text-center container mb-2 mt-3">
 

@@ -6,6 +6,8 @@ import { RecordItemAdmin } from "../component/recordItemAdmin.js";
 
 export const HomeAdmin = (props) => {
 	console.log(props.user)
+	if (!localStorage.getItem("jwt-token"))
+  	return <></>
 	useEffect(()=>{recordItemFetch()},[])
 
 	const { store, actions } = useContext(Context);
@@ -49,18 +51,13 @@ export const HomeAdmin = (props) => {
 				</div> 
 -------------------------------Vista de funcion de filtrar---------------------------------*/}
 				<div className="card-body">
-
 					<div className="list-group">
 						{recordItems.map(item => {
-							return <RecordItemAdmin key={item.id} transactions={item}  URL_API={props.URL_API}/>
+							return <RecordItemAdmin key={item.id} transactions={item} URL_API={props.URL_API}/>
 						})}
-
 					</div>
-					
 				</div>
 				<div className="card-footer text-muted">
-
-
 				</div>
 			</div>
 			

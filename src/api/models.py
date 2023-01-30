@@ -156,8 +156,6 @@ class Transaction(db.Model):
         self.transaction_amount = transaction_amount
         self.transfer_bank_id = transfer_bank_id
 
-        
-
     def __repr__(self):
         return f"{self.user_id}:{self.status}:{self.change_id}:{self.bank_account_id}:{self.transaction_amount}:{self.transfer_bank_id}"
         

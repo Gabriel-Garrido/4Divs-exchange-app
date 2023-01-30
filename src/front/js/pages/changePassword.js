@@ -7,6 +7,8 @@ export const ChangePassword = (props) => {
   const navigate = useNavigate()
 
 	const { store, actions } = useContext(Context);
+  if (!localStorage.getItem("jwt-token"))
+  	return <></>
   
   
   //---------------------Validation-------------------------------------------

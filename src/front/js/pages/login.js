@@ -10,6 +10,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 let myToken = null;
 
 export const Login = (props) => {
+    
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,6 +78,8 @@ export const Login = (props) => {
       const data = await response.json()
       localStorage.setItem("admin", data.admin);
       props.setUser(data)
+      setStore({user: data})
+
 
       return render(data)
     }

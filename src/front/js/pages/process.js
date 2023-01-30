@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import propTypes from "prop-types";
 
 export const Process = (props) => {
+
+    if (!localStorage.getItem("jwt-token"))
+    return <></>
+
     const { store, actions } = useContext(Context);
     const [timeLeft, setTimeLeft] = useState(900);
     useEffect(() => {

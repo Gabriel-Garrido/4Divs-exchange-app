@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router-dom"
 
 export const RecordItemAdmin = (props) => {
 
+    console.log(props)
+
     const navigate = useNavigate()
 	useEffect(()=>{changeFetch(), bankAccountFetch(), userFetch()},[])
     let transaction = props.transactions
-    console.log(transaction.id)
 
     const [change, setChange] = useState([])
     const [bank_account, setBank_account] = useState([])
@@ -62,12 +63,13 @@ export const RecordItemAdmin = (props) => {
 
 
 //-----------------------------Change status Fetch------------------------------------
-    const changeStatus = async(newStatus) => {
+    const changeStatus = async(newStatus, id) => {
+        console.log(id)
         let data = {
             "status": newStatus
           } 
           try {
-            await fetch (`${props.URL_API}/api/edit_transaction/${transaction.id}`, {
+            await fetch (`${props.URL_API}/api/edit_transaction/${id}`, {
                 method: ["PUT"],
                 headers: {
                     "Content-type": "application/json; charset=utf-8",
@@ -75,8 +77,11 @@ export const RecordItemAdmin = (props) => {
                 body: JSON.stringify(data)
                     
             })
-            setStatus(newStatus)
-            console.log("se cambio el estado a " + newStatus + transaction.id)
+            .then(
+                data => {console.log(data.status)
+                setStatus(newStatus)
+                console.log("se cambio el estado a " + newStatus + id)}
+            )
 
           }catch (error) {
           console.error(error)
@@ -97,17 +102,19 @@ export const RecordItemAdmin = (props) => {
             </div>
             <p className="mb-1 text-start fs-5">{transaction.transaction_amount} CLP a {transform} USD a la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
             <p className="mb-1 text-start fs-6">Solicitado el 24-12-2022 14:30</p>
+            <button className="btn btn-warning" data-bs-toggle="modal" onClick={() => changeStatus("Pendiente", props.transactions.id)}>Pendiente</button>
 
+<p>ID: {transaction.id}</p>
             {status === 'Pendiente' ?<div className="input-group mb-3">
                 <input type="text" className="form-control" placeholder="ID de transferencia" aria-label="ID de transferencia" aria-describedby="button-addon2"></input>
 
-                <button className="btn btn-success" data-bs-toggle="modal" data-bs-target="#successModal" >Finalizar</button>
+                <button className="btn btn-success" data-bs-toggle="modal" data-bs-target={"#successModal"+transaction.id.toString()+""} >Finalizar</button>
                 
-                <button className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal" >Rechazar</button>
+                <button className="btn btn-danger" data-bs-toggle="modal" data-bs-target={"#rejectModal"+transaction.id.toString()+""} >Rechazar</button>                
                    
             </div>:<></>}
 
-            <div className="modal" tabIndex="-1" id="successModal">
+            <div className="modal" tabIndex="-1" id={"successModal"+transaction.id.toString()+""} >
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
@@ -119,15 +126,15 @@ export const RecordItemAdmin = (props) => {
 
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar {props.transactions.id}</button> 
 
-                    <button className="btn btn-dark" onClick={() => changeStatus("Finalizado")} data-bs-dismiss="modal">Confirmar el cambio</button>
+                    <button className="btn btn-dark" onClick={() => changeStatus("Finalizado", props.transactions.id)} data-bs-dismiss="modal">Confirmar el cambio</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="modal" tabIndex="-1" id="rejectModal">
+          <div className="modal" tabIndex="-1" id={"rejectModal"+transaction.id.toString()+""}>
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
@@ -139,7 +146,7 @@ export const RecordItemAdmin = (props) => {
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button className="btn btn-dark" onClick={() => changeStatus("Rechazado")} data-bs-dismiss="modal">Confirmar el cambio</button>
+                    <button className="btn btn-dark" onClick={() => changeStatus("Rechazado", props.transactions.id)} data-bs-dismiss="modal">Confirmar el cambio</button>
                 </div>
               </div>
             </div>
