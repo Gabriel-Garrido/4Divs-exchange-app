@@ -31,7 +31,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({user: data.user})
 			}
 			,
+			logout: () => {
+				setStore({user: null})
 
+			}
 		}
 	};
 };

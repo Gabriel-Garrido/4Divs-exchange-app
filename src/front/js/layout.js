@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, {useEffect, useState, useContext } from "react";
 import { BrowserRouter, Route, Routes, } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
@@ -18,14 +18,17 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { Context } from "./store/appContext";
+
 
 const Layout = () => {
-    const admin = localStorage.getItem("admin")
+    const { store, actions } = useContext(Context)
     const URL_API = process.env.BACKEND_URL
     const [rate, setRate] = useState("");
     const [changeId, setChangeId] = useState("")    
     const [user, setUser] = useState([])
     const [bankAccount, setBankAccount] = useState([])
+
   
 
 //-------------fetch GET change -------------------------------------
@@ -55,14 +58,14 @@ const Layout = () => {
                         <Route element={<Login setUser={setUser} URL_API={URL_API} user={user} />} path="/" />
                         <Route element={<RestorePassword URL_API={URL_API} user={user} />} path="/restorepassword" />
                         <Route element={<ChangePassword URL_API={URL_API} admin={user.admin} user={user} />} path="/changepassword" />
-                        {!user.admin ? <Route element={<Home rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} changeId={changeId} user={user} URL_API={URL_API} />} path="/home" /> : <></>}
-                        {!user.admin ? <Route element={<Process URL_API={URL_API} rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} user={user}/>} path="/process" /> : <></>}
-                        {!user.admin ? <Route element={<NewBankAccount URL_API={URL_API} bankAccount={bankAccount} user={user}/>} path="/newbankaccount" /> : <></>}
-                        {!user.admin ? <Route element={<Record URL_API={URL_API} user={user}/>} path="/record" /> : <></>}
-                        {admin? <Route element={<HomeAdmin URL_API={URL_API} user={user}/>} path="/homeadmin" /> : <></>}
-                        {admin? <Route element={<RateAdmin URL_API={URL_API} rate={rate} setRate={setRate} user={user}/>} path="/rateadmin" /> : <></>}
-                        {admin? <Route element={<ReportAdmin URL_API={URL_API} user={user}/>} path="/reportadmin" /> : <></>}
-                        {admin? <Route element={<VerificationAdmin URL_API={URL_API} user={user}/>} path="/verificationadmin" /> : <></>}
+                        {store.user != null && !store.user.admin ? <Route element={<Home rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} changeId={changeId} user={user} URL_API={URL_API} />} path="/home" /> : <></>}
+                        {store.user != null && !store.user.admin ? <Route element={<Process URL_API={URL_API} rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} user={user}/>} path="/process" /> : <></>}
+                        {store.user != null && !store.user.admin ? <Route element={<NewBankAccount URL_API={URL_API} bankAccount={bankAccount} user={user}/>} path="/newbankaccount" /> : <></>}
+                        {store.user != null && !store.user.admin ? <Route element={<Record URL_API={URL_API} user={user}/>} path="/record" /> : <></>}
+                        {store.user != null && store.user.admin? <Route element={<HomeAdmin URL_API={URL_API} user={user}/>} path="/homeadmin" /> : <></>}
+                        {store.user != null && store.user.admin? <Route element={<RateAdmin URL_API={URL_API} rate={rate} setRate={setRate} user={user}/>} path="/rateadmin" /> : <></>}
+                        {store.user != null && store.user.admin? <Route element={<ReportAdmin URL_API={URL_API} user={user}/>} path="/reportadmin" /> : <></>}
+                        {store.user != null && store.user.admin? <Route element={<VerificationAdmin URL_API={URL_API} user={user}/>} path="/verificationadmin" /> : <></>}
 
 
                     </Routes>

@@ -12,6 +12,7 @@ export const Navbar = (props) => {
 // --------------------------------logOut-------------------------------------
 	function logOut() {
 		localStorage.clear()
+		actions.logout()
 		navigate("/")
 }
 // --------------------------------/logOut-------------------------------------
@@ -22,10 +23,10 @@ export const Navbar = (props) => {
 			<div className="container">
 
  		{/* --------------------------------Options button------------------------------------- */}
-				{token?<button className="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i className="pe-none fas fa-bars"></i></button>
+				{token && store.user != null?<button className="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i className="pe-none fas fa-bars"></i></button>
 				:
 				<></>}
-				{token?
+				{token && store.user != null?
 				<div className="offcanvas offcanvas-start " data-bs-scroll="true" data-bs-backdrop="true" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 					<div className="offcanvas-header">
 						<p><i className="pe-none fas fa-bars"></i></p>
@@ -36,14 +37,14 @@ export const Navbar = (props) => {
 					<div className="offcanvas-body d-flex flex-column mb-6 justify-content-evenly" data-bs-toggle="offcanvas">
 
  					{/* --------------------------------User Options------------------------------------- */}
-							{!props.user.admin?<Link className="btn btn-dark" to="/home" type="button">  <i className="pe-none fas fa-home"></i> Home</Link> : <></>}
-							{!props.user.admin?<Link className="btn btn-dark" to="/record" type="button"> <i className="pe-none fas fa-history"></i> Historial</Link> : <></>}
-							{!props.user.admin?<Link className="btn btn-dark" to="/newbankaccount" type="button"><i className="pe-none fas fa-university"></i> Nueva cuenta bancaria</Link> : <></>}
+							{!store.user.admin?<Link className="btn btn-dark" to="/home" type="button">  <i className="pe-none fas fa-home"></i> Home</Link> : <></>}
+							{!store.user.admin?<Link className="btn btn-dark" to="/record" type="button"> <i className="pe-none fas fa-history"></i> Historial</Link> : <></>}
+							{!store.user.admin?<Link className="btn btn-dark" to="/newbankaccount" type="button"><i className="pe-none fas fa-university"></i> Nueva cuenta bancaria</Link> : <></>}
 
 					{/* --------------------------------Admin Options------------------------------------- */}
-							{props.user.admin?<Link className="btn btn-dark" to="/homeadmin" type="button"><i className="pe-none fas fa-user-check"></i> Ver transacciones</Link> : <></>}
-							{props.user.admin?<Link className="btn btn-dark" to="/rateadmin" type="button"><i className="pe-none fas fa-sync"></i> Cambiar Tasa</Link> : <></>}
-							{props.user.admin?<Link className="btn btn-dark" to="/reportadmin" type="button"><i className="pe-none fas fa-download"></i> Reportes</Link> : <></>}
+							{store.user.admin?<Link className="btn btn-dark" to="/homeadmin" type="button"><i className="pe-none fas fa-user-check"></i> Ver transacciones</Link> : <></>}
+							{store.user.admin?<Link className="btn btn-dark" to="/rateadmin" type="button"><i className="pe-none fas fa-sync"></i> Cambiar Tasa</Link> : <></>}
+							{store.user.admin?<Link className="btn btn-dark" to="/reportadmin" type="button"><i className="pe-none fas fa-download"></i> Reportes</Link> : <></>}
 
 							<Link className="btn btn-dark" to="/changepassword" type="button"><i className="pe-none fas fa-unlock-alt"></i> Cambiar contraseña</Link>
 							<button className="btn btn-danger" onClick={() => logOut()} type="button" ><i className="pe-none fas fa-sign-out-alt"></i> Cerrar sesión</button>
@@ -55,8 +56,7 @@ export const Navbar = (props) => {
 				<Link className="btn btn-dark" to="/" type="button">4Divs</Link>
 
 		{/* -----------------------Session options (disble) ------------------------- */}
-				<button className="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i className="pe-none fas fa-user"></i></button>
-				{store.user!=null?<p>bienvenido {store.user.email}</p>:<></>}
+				<button className="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i className="pe-none fas fa-user"></i>{store.user!=null? " " + store.user.email:<></>}</button>
 				<div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 					<div className="offcanvas-header">
 						<h3 className="offcanvas-title" id="offcanvasRightLabel">Future user function</h3>
