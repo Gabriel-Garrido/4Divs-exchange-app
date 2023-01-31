@@ -12,7 +12,6 @@ export const Navbar = (props) => {
 // --------------------------------logOut-------------------------------------
 	function logOut() {
 		localStorage.clear()
-		actions.logout()
 		navigate("/")
 }
 // --------------------------------/logOut-------------------------------------
@@ -23,13 +22,13 @@ export const Navbar = (props) => {
 			<div className="container">
 
  		{/* --------------------------------Options button------------------------------------- */}
-				{token && store.user != null?<button className="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i className="pe-none fas fa-bars"></i></button>
+				{token && store.user != null?<button className="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i className="pe-none fas fa-bars pe-none"></i></button>
 				:
 				<></>}
 				{token && store.user != null?
 				<div className="offcanvas offcanvas-start " data-bs-scroll="true" data-bs-backdrop="true" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 					<div className="offcanvas-header">
-						<p><i className="pe-none fas fa-bars"></i></p>
+						<p></p>
 						<h1 className="offcanvas-title" id="offcanvasScrollingLabel">Opciones</h1>
 						<button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 					</div>
@@ -47,13 +46,13 @@ export const Navbar = (props) => {
 							{store.user.admin?<Link className="btn btn-dark" to="/reportadmin" type="button"><i className="pe-none fas fa-download"></i> Reportes</Link> : <></>}
 
 							<Link className="btn btn-dark" to="/changepassword" type="button"><i className="pe-none fas fa-unlock-alt"></i> Cambiar contraseña</Link>
-							<button className="btn btn-danger" onClick={() => logOut()} type="button" ><i className="pe-none fas fa-sign-out-alt"></i> Cerrar sesión</button>
+							<button className="btn btn-danger" onClick={() => {actions.logout(); navigate("/") }} type="button" ><i className="pe-none fas fa-sign-out-alt"></i> Cerrar sesión</button>
 					</div>
 				</div>
 				:<></>
 			}
 
-				<Link className="btn btn-dark" to="/" type="button">4Divs</Link>
+				<Link className="btn btn-dark" to="/" type="button"><i class="fas fa-coins"></i> 4Divs <i class="fas fa-coins"></i></Link>
 
 		{/* -----------------------Session options (disble) ------------------------- */}
 				<button className="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i className="pe-none fas fa-user"></i>{store.user!=null? " " + store.user.email:<></>}</button>

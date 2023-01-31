@@ -5,15 +5,16 @@ import { RecordItemAdmin } from "../component/recordItemAdmin.js";
 
 
 export const HomeAdmin = (props) => {
-	console.log(props.user)
 	if (!localStorage.getItem("jwt-token"))
   	return <></>
 	useEffect(()=>{recordItemFetch()},[])
 
 	const { store, actions } = useContext(Context);
 	const [recordItems, setRecordItems] = useState([])
+	const [isLoading, setIsLoading] = useState(false);
 
 	const recordItemFetch = async () => {
+		setIsLoading(true)
 		try{
 			const response = await fetch(`${props.URL_API}/api/get_all_transactions`,{
 				method: ['GET'],
@@ -22,8 +23,10 @@ export const HomeAdmin = (props) => {
 				}});
 			const data = await response.json();
 			setRecordItems(data)
+			setIsLoading(false)
 		}catch (error) {
 			console.log('there is a problem with fetch:' + error.message);
+			setIsLoading(false)
 		}
 		}
 
@@ -50,13 +53,20 @@ export const HomeAdmin = (props) => {
 					
 				</div> 
 -------------------------------Vista de funcion de filtrar---------------------------------*/}
+				{isLoading? 
+				<div className="container text-center">
+					<div class="spinner-border" role="status">
+					<span class="sr-only">Cargando...</span>
+					</div>
+				</div>
+				:
 				<div className="card-body">
 					<div className="list-group">
 						{recordItems.map(item => {
 							return <RecordItemAdmin key={item.id} transactions={item} URL_API={props.URL_API}/>
 						})}
 					</div>
-				</div>
+				</div>}
 				<div className="card-footer text-muted">
 				</div>
 			</div>

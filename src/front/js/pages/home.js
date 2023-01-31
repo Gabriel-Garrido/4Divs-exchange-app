@@ -1,21 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BankAccountItem } from "../component/bankAccountItem.js";
 
 import "../../styles/home.css";
 
 
 export const Home = (props) => {
-	useEffect(() => {bankAccountFetch()},[])
+	const navigate = useNavigate()
 	
 	const { store, actions } = useContext(Context);
+	useEffect(() => {bankAccountFetch()},[])
 	const [mount, setMount] = useState("");
 	const [mountError, setMountError] = useState("");
 	const [conversion, setConversion] = useState("");
 	const [selectedBankAccount, setSelectedBankAccount] = useState("")
 
 	console.log("Change rate is = " + props.rate)
+
+
 
 	const handleChange = (e) => {
 		const regex = /^\d*$/;
@@ -32,7 +35,7 @@ export const Home = (props) => {
 //-------------fetch GET bank account-------------------------
 	const bankAccountFetch = async () => {
 		try{
-			const response = await fetch(`${props.URL_API}/api/get_bank_account_by_user_id/${props.user.id}`,{
+			const response = await fetch(`${props.URL_API}/api/get_bank_account_by_user_id/${store.user.id}`,{
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
@@ -51,7 +54,7 @@ export const Home = (props) => {
 	async function processTransaction() {
 
 		let data = {
-			"user_id": props.user.id, 
+			"user_id": store.user.id, 
 			"status": "", 
 			"change_id": 1, 
 			"bank_account_id": selectedBankAccount, 

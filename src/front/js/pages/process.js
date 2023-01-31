@@ -23,6 +23,7 @@ export const Process = (props) => {
     const seconds = timeLeft % 60;
 
     return (
+        <div className="container">
         <div className="card text-center">
             <div className="card-header fs-1">
                 En Proceso
@@ -50,6 +51,7 @@ export const Process = (props) => {
             </div>
             <div className="card-footer text-muted">
             </div>
+        </div>
         </div>
     );
 };

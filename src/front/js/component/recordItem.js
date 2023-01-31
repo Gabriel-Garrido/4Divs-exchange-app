@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export const RecordItem = (props) => {
 	useEffect(()=>{changeFetch(), bankAccountFetch()},[])
-    console.log(props.transactions)
     let transaction = props.transactions
 
     const [change, setChange] = useState([])
@@ -24,7 +23,6 @@ export const RecordItem = (props) => {
             console.log('there is a problem with fetch:' + error.message);
         }
         }
-        console.log(change)
 
     const bankAccountFetch = async () => {
         try{
@@ -39,7 +37,6 @@ export const RecordItem = (props) => {
             console.log('there is a problem with fetch:' + error.message);
         }
         }
-        console.log(bank_account)
 //------------------------------------/All Fetch----------------------------------------
 
 

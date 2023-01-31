@@ -54,11 +54,11 @@ async function changePasswordFetch() {
 
   let data = {
     "password": password2,
-    "email": props.user.email,
-    "admin": props.user.admin
+    "email": store.user.email,
+    "admin": store.user.admin
   } 
   try {
-    await fetch (`${props.URL_API}/api/edit_user/${props.user.id}`, {
+    await fetch (`${props.URL_API}/api/edit_user/${store.user.id}`, {
       method: ["PUT"],
 			headers: {
 			 "Content-type": "application/json; charset=utf-8",
@@ -74,7 +74,7 @@ async function changePasswordFetch() {
 //---------------------/Fetch-----------------------------------------
 
 function redirect() {
-  if (props.user.admin) {
+  if (store.user.admin) {
     navigate("/homeadmin")
     } else {
     navigate("/home");
@@ -103,8 +103,8 @@ function redirect() {
             {passwordError2 && <p className="text-danger">{passwordError2}</p>}
 
           </div>
-          {props.user.admin &&activateButton?<button to="/homeadmin" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
-          {!props.user.admin &&activateButton?<button to="/home" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
+          {store.user.admin &&activateButton?<button to="/homeadmin" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
+          {!store.user.admin &&activateButton?<button to="/home" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
           {!activateButton?<button className="btn btn-dark fs-4 col-md-5 disabled" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
 
           <div className="modal" tabIndex="-1" id="exampleModal">

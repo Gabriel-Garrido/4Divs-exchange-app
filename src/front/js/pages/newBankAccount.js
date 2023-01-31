@@ -92,7 +92,7 @@ export const NewBankAccount = (props) => {
 async function createBankAccount() {
 
 	let data = {
-		"user_id": props.user.id,
+		"user_id": store.user.id,
 		"country": "Chile",
 		"account_number": accountNumber,
 		"bank": bankName,
@@ -108,7 +108,7 @@ async function createBankAccount() {
 		},
 		body: JSON.stringify(data)
 	})
-	console.log(`Se creó la cuenta bancaria del usuario ${props.user.first_name} del banco ${bankName}`)
+	console.log(`Se creó la cuenta bancaria del usuario ${store.user.first_name} del banco ${bankName}`)
 	navigate("/home")
 }
 //-------------------POST new bank account----------------------------

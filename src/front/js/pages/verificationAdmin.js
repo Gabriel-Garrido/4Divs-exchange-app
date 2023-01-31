@@ -22,7 +22,7 @@ export const VerificationAdmin = () => {
 					<div className="d-flex flex-column">
 					<li className="list-group-item fs-4">Juan Perez
 						<button id="eye" type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<i className="fas fa-eye"></i>
+							<i className="pe-none fas fa-eye"></i>
 						</button>
 						<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div className="modal-dialog">
@@ -44,7 +44,7 @@ export const VerificationAdmin = () => {
 					</li>
 					</div>
 					<li className="list-group-item fs-4">Maria Parra <button id="eye" type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<i className="fas fa-eye"></i>
+							<i className="pe-none fas fa-eye"></i>
 						</button>
 						<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div className="modal-dialog">
@@ -65,7 +65,7 @@ export const VerificationAdmin = () => {
 						</div>
 					</li>
 					<li className="list-group-item fs-4">Pedro Garrido <button id="eye" type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<i className="fas fa-eye"></i>
+							<i className="pe-none fas fa-eye"></i>
 						</button>
 						<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div className="modal-dialog">

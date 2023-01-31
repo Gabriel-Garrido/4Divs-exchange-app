@@ -1,4 +1,4 @@
-const getState = ({ getStore, getActions, setStore }) => {
+	const getState = ({ getStore, getActions, setStore }) => {
 	const URL_API = process.env.BACKEND_URL
 	return {
 		store: {
@@ -28,12 +28,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await resp.json()
 					console.log(data)
 					localStorage.setItem("jwt-token", data.token);
-					setStore({user: data.user})
+					setStore({user: data.user, token: data.token})
 			}
 			,
 			logout: () => {
 				setStore({user: null})
-
+				localStorage.clear()
 			}
 		}
 	};

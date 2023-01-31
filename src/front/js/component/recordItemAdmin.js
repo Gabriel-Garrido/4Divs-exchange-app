@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom"
 
 export const RecordItemAdmin = (props) => {
 
-    console.log(props)
-
     const navigate = useNavigate()
 	useEffect(()=>{changeFetch(), bankAccountFetch(), userFetch()},[])
     let transaction = props.transactions
@@ -64,7 +62,6 @@ export const RecordItemAdmin = (props) => {
 
 //-----------------------------Change status Fetch------------------------------------
     const changeStatus = async(newStatus, id) => {
-        console.log(id)
         let data = {
             "status": newStatus
           } 
