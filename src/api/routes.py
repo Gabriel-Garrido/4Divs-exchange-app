@@ -230,4 +230,4 @@ def create_token():
     if found_user is  None:
         return jsonify({"msg": "Bad username or password"}), 401
     access_token = create_access_token(identity=found_user["id"])
-    return jsonify({ "token": access_token, "user_id": found_user["id"] })
+    return jsonify({ "token": access_token, "user": found_user })

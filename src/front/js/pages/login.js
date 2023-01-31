@@ -10,7 +10,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 let myToken = null;
 
 export const Login = (props) => {
-    
+  const { store, actions } = useContext(Context)
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,46 +40,23 @@ export const Login = (props) => {
 
 // ----------------------Login token---------------------------------
   const login_user = async (email, password) => {
-    console.log(email + " " + password)
-    const resp = await fetch(`${props.URL_API}/api/token`, {
-    method: ["POST"],
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ "email": email, "password": password })
-    })
-      if(!resp.ok) {
-        setLoginError(true)
-        throw Error("There was a problem in the login request")
-      }
-      if(resp.status === 401){
-        setLoginError(true)
-        throw("Invalid credentials")
-        
-      }else if(resp.status === 400){
-        setLoginError(true)
-        throw ("Invalid email or password format")
-
-        }
-        const data = await resp.json()
-
-        localStorage.setItem("jwt-token", data.token);
-        loginDataFetch(email)
+        await actions.login(email, password)
+        loginDataFetch()
       }
 // ----------------------/Login token----------------------------------
 
 
 // ----------------------GET user data---------------------------------
-    async function loginDataFetch(email) {
+    async function loginDataFetch() {
 
-      const response = await fetch(`${props.URL_API}/api/get_user_by_email/${email}`, {
+      const response = await fetch(`${props.URL_API}/api/get_user_by_email/${store.user.email}`, {
         method: ["GET"],
         headers: {
           "Content-type": "application/json; charset=utf-8",
         }});
       const data = await response.json()
       localStorage.setItem("admin", data.admin);
-      props.setUser(data)
-      setStore({user: data})
-
+      // props.setUser(data)
 
       return render(data)
     }

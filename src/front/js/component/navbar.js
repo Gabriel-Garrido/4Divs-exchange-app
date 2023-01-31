@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Context } from "../store/appContext";
+
 
 
 export const Navbar = (props) => {
-
+	const { store, actions } = useContext(Context)
 	const navigate = useNavigate()
 	const token = localStorage.getItem("jwt-token")
 
@@ -54,7 +56,7 @@ export const Navbar = (props) => {
 
 		{/* -----------------------Session options (disble) ------------------------- */}
 				<button className="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i className="pe-none fas fa-user"></i></button>
-
+				{store.user!=null?<p>bienvenido {store.user.email}</p>:<></>}
 				<div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 					<div className="offcanvas-header">
 						<h3 className="offcanvas-title" id="offcanvasRightLabel">Future user function</h3>

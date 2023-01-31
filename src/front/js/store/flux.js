@@ -1,41 +1,37 @@
 const getState = ({ getStore, getActions, setStore }) => {
+	const URL_API = process.env.BACKEND_URL
 	return {
 		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			],
-			user: ""
+			user: null
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
+			login: async(email, password) => {
+				console.log(email + " " + password)
+				const resp = await fetch(`${URL_API}/api/token`, {
+				method: ["POST"],
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ "email": email, "password": password })
+				})
+				if(!resp.ok) {
+					setLoginError(true)
+					throw Error("There was a problem in the login request")
+				}
+				if(resp.status === 401){
+					setLoginError(true)
+					throw("Invalid credentials")
+					
+				}else if(resp.status === 400){
+					setLoginError(true)
+					throw ("Invalid email or password format")
 
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+					}
+					const data = await resp.json()
+					console.log(data)
+					localStorage.setItem("jwt-token", data.token);
+					setStore({user: data.user})
 			}
+			,
+
 		}
 	};
 };
