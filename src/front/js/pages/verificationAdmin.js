@@ -5,8 +5,11 @@ import "../../styles/home.css";
 export const VerificationAdmin = () => {
 	const { store, actions } = useContext(Context);
 
+	if (!localStorage.getItem("jwt-token"))
+  	return <></>
+
 	return (
-		<div className="container">
+		<div className="container col-10 offset-1 col-md-6 offset-md-3">
 			<div className="card text-center">
 				<div className="card-header fs-1">
 						Nuevas Verificaciones
@@ -19,7 +22,7 @@ export const VerificationAdmin = () => {
 					<div className="d-flex flex-column">
 					<li className="list-group-item fs-4">Juan Perez
 						<button id="eye" type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<i className="fas fa-eye"></i>
+							<i className="pe-none fas fa-eye"></i>
 						</button>
 						<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div className="modal-dialog">
@@ -41,7 +44,7 @@ export const VerificationAdmin = () => {
 					</li>
 					</div>
 					<li className="list-group-item fs-4">Maria Parra <button id="eye" type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<i className="fas fa-eye"></i>
+							<i className="pe-none fas fa-eye"></i>
 						</button>
 						<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div className="modal-dialog">
@@ -62,7 +65,7 @@ export const VerificationAdmin = () => {
 						</div>
 					</li>
 					<li className="list-group-item fs-4">Pedro Garrido <button id="eye" type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<i className="fas fa-eye"></i>
+							<i className="pe-none fas fa-eye"></i>
 						</button>
 						<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div className="modal-dialog">

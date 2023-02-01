@@ -5,8 +5,11 @@ import "../../styles/home.css";
 export const ReportAdmin = () => {
   const { store, actions } = useContext(Context);
 
+  if (!localStorage.getItem("jwt-token"))
+  	return <></>
+
   return (
-    <div className="container">
+    <div className="container col-10 offset-1 col-md-6 offset-md-3">
       <div className="text-center mt-5">
 
           <div className="card text-center">

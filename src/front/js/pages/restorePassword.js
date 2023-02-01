@@ -6,6 +6,10 @@ import { sendEmail } from "../service/emailService.js";
 export const RestorePassword = () => {
 	const { store, actions } = useContext(Context);
 
+	if (!localStorage.getItem("jwt-token"))
+  	return <></>
+
+//----------------------------Validations--------------------------------	
 	const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 	const [email, setEmail] = useState("");
@@ -30,9 +34,11 @@ export const RestorePassword = () => {
 		}
 		setEmail(e.target.value);
 	  };
+//----------------------------/Validations--------------------------------	
+
 
 	return (
-		<div className="container">
+		<div className="container col-10 offset-1 col-md-6 offset-md-3">
 	<div className="card text-center">
 
   <div className="card-header fs-1">

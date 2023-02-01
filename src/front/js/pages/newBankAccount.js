@@ -1,29 +1,35 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { Link, useNavigate } from "react-router-dom"
 
-export const NewBankAccount = () => {
+
+export const NewBankAccount = (props) => {
 	const { store, actions } = useContext(Context);
-	
+	const navigate = useNavigate()
+	if (!localStorage.getItem("jwt-token"))
+  	return <></>
 
 //-----------------------Validations--------------------------------
-	const LetrasRegex = /^[a-zA-Z]+$/;
-	const NumerosRegex = /^\d{1,14}$/;
-	const IdentidadRegex = /^[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]$/;
+	const lettersRegex = /^[a-zA-Z]+$/;
+	const numbersRegex = /^\d{1,14}$/;
+	const identityRegex = /^[0-9]{9}-[0-9Kk]$/;
 
 	const [bankName, setBankName] = useState("");
 	const [bankNameError, setBankNameError] = useState("");	
-	const [accountType, setAccountType] = useState("");
-	const [accountTypeError, setAccountTypeError] = useState("");
+	const [documentType, setDocumentType] = useState("");
+	const [documentTypeError, setDocumentTypeError] = useState("");
 	const [holderName, setHolderName] = useState("");
 	const [holderNameError, setHolderNameError] = useState("");
 	const [accountNumber, setAccountNumber] = useState("");
 	const [accountNumberError, setAccountNumberError] = useState("");
 	const [identity, setIdentity] = useState("");
 	const [identityError, setIdentityError] = useState("");
+	const [buttonActivate, setButtonActivate] = useState(false);
+
 
 	const handleBankNameChange = (e) => {
-		if (!LetrasRegex.test(e.target.value)) {
+		if (!lettersRegex.test(e.target.value)) {
 			setBankNameError("Sólo letras son válidas.");
 		} else {
 			setBankNameError("");
@@ -31,46 +37,84 @@ export const NewBankAccount = () => {
 		setBankName(e.target.value);
 	  };
 
-	const handleAccountTypeChange = (e) => {
-		if (!LetrasRegex.test(e.target.value)) {
-			setAccountTypeError("Sólo letras son válidas.");
+	const handleDocumentTypeChange = (e) => {
+		if (!lettersRegex.test(e.target.value)) {
+			setDocumentTypeError("Sólo letras son válidas.");
 		} else {
-			setAccountTypeError("");
+			setDocumentTypeError("");
 		}
-		setAccountType(e.target.value);
+		setDocumentType(e.target.value);
+		validatebutton()
 	  };
 
 	const handleHolderNameChange = (e) => {
-		if (!LetrasRegex.test(e.target.value)) {
+		if (!lettersRegex.test(e.target.value)) {
 		  setHolderNameError("Sólo letras son válidas.");
 		} else {
 		  setHolderNameError("");
 		}
 		setHolderName(e.target.value);
+		validatebutton()
 	  };
 
 	  const handleAccountNumberChange = (e) => {
-		if (!NumerosRegex.test(e.target.value)) {
+		if (!numbersRegex.test(e.target.value)) {
 		  setAccountNumberError("Sólo numeros son válidas,maximo 14 digitos.");
 		} else {
 		  setAccountNumberError("");
 		}
 		setAccountNumber(e.target.value);
+		validatebutton()
 	  };
 
 	  const handleIdentityChange = (e) => {
-		if (!IdentidadRegex.test(e.target.value)) {
-			setIdentityError("Formato valido ej. 1.111.111-1");
+		if (!identityRegex.test(e.target.value)) {
+			setIdentityError("Formato valido sin puntos y con guión ej. 1111111-1");
 		} else {
 			setIdentityError("");
 		}
 		setIdentity(e.target.value);
+		validatebutton()
+	  }
+
+	  function validatebutton() {
+		if (bankNameError!="" && documentTypeError!="" && holderNameError!="" && accountNumberError!="" && identityError!="") {
+			setButtonActivate(true)
+		}
+		else{
+			setButtonActivate(true)
+		}
 	  }
 //-----------------------/Validations--------------------------------
 
 
+//-------------------POST new bank account----------------------------
+async function createBankAccount() {
+
+	let data = {
+		"user_id": store.user.id,
+		"country": "Chile",
+		"account_number": accountNumber,
+		"bank": bankName,
+		"account_holder": holderName,
+		"document_type": documentType,
+		"document_id": identity
+		} 
+
+	await fetch(`${props.URL_API}/api/add_bank_account`,{
+		method: ["POST"],
+		headers: {
+		 "Content-type": "application/json; charset=utf-8",
+		},
+		body: JSON.stringify(data)
+	})
+	console.log(`Se creó la cuenta bancaria del usuario ${store.user.first_name} del banco ${bankName}`)
+	navigate("/home")
+}
+//-------------------POST new bank account----------------------------
+
 	return (
-		<div className="container">
+		<div className="container col-10 offset-1 col-md-6 offset-md-3">
 			<div className="card text-center row">
 				<div className="card-header fs-1">
 					Nueva Cuenta Bancaria
@@ -83,11 +127,6 @@ export const NewBankAccount = () => {
 							{bankNameError && <p className="text-danger">{bankNameError}</p>}
 						</div>
 
-						<label htmlFor="accountType">Tipo de Cuenta</label>
-						<div>
-							<input type="text" id="accountType" name="accountType" requiredminLength="4" maxLength="17" size="35" onChange={handleAccountTypeChange}/>
-							{accountTypeError && <p className="text-danger">{accountTypeError}</p>}
-						</div>
 
 						<label htmlFor="accountNumber">Numero de Cuenta</label>
 						<div>
@@ -101,13 +140,19 @@ export const NewBankAccount = () => {
 							{holderNameError && <p className="text-danger">{holderNameError}</p>}
 						</div>
 
+						<label htmlFor="documentType">Tipo de documento</label>
+						<div>
+							<input type="text" id="documentType" name="documentType" requiredminLength="4" maxLength="17" size="35" onChange={handleDocumentTypeChange}/>
+							{documentTypeError && <p className="text-danger">{documentTypeError}</p>}
+						</div>
+
 						<label htmlFor="identity">Documento de Identidad</label>
 						<div>
 							<input type="text" id="identity" name="identity" required minLength="4" maxLength="17" size="35" onChange={handleIdentityChange}/>
 							{identityError && <p className="text-danger">{identityError}</p>}
 						</div>
 					</div>
-        			<a href="#" className="btn btn-dark col-8 offset-2 col-md-2 offset-md-5 mt-4">Guardar</a>
+        			{buttonActivate?<a href="#" className="btn btn-dark col-8 offset-2 col-md-2 offset-md-5 mt-4" onClick={createBankAccount}>Guardar</a>:<a className="btn btn-secondary col-8 offset-2 col-md-2 offset-md-5 mt-4" >Guardar</a>}
 				</div>
 				<div className="card-footer text-muted"></div>
 			</div>

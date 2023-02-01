@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 export const RecordItem = (props) => {
 	useEffect(()=>{changeFetch(), bankAccountFetch()},[])
-    console.log(props.transactions)
     let transaction = props.transactions
 
     const [change, setChange] = useState([])
     const [bank_account, setBank_account] = useState([])
 
 
+//------------------------------------All Fetch----------------------------------------
     const changeFetch = async () => {
         try{
             const response = await fetch(`${props.URL_API}/api/get_change/${transaction.change_id}`,{
@@ -23,7 +23,6 @@ export const RecordItem = (props) => {
             console.log('there is a problem with fetch:' + error.message);
         }
         }
-        console.log(change)
 
     const bankAccountFetch = async () => {
         try{
@@ -38,11 +37,7 @@ export const RecordItem = (props) => {
             console.log('there is a problem with fetch:' + error.message);
         }
         }
-        console.log(bank_account)
-
-
-
-
+//------------------------------------/All Fetch----------------------------------------
 
 
     let statusPill = null
@@ -62,7 +57,7 @@ export const RecordItem = (props) => {
 		<li className="list-group-item d-flex justify-content-between align-items-start">
             <div className="ms-2 me-auto">
                 <div className="fw-bold">{transaction.date_time}</div>
-                <p>{transaction.transaction_amount} CLP a {transform.toFixed(2)} USD en {bank_account.account_number} del banco {bank_account.bank}</p>
+                <p>{transaction.transaction_amount} CLP a {transform.toFixed(2)} USD en la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
             </div>
             <span className={statusPill}>{transaction.status}</span>
 		</li>

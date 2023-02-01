@@ -8,8 +8,8 @@ from flask_jwt_extended import create_access_token, jwt_required
 
 api = Blueprint('api', __name__)
 
-# User endpoints
 
+# -----------------------User endpoints-------------------------------
 @api.route('/get_all_users/', methods=['GET'])
 def get_all_users():
     users = User.query.all()
@@ -23,8 +23,7 @@ def get_all_users():
 def get_user(user_id):
     user = User.query.get(user_id)
     if user is None:
-        return "user not found", 404
-            
+        return "user not found", 404   
     return user.serialize(), 200
 
 @api.route('/get_user_by_email/<user_email>', methods=['GET'])
@@ -32,14 +31,11 @@ def get_user_by_email(user_email):
     user = User.query.filter(User.email == user_email).first()
     if user is None:
         return "user not found", 404
-            
     return user.serialize(), 200    
     
-
 @api.route('/add_user', methods=['POST'])
 def add_user():
     req_Json = request.get_json()
-
     user = User(req_Json["rut"], req_Json["email"],req_Json["password"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
     db.session.add(user)
     db.session.commit()
@@ -49,8 +45,7 @@ def add_user():
 def edit_user(user_id):
     user = User.query.get(user_id)
     if user is None:
-        return "user not found", 404
-            
+        return "user not found", 404    
     req_Json = request.get_json()
     if req_Json["password"] is not None:
         user.password = req_Json["password"]
@@ -59,7 +54,6 @@ def edit_user(user_id):
         db.session.add(user)
         db.session.commit()
         return user.serialize(), 200
-
     return "incorrect param", 400
 
 @api.route('delete_user/<int:user_id>', methods=['DELETE'])
@@ -67,14 +61,13 @@ def delete_user(user_id):
     user = User.query.get(user_id)
     if user is None:
         return "user not found", 404
-            
     db.session.delete(user)
     db.session.commit()
     return "user was deleted", 200
 
-# Change endpoints
-#cambios realizados 19ene en get all y post
 
+
+# -----------------------Change endpoints-------------------------------
 @api.route('/get_all_changes/', methods=['GET'])
 def get_all_changes():
     changes = Change.query.all()
@@ -84,7 +77,6 @@ def get_all_changes():
         changes = list(map(lambda x: x.serialize(),changes))
         return jsonify(changes), 200
 
-#endpoint funcionando ok
 @api.route('/get_change/<int:change_id>', methods=['GET'])
 def get_change(change_id):
     changes = list(map(lambda x: x.serialize(),Change.query.all()))
@@ -97,39 +89,29 @@ def get_change(change_id):
 @api.route('add_change', methods=['POST'])
 def add_change():
     req_Json = request.get_json()
-
-
     change = Change(req_Json["origin_exchange"],req_Json["destination_exchange"], req_Json["exchange_rate"])
     db.session.add(change)
     db.session.commit()
     return "change was created", 201
 
-
-
 @api.route('edit_change/<int:change_id>', methods=['PUT'])
 def edit_change(change_id):
+    change = Change.query.get(change_id)
+    if change is None:
+        return "change not found", 404    
     req_Json = request.get_json()
-    for i, change in enumerate(change_temp):
-        if change["id"] == change_id:
-            change_temp[i] = req_Json
-            change_temp[i]["id"] = change_id
-            return jsonify(change_temp), 200
-    return "change rate not found", 404
-
-@api.route('delete_change/<int:change_id>', methods=['DELETE'])
-def delete_change(change_id):
-    for i, change in enumerate(change_temp):
-        if change["id"] == change_id:
-            del change_temp[i]
-            return jsonify(change_temp), 200
-        
-    return "change rate not found", 404
-    
+    if req_Json["exchange_rate"] is not None:
+        change.origin_exchange = req_Json["origin_exchange"]
+        change.destination_exchange = req_Json["destination_exchange"]
+        change.exchange_rate = req_Json["exchange_rate"]
+        db.session.add(change)
+        db.session.commit()
+        return change.serialize(), 200
+    return "incorrect param", 400
 
 
-# Bank_account endpoints
 
-
+# -----------------------Bank account endpoints-------------------------------
 @api.route('/get_all_bank_accounts/', methods=['GET'])
 def get_all_bank_account():
     bank_accounts = Bank_account.query.all()
@@ -141,12 +123,10 @@ def get_all_bank_account():
 
 @api.route('/get_bank_account/<int:bank_account_id>', methods=['GET'])
 def get_bank_account(bank_account_id):
-    bank_accounts = list(map(lambda x: x.serialize(),Bank_account.query.all()))
-    for bank_account in bank_accounts:
-        if bank_account["id"] == bank_account_id:
-            return jsonify(bank_account), 200
-        else:
-            return "bank account not found", 404
+    bank_account = Bank_account.query.get(bank_account_id)
+    if bank_account is None:
+        return "bank_account not found", 404   
+    return bank_account.serialize(), 200
 
 @api.route('/get_bank_account_by_user_id/<int:user_id>', methods=['GET'])
 def get_bank_account_by_user_id(user_id):
@@ -157,19 +137,14 @@ def get_bank_account_by_user_id(user_id):
             user_bank_accounts.append(bank_account)
     return jsonify(user_bank_accounts), 200
 
-   #cambios realizados 19ene         
-
 @api.route('add_bank_account', methods=['POST'])
 def add_bank_account():
     req_Json = request.get_json()
-
-
     bank_account = Bank_account(req_Json["user_id"], req_Json["country"], req_Json["account_number"], req_Json["bank"], req_Json["account_holder"], req_Json["document_type"], req_Json["document_id"])
     db.session.add(bank_account)
     db.session.commit()
     return "bank account created", 201
     
-
 @api.route('edit_bank_account/<int:bank_account_id>', methods=['PUT'])
 def edit_bank_account(bank_account_id):
     req_Json = request.get_json()
@@ -180,7 +155,6 @@ def edit_bank_account(bank_account_id):
             return jsonify(bank_account_temp), 200
     return "bank account not found", 404
 
-
 @api.route('delete_bank_account/<int:bank_account_id>', methods=['DELETE'])
 def delete_bank_account(bank_account_id):
     for i, bank_account in enumerate(bank_account_temp):
@@ -190,10 +164,9 @@ def delete_bank_account(bank_account_id):
     return "bank account not found", 404
 
 
-# Transaction endpoints
 
+# -----------------------Transactions endpoints-------------------------------
 @api.route('/get_all_transactions/', methods=['GET'])
-    # agregar paginacion
 def get_all_transaction():
     transactions = Transaction.query.all()
     if (transactions == []):
@@ -201,7 +174,6 @@ def get_all_transaction():
     else:
         transactions = list(map(lambda x: x.serialize(),transactions))
         return jsonify(transactions), 200
-
 
 @api.route('/get_transaction/<int:transaction_id>', methods=['GET'])
 def get_transaction(transaction_id):
@@ -212,13 +184,19 @@ def get_transaction(transaction_id):
         else:
             return "transaction not found", 404
 
+@api.route('/get_transaction_by_user_id/<int:user_id>', methods=['GET'])
+def get_transaction_by_user_id(user_id):
+    all_transactions = list(map(lambda x: x.serialize(),Transaction.query.all()))
+    user_transactions = []
+    for transaction in all_transactions:
+        if transaction["user_id"] == user_id:
+            user_transactions.append(transaction)
+    return jsonify(user_transactions), 200
 
 @api.route('/add_transaction', methods=['POST'])
-# @jwt_required
+@jwt_required()
 def add_transaction():
     req_Json = request.get_json()
-    
-
     transaction = Transaction(req_Json["user_id"], req_Json["change_id"], req_Json["bank_account_id"], req_Json["transaction_amount"], req_Json["transfer_bank_id"])
     db.session.add(transaction)
     db.session.commit()
@@ -226,19 +204,29 @@ def add_transaction():
 
 @api.route('edit_transaction/<int:transaction_id>', methods=['PUT'])
 def edit_transaction(transaction_id):
+    transaction = Transaction.query.get(transaction_id)
+    if transaction is None:
+        return "transaction not found", 404    
     req_Json = request.get_json()
-    transaction_temp[transaction_id] = req_Json
-    return jsonify(transaction_temp), 200
+    if req_Json["status"] is not None:
+        transaction.status = req_Json["status"]
+        db.session.add(transaction)
+        db.session.commit()
+    return "Status de la transacción cambiado a " + req_Json["status"], 200
 
 @api.route('delete_transaction/<int:transaction_id>', methods=['DELETE'])
 def delete_transaction(transaction_id):
-    req_Json = request.get_json()
-    del transaction_temp[transaction_id]
-    return jsonify(transaction_temp), 200
+    transaction = User.query.get(transaction_id)
+    if transaction is None:
+        return "transaction not found", 404
+            
+    db.session.delete(transaction)
+    db.session.commit()
+    return "transaction was deleted", 200
 
-    return jsonify(response_body), 200
 
 
+# -----------------------Token endpoints-------------------------------
 @api.route('/token', methods=['POST'])
 def create_token():
     users = list(map(lambda x: x.serializeLogin(),User.query.all()))
@@ -251,4 +239,4 @@ def create_token():
     if found_user is  None:
         return jsonify({"msg": "Bad username or password"}), 401
     access_token = create_access_token(identity=found_user["id"])
-    return jsonify({ "token": access_token, "user_id": found_user["id"] })
+    return jsonify({ "token": access_token, "user": found_user })

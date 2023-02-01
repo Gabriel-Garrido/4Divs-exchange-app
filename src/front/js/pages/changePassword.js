@@ -7,9 +7,11 @@ export const ChangePassword = (props) => {
   const navigate = useNavigate()
 
 	const { store, actions } = useContext(Context);
+  if (!localStorage.getItem("jwt-token"))
+  	return <></>
   
   
-  //---------------------Validation-----------------------------
+  //---------------------Validation-------------------------------------------
   const [activateButton, setActivateButton] = useState(false)
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
   const [password1, setPassword1] = useState("");
@@ -45,19 +47,18 @@ export const ChangePassword = (props) => {
         setActivateButton(false)
     }
   }
-//---------------------/Validation-----------------------------
+//---------------------/Validation-------------------------------------
 
-//---------------------Fetch-----------------------------
-
+//---------------------Fetch------------------------------------------
 async function changePasswordFetch() {
 
   let data = {
     "password": password2,
-    "email": props.user.email,
-    "admin": props.user.admin
+    "email": store.user.email,
+    "admin": store.user.admin
   } 
   try {
-    await fetch (`${props.URL_API}/api/edit_user/${props.user.id}`, {
+    await fetch (`${props.URL_API}/api/edit_user/${store.user.id}`, {
       method: ["PUT"],
 			headers: {
 			 "Content-type": "application/json; charset=utf-8",
@@ -70,11 +71,10 @@ async function changePasswordFetch() {
   console.error(error)
 }
 }
-
-//---------------------/Fetch-----------------------------
+//---------------------/Fetch-----------------------------------------
 
 function redirect() {
-  if (props.user.admin) {
+  if (store.user.admin) {
     navigate("/homeadmin")
     } else {
     navigate("/home");
@@ -83,7 +83,7 @@ function redirect() {
 
 	return (
 
-    <div className="container">
+    <div className="container col-10 offset-1 col-md-6 offset-md-3">
       <div className="card text-center">
 
         <div className="card-header fs-1">
@@ -103,8 +103,8 @@ function redirect() {
             {passwordError2 && <p className="text-danger">{passwordError2}</p>}
 
           </div>
-          {props.user.admin &&activateButton?<button to="/homeadmin" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
-          {!props.user.admin &&activateButton?<button to="/home" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
+          {store.user.admin &&activateButton?<button to="/homeadmin" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
+          {!store.user.admin &&activateButton?<button to="/home" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
           {!activateButton?<button className="btn btn-dark fs-4 col-md-5 disabled" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
 
           <div className="modal" tabIndex="-1" id="exampleModal">

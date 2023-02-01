@@ -5,6 +5,7 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
+# -----------------------------User Model-------------------------------
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -41,7 +42,6 @@ class User(db.Model):
         self.department = department
         self.admin = False
     
-
     def __repr__(self):
         return f"{self.rut}:{self.email}:{self.password}:{self.first_name}:{self.last_name}:{self.phone}:{self.birthdate}:{self.nationality}:{self.ocupation}:{self.particular_address}:{self.department}"
 
@@ -71,6 +71,8 @@ class User(db.Model):
             "admin": self.admin
         }
 
+
+# -----------------------------Change Model-------------------------------
 class Change(db.Model):
     __tablename__ = 'changes'
     id = db.Column(db.Integer, primary_key=True)
@@ -95,6 +97,8 @@ class Change(db.Model):
             "exchange_rate": self.exchange_rate,
         }
 
+
+# -----------------------------Bank account Model-------------------------------
 class Bank_account(db.Model):
     __tablename__  = 'bank_accounts'
     id = db.Column(db.Integer, primary_key=True)
@@ -131,6 +135,8 @@ class Bank_account(db.Model):
             "document_id": self.document_id,
         }
 
+
+# -----------------------------Transaction Model-------------------------------
 class Transaction(db.Model):
     __tablename__ = 'transactions'
     id = db.Column(db.Integer, primary_key=True)
@@ -149,8 +155,6 @@ class Transaction(db.Model):
         self.bank_account_id = bank_account_id
         self.transaction_amount = transaction_amount
         self.transfer_bank_id = transfer_bank_id
-
-        
 
     def __repr__(self):
         return f"{self.user_id}:{self.status}:{self.change_id}:{self.bank_account_id}:{self.transaction_amount}:{self.transfer_bank_id}"

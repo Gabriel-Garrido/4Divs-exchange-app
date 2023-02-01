@@ -10,6 +10,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 let myToken = null;
 
 export const Login = (props) => {
+  const { store, actions } = useContext(Context)
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,48 +38,29 @@ export const Login = (props) => {
     setPassword(e.target.value);
   };
 
-// ----------------------Login token-------------------------
+// ----------------------Login token---------------------------------
   const login_user = async (email, password) => {
-    console.log(email + " " + password)
-    const resp = await fetch(`${props.URL_API}/api/token`, {
-    method: ["POST"],
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ "email": email, "password": password })
-    })
-      if(!resp.ok) {
-        setLoginError(true)
-        throw Error("There was a problem in the login request")
+        await actions.login(email, password)
+        loginDataFetch()
       }
-      if(resp.status === 401){
-        setLoginError(true)
-        throw("Invalid credentials")
-        
-      }else if(resp.status === 400){
-        setLoginError(true)
-        throw ("Invalid email or password format")
-
-        }
-        const data = await resp.json()
-
-        localStorage.setItem("jwt-token", data.token);
-        loginDataFetch(email)
-      }
-// ----------------------/Login token-------------------------
+// ----------------------/Login token----------------------------------
 
 
-// ----------------------GET user data-------------------------
-    async function loginDataFetch(email) {
+// ----------------------GET user data---------------------------------
+    async function loginDataFetch() {
 
-      const response = await fetch(`${props.URL_API}/api/get_user_by_email/${email}`, {
+      const response = await fetch(`${props.URL_API}/api/get_user_by_email/${store.user.email}`, {
         method: ["GET"],
         headers: {
           "Content-type": "application/json; charset=utf-8",
         }});
       const data = await response.json()
-      props.setUser(data)
+      localStorage.setItem("admin", data.admin);
+      // props.setUser(data)
+
       return render(data)
     }
-// ----------------------/GET user data-------------------------
+// ----------------------/GET user data--------------------------------
     
   function render(loginData) { 
       console.log(loginData)
@@ -90,7 +72,7 @@ export const Login = (props) => {
     }
 
   return (
-    <div className=" container text-center">
+    <div className=" container text-center col-10 offset-1 col-md-6 offset-md-3">
       <div className="card text-center">
         <div className="card-header fs-1">Bienvenido</div>
         <div className="card-body">
