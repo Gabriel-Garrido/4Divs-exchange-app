@@ -31,7 +31,7 @@ export const HomeAdmin = (props) => {
 		}
 
 	return (
-		<div className="container text-center mt-5">
+		<div className="container text-center mt-5 col-10 offset-1 col-md-6 offset-md-3">
 			<div className="card text-center">
 
 {/* -------------------------------Vista de funcion de filtrar---------------------------------
@@ -55,8 +55,8 @@ export const HomeAdmin = (props) => {
 -------------------------------Vista de funcion de filtrar---------------------------------*/}
 				{isLoading? 
 				<div className="container text-center">
-					<div class="spinner-border" role="status">
-					<span class="sr-only">Cargando...</span>
+					<div className="spinner-border" role="status">
+					<span className="sr-only">Cargando...</span>
 					</div>
 				</div>
 				:

@@ -17,8 +17,7 @@ export const Navbar = (props) => {
 // --------------------------------/logOut-------------------------------------
 
 	return (
-		<div>
-		<nav className="navbar navbar-light bg-light mb-4">
+		<nav className="navbar navbar-light sticky-top bg-light mb-4">
 			<div className="container">
 
  		{/* --------------------------------Options button------------------------------------- */}
@@ -52,7 +51,7 @@ export const Navbar = (props) => {
 				:<></>
 			}
 
-				<Link className="btn btn-dark" to="/" type="button"><i class="fas fa-coins"></i> 4Divs <i class="fas fa-coins"></i></Link>
+				<Link className="btn btn-dark" to="/" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>
 
 		{/* -----------------------Session options (disble) ------------------------- */}
 				<button className="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i className="pe-none fas fa-user"></i>{store.user!=null? " " + store.user.email:<></>}</button>
@@ -75,6 +74,6 @@ export const Navbar = (props) => {
 
 			</div>
 		</nav>
-		</div>
+		
 	);
 }

@@ -103,12 +103,13 @@ export const RecordItemAdmin = (props) => {
 
 <p>ID: {transaction.id}</p>
             {status === 'Pendiente' ?<div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="ID de transferencia" aria-label="ID de transferencia" aria-describedby="button-addon2"></input>
-
-                <button className="btn btn-success" data-bs-toggle="modal" data-bs-target={"#successModal"+transaction.id+""} >Finalizar</button>
                 
-                <button className="btn btn-danger" data-bs-toggle="modal" data-bs-target={"#rejectModal"+transaction.id+""} >Rechazar</button>                
-                   
+                    <input type="text" className="form-control" placeholder="ID de transferencia" aria-label="ID de transferencia" aria-describedby="button-addon2"></input>
+
+                    <button className="btn btn-success" data-bs-toggle="modal" data-bs-target={"#successModal"+transaction.id+""} >Finalizar</button>
+                    
+                    <button className="btn btn-danger" data-bs-toggle="modal" data-bs-target={"#rejectModal"+transaction.id+""} >Rechazar</button>                
+                
             </div>:<></>}
 
             <div className="modal" tabIndex="-1" id={"successModal"+transaction.id+""} >

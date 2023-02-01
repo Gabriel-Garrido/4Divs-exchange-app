@@ -114,7 +114,7 @@ async function createBankAccount() {
 //-------------------POST new bank account----------------------------
 
 	return (
-		<div className="container">
+		<div className="container col-10 offset-1 col-md-6 offset-md-3">
 			<div className="card text-center row">
 				<div className="card-header fs-1">
 					Nueva Cuenta Bancaria

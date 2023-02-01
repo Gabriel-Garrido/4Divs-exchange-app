@@ -184,6 +184,15 @@ def get_transaction(transaction_id):
         else:
             return "transaction not found", 404
 
+@api.route('/get_transaction_by_user_id/<int:user_id>', methods=['GET'])
+def get_transaction_by_user_id(user_id):
+    all_transactions = list(map(lambda x: x.serialize(),Transaction.query.all()))
+    user_transactions = []
+    for transaction in all_transactions:
+        if transaction["user_id"] == user_id:
+            user_transactions.append(transaction)
+    return jsonify(user_transactions), 200
+
 @api.route('/add_transaction', methods=['POST'])
 @jwt_required()
 def add_transaction():

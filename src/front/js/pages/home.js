@@ -84,7 +84,7 @@ const handleChangeBank = e => {
   	return <></>
 
 	return (
-		<div className="text-center container mb-2 mt-3">
+		<div className="text-center container mb-2 mt-3 col-10 offset-1 col-md-6 offset-md-3">
 
 			<div className="card text-center">
 				<div className="card-header">

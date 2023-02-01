@@ -49,7 +49,7 @@ const Layout = () => {
     const basename = process.env.BASENAME || "";
     
     return (
-        <div>
+        <div className="row">
             <BrowserRouter basename={basename}>
                 <ScrollToTop> 
                     <Navbar user={user} />
