@@ -141,7 +141,17 @@ async function createBankAccount() {
 						</div>
 
 						<label htmlFor="documentType">Tipo de documento</label>
-						<div>
+						<div className="container">
+							<ul className="list-group">
+								<li className="list-group-item">
+									<input className="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio"></input>
+									<label className="form-check-label" htmlFor="firstRadio">Rut</label>
+								</li>
+								<li className="list-group-item">
+									<input className="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio"></input>
+									<label className="form-check-label" htmlFor="secondRadio">Pasaporte</label>
+								</li>
+							</ul>
 							<input type="text" id="documentType" name="documentType" requiredminLength="4" maxLength="17" size="35" onChange={handleDocumentTypeChange}/>
 							{documentTypeError && <p className="text-danger">{documentTypeError}</p>}
 						</div>
