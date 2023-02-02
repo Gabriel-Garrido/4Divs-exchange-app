@@ -9,7 +9,19 @@ body {
 
 #eye{margin: 10px;}
 
+.text-left {
+    text-align: left;
+    margin-left: 10px;
+    color: black;
+  }
 
+.text-black{
+    font-size: 25px;
+}
 
+.value-color {
+    color: grey;
+    margin-left: 10px;
+  }
 
 
