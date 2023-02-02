@@ -13,7 +13,7 @@ export const NewBankAccount = (props) => {
 //-----------------------Validations--------------------------------
 	const lettersRegex = /^[a-zA-Z]+$/;
 	const numbersRegex = /^\d{1,14}$/;
-	const identityRegex = /^[0-9]{9}-[0-9Kk]$/;
+	const identityRegex = /^[0-9]{1,9}-[0-9Kk]$/;
 
 	const [bankName, setBankName] = useState("");
 	const [bankNameError, setBankNameError] = useState("");	
@@ -38,6 +38,7 @@ export const NewBankAccount = (props) => {
 	  };
 
 	const handleDocumentTypeChange = (e) => {
+		console.log(e.target.value)
 		if (!lettersRegex.test(e.target.value)) {
 			setDocumentTypeError("Sólo letras son válidas.");
 		} else {
@@ -69,7 +70,7 @@ export const NewBankAccount = (props) => {
 
 	  const handleIdentityChange = (e) => {
 		if (!identityRegex.test(e.target.value)) {
-			setIdentityError("Formato valido sin puntos y con guión ej. 1111111-1");
+			setIdentityError("Formato valido: sin puntos y con guión ej. 1111111-1");
 		} else {
 			setIdentityError("");
 		}
@@ -144,16 +145,14 @@ async function createBankAccount() {
 						<div className="container">
 							<ul className="list-group">
 								<li className="list-group-item">
-									<input className="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio"></input>
+									<input className="form-check-input me-1" onChange={handleDocumentTypeChange} type="radio" name="listGroupRadio" value="Rut" id="firstRadio"></input>
 									<label className="form-check-label" htmlFor="firstRadio">Rut</label>
 								</li>
 								<li className="list-group-item">
-									<input className="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio"></input>
+									<input className="form-check-input me-1" onChange={handleDocumentTypeChange} type="radio" name="listGroupRadio" value="Pasaporte" id="secondRadio"></input>
 									<label className="form-check-label" htmlFor="secondRadio">Pasaporte</label>
 								</li>
 							</ul>
-							<input type="text" id="documentType" name="documentType" requiredminLength="4" maxLength="17" size="35" onChange={handleDocumentTypeChange}/>
-							{documentTypeError && <p className="text-danger">{documentTypeError}</p>}
 						</div>
 
 						<label htmlFor="identity">Documento de Identidad</label>

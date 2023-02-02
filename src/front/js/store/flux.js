@@ -34,7 +34,25 @@
 			logout: () => {
 				setStore({user: null})
 				localStorage.clear()
-			}
+			},
+			get_user_by_email: async () => {
+				console.log("get_user_by_email")
+				await fetch(`${URL_API}/api/get_user_by_email/${localStorage.getItem("email")}`, {
+					method: ["GET"],
+					headers: {
+					  "Content-type": "application/json; charset=utf-8",
+					  "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
+					}}).then(response => {
+						response.json().then(data => {
+							console.log(data)
+							setStore({user: data})
+							
+						})
+						
+						
+						
+					});
+				}
 		}
 	};
 };

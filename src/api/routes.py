@@ -27,6 +27,7 @@ def get_user(user_id):
     return user.serialize(), 200
 
 @api.route('/get_user_by_email/<user_email>', methods=['GET'])
+@jwt_required()
 def get_user_by_email(user_email):
     user = User.query.filter(User.email == user_email).first()
     if user is None:

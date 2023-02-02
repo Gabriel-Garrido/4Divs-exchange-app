@@ -1,12 +1,12 @@
-import React, { useContext , useState } from "react";
+import React, { useContext , useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const ChangePassword = (props) => {
+	const { store, actions } = useContext(Context);
   const navigate = useNavigate()
 
-	const { store, actions } = useContext(Context);
   if (!localStorage.getItem("jwt-token"))
   	return <></>
   
