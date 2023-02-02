@@ -8,9 +8,6 @@ export const ChangePassword = (props) => {
   console.log({user_id});
 	const { store, actions } = useContext(Context);
   const navigate = useNavigate()
-
-  if (!localStorage.getItem("jwt-token"))
-  	return <></>
   
   
   //---------------------Validation-------------------------------------------

@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { sendEmail } from "../service/emailService.js";
 
 export const RestorePassword = (props) => {
+	useEffect(() => {handleEmailChange}, [])
 	const { store, actions } = useContext(Context);
 
 
@@ -13,25 +14,28 @@ export const RestorePassword = (props) => {
 	const [email, setEmail] = useState("");
   	const [emailError, setEmailError] = useState("");
 	const [user, setUser] = useState("");
-	const [user_id, setUser_id] = useState("")
 
 	  const verify = async (_) => {
 		const response = await fetch(`${props.URL_API}/api/get_user_id_by_email/${email}`, {
 			method: ["GET"],
 			headers: {
 			  "Content-type": "application/json; charset=utf-8",
-			}});
-		  const data = await response.json()
-			setUser_id(data.id)
-			console.log(data)
-	  
-		let params = {
-		  to_email: email,
-		  to_name: data.name,
-		  to_link: `https://3000-gabrielgarr-4geeksproye-cmpn6lz3uud.ws-us85.gitpod.io/changepassword/${user_id}`
-		};
-		sendEmail(params);
+			}}).then(response => {
+				response.json().then(data => {
+					console.log(data)
+					setUser(data)					
+				}).then(sendEmailData())
+			});	
 	  };
+
+	  const sendEmailData = () => {
+		let params = {
+			to_email: email,
+			to_name: user.first_name,
+			to_link: `https://3000-gabrielgarr-4geeksproye-cmpn6lz3uud.ws-us85.gitpod.io/changepassword/${user.id}`
+		  };
+		  sendEmail(params);
+	  }
 
 	  const handleEmailChange = (e) => {
 		if (!emailRegex.test(e.target.value)) {
