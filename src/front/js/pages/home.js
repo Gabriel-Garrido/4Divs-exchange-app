@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import { BankAccountItem } from "../component/bankAccountItem.js";
+import { NumericFormat } from 'react-number-format';
 
 import "../../styles/home.css";
 
@@ -21,16 +22,10 @@ export const Home = (props) => {
 
 
 	const handleChange = (e) => {
-		const regex = /^\d*$/;
-		if (!regex.test(e.target.value)) {
-			setMountError("Debe ingresar valor en números");
-			setMount("");
-		} else {
-			setMountError("");
-			setMount(e.target.value);
-			setConversion(Math.round((e.target.value / props.rate) * 100) / 100)
-		}
-	};
+		const value = e.floatValue;
+		setMount(value);
+		setConversion(Math.round((value / props.rate) * 100) / 100)
+	  };
 
 //-------------fetch GET bank account-------------------------
 	const bankAccountFetch = async () => {
@@ -107,12 +102,23 @@ const handleChangeBank = e => {
 					<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
 						
 						<div className="input-group">
-						<input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar" onChange={handleChange}></input>
+						<NumericFormat 
+  className="form-control" 
+  id="basic-url" 
+  aria-describedby="basic-addon3" 
+  placeholder="Ingrese el monto a enviar" 
+  onValueChange={handleChange} 
+  decimalScale={2}
+  thousandSeparator={true}
+  value={mount}
+/>
 							<span className="input-group-text" id="basic-addon3">CLP</span>
 						</div>
 						{mountError && <p className="text-danger">{mountError}</p>}
 						<div className="form-text fs-5">Usted va a cambiar:</div>
-						<p className="fs-1"> {mount} CLP to {conversion} USD</p>
+						<p className="fs-1">
+      <NumericFormat value={mount} displayType={'text'} thousandSeparator={true} prefix={'CLP '} /> to <NumericFormat value={conversion} displayType={'text'} thousandSeparator={true} prefix={'USD '} />
+    </p>
 
 						{/* Selección de cuenta bancaria */}
 							<div className="container text-center">

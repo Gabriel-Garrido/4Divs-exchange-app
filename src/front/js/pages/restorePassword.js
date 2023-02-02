@@ -24,15 +24,16 @@ export const RestorePassword = (props) => {
 				response.json().then(data => {
 					console.log(data)
 					setUser(data)					
-				}).then(sendEmailData())
+					sendEmailData(data)
+			})
 			});	
 	  };
 
-	  const sendEmailData = () => {
+	  const sendEmailData = (userData) => {
 		let params = {
 			to_email: email,
-			to_name: user.first_name,
-			to_link: `https://3000-gabrielgarr-4geeksproye-cmpn6lz3uud.ws-us85.gitpod.io/changepassword/${user.id}`
+			to_name: userData.first_name,
+			to_link: `https://3000-gabrielgarr-4geeksproye-cmpn6lz3uud.ws-us85.gitpod.io/changepassword/${userData.id}`
 		  };
 		  sendEmail(params);
 	  }
