@@ -53,9 +53,11 @@ export const Login = (props) => {
         method: ["GET"],
         headers: {
           "Content-type": "application/json; charset=utf-8",
+          "Authorization": "Bearer " + localStorage.getItem("jwt-token")
         }});
       const data = await response.json()
-      localStorage.setItem("admin", data.admin);
+      localStorage.setItem("email", store.user.email);
+
       // props.setUser(data)
 
       return render(data)
