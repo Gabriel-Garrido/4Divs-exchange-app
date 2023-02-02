@@ -3,11 +3,9 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { sendEmail } from "../service/emailService.js";
 
-export const RestorePassword = () => {
+export const RestorePassword = (props) => {
 	const { store, actions } = useContext(Context);
 
-	if (!localStorage.getItem("jwt-token"))
-  	return <></>
 
 //----------------------------Validations--------------------------------	
 	const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -15,17 +13,26 @@ export const RestorePassword = () => {
 	const [email, setEmail] = useState("");
   	const [emailError, setEmailError] = useState("");
 	const [user, setUser] = useState("");
+	const [user_id, setUser_id] = useState("")
 
-	  const verify = (_) => {
+	  const verify = async (_) => {
+		const response = await fetch(`${props.URL_API}/api/get_user_id_by_email/${email}`, {
+			method: ["GET"],
+			headers: {
+			  "Content-type": "application/json; charset=utf-8",
+			}});
+		  const data = await response.json()
+			setUser_id(data.id)
+			console.log(data)
+	  
 		let params = {
 		  to_email: email,
-		  to_name: user.name,
-		  to_link: link,
+		  to_name: data.name,
+		  to_link: `https://3000-gabrielgarr-4geeksproye-cmpn6lz3uud.ws-us85.gitpod.io/changepassword/${user_id}`
 		};
 		sendEmail(params);
 	  };
 
-	const [link, setLink] = useState("www.google.com");
 	  const handleEmailChange = (e) => {
 		if (!emailRegex.test(e.target.value)) {
 		  setEmailError("Ingrese un correo electrónico válido.");
@@ -34,6 +41,7 @@ export const RestorePassword = () => {
 		}
 		setEmail(e.target.value);
 	  };
+
 //----------------------------/Validations--------------------------------	
 
 

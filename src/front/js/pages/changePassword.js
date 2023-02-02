@@ -1,9 +1,11 @@
 import React, { useContext , useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const ChangePassword = (props) => {
+  let { user_id } = useParams();
+  console.log({user_id});
 	const { store, actions } = useContext(Context);
   const navigate = useNavigate()
 

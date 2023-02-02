@@ -70,6 +70,12 @@ class User(db.Model):
             "password": self.password,
             "admin": self.admin
         }
+    
+    def restorePassword(self):
+        return {
+            "id": self.id,
+            "first_name": self.first_name
+        }
 
 
 # -----------------------------Change Model-------------------------------

@@ -33,6 +33,13 @@ def get_user_by_email(user_email):
     if user is None:
         return "user not found", 404
     return user.serialize(), 200    
+
+@api.route('/get_user_id_by_email/<user_email>', methods=['GET'])
+def get_user_id_by_email(user_email):
+    user = User.query.filter(User.email == user_email).first()
+    if user is None:
+        return "user not found", 404
+    return user.restorePassword(), 200   
     
 @api.route('/add_user', methods=['POST'])
 def add_user():
