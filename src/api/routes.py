@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Bank_account,Transaction, Change
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required
+from werkzeug.security import check_password_hash
 
 api = Blueprint('api', __name__)
 
@@ -242,7 +243,7 @@ def create_token():
     password = request.json.get("password", None)
     found_user=None
     for user in users:
-        if user["email"] == email and user["password"] == password:
+        if user["email"] == email and check_password_hash(user["password"],password):
             found_user=user
     if found_user is  None:
         return jsonify({"msg": "Bad username or password"}), 401
