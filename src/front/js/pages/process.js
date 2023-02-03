@@ -1,17 +1,22 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import propTypes from "prop-types";
 
 export const Process = (props) => {
+    let { transaction_id } = useParams()
+    console.log(transaction_id)
+
+    useEffect(() => {transactionDataFetch()},[])
 
     if (!localStorage.getItem("jwt-token"))
     return <></>
-
+    const [transaction, setTransaction] = useState("")
     const { store, actions } = useContext(Context);
     const [timeLeft, setTimeLeft] = useState(900);
     useEffect(() => {
+        transactionDataFetch()
         if (timeLeft > 0) {
             setTimeout(() => {
                 setTimeLeft(timeLeft - 1);
@@ -21,6 +26,21 @@ export const Process = (props) => {
 
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
+
+    // ----------------------GET transaction data---------------------------------
+    async function transactionDataFetch() {
+
+        const response = await fetch(`${props.URL_API}/api/get_transaction/${transaction_id}`, {
+        method: ["GET"],
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("jwt-token")
+        }});
+        const data = await response.json()
+        console.log(transaction_id)
+        setTransaction(data)
+    }
+  // ----------------------/GET transaction data--------------------------------
 
     return (
         <div className="container col-10 offset-1 col-md-6 offset-md-3">
@@ -32,7 +52,7 @@ export const Process = (props) => {
                 <div className="container">
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
-                        <p className="fs-5">1 CLP x {props.rate} USD</p>
+                        <p className="fs-5">{transaction} CLP a {props.rate} USD</p>
 
 
                         <div className="card">

@@ -55,11 +55,11 @@ const Layout = () => {
                     <Navbar user={user} />
 
                     <Routes>
-                        {store.user?<Route element={<Login setUser={setUser} URL_API={URL_API} user={user} />} path="/" />:<></>}
+                        <Route element={<Login setUser={setUser} URL_API={URL_API} user={user} />} path="/" />
                         {store.user?<Route element={<RestorePassword URL_API={URL_API} user={user} />} path="/restorepassword" />:<></>}
                         {store.user?<Route element={<ChangePassword URL_API={URL_API} admin={user.admin} user={user} />} path="/changepassword" />:<></>}
                         {store.user != null && !store.user.admin ? <Route element={<Home rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} changeId={changeId} user={user} URL_API={URL_API} />} path="/home" /> : <></>}
-                        {store.user != null && !store.user.admin ? <Route element={<Process URL_API={URL_API} rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} />} path="/process" /> : <></>}
+                        {store.user != null && !store.user.admin ? <Route element={<Process URL_API={URL_API} rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} />} path="/process/:transaction_id" /> : <></>}
                         {store.user != null && !store.user.admin ? <Route element={<NewBankAccount URL_API={URL_API} bankAccount={bankAccount} user={user}/>} path="/newbankaccount" /> : <></>}
                         {store.user != null && !store.user.admin ? <Route element={<Record URL_API={URL_API} user={user}/>} path="/record" /> : <></>}
                         {store.user != null && store.user.admin? <Route element={<HomeAdmin URL_API={URL_API} user={user}/>} path="/homeadmin" /> : <></>}

@@ -64,7 +64,7 @@ export const Home = (props) => {
 			"transfer_bank_id": "not defined"
 		}  
 
-		await fetch(`${props.URL_API}/api/add_transaction`,{
+		const response = await fetch(`${props.URL_API}/api/add_transaction`,{
 			method: ["POST"],
 			headers: {
 			 "Content-type": "application/json; charset=utf-8",
@@ -72,7 +72,10 @@ export const Home = (props) => {
 			},
 			body: JSON.stringify(data)
 		})
-		console.log("Transaction= " + mount + " CLP to " + conversion + " USD in bank account number " + selectedBankAccount)
+				const transaction = await response.json();
+				console.log(transaction)
+				navigate(`/process/${transaction.id}`)
+			
 	}
 //-------------/fetch POST transaction-------------------------------
 
@@ -143,7 +146,7 @@ const handleChangeBank = e => {
 						{/* /Selección de cuenta bancaria */}
 
 
-						<Link onClick={() => processTransaction()} to="/process" className="btn btn-dark col-8 offset-2 col-md-4 offset-md-4 fs-4">Procesar cambio</Link>
+						<button onClick={() => processTransaction()} className="btn btn-dark col-8 offset-2 col-md-4 offset-md-4 fs-4">Procesar cambio</button>
 				</div>
 			</div>
 			
