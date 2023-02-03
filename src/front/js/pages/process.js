@@ -16,7 +16,6 @@ export const Process = (props) => {
     const { store, actions } = useContext(Context);
     const [timeLeft, setTimeLeft] = useState(900);
     useEffect(() => {
-        transactionDataFetch()
         if (timeLeft > 0) {
             setTimeout(() => {
                 setTimeLeft(timeLeft - 1);
@@ -34,10 +33,9 @@ export const Process = (props) => {
         method: ["GET"],
         headers: {
             "Content-type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("jwt-token")
         }});
         const data = await response.json()
-        console.log(transaction_id)
+        console.log(data)
         setTransaction(data)
     }
   // ----------------------/GET transaction data--------------------------------
@@ -52,7 +50,7 @@ export const Process = (props) => {
                 <div className="container">
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
-                        <p className="fs-5">{transaction} CLP a {props.rate} USD</p>
+                        <p className="fs-5"> CLP a  USD</p>
 
 
                         <div className="card">
