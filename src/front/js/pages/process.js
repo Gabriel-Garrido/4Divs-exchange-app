@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import propTypes from "prop-types";
 
 export const Process = (props) => {
@@ -12,16 +12,19 @@ export const Process = (props) => {
 
     if (!localStorage.getItem("jwt-token"))
     return <></>
+    const navigate = useNavigate()
     const [transaction, setTransaction] = useState("")
     const { store, actions } = useContext(Context);
     const [timeLeft, setTimeLeft] = useState(900);
     useEffect(() => {
-        if (timeLeft > 0) {
-            setTimeout(() => {
-                setTimeLeft(timeLeft - 1);
-            }, 1000);
+        if (timeLeft === 0) {
+        //   navigate('/home');
+        } else {
+          setTimeout(() => {
+            setTimeLeft(timeLeft - 1);
+          }, 1000);
         }
-    }, [timeLeft]);
+      }, [timeLeft, navigate]);
 
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
@@ -50,7 +53,7 @@ export const Process = (props) => {
                 <div className="container">
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
-                        <p className="fs-5"> CLP a  USD</p>
+                        <p className="fs-5"> {transaction.transaction_amount}CLP a  USD</p>
 
 
                         <div className="card">
