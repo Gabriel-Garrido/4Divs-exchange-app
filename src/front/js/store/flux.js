@@ -74,7 +74,7 @@
 					  "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 					}}).then(response => {
 						response.json().then(data => {
-							console.log(data)
+							console.log(data.email)
 							setStore({user: data})
 							
 						})
