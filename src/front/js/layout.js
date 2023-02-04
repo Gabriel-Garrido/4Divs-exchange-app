@@ -55,7 +55,7 @@ const Layout = () => {
                     <Navbar user={user} />
 
                     <Routes>
-                        {store.user?<Route element={<Login setUser={setUser} URL_API={URL_API} user={user} />} path="/" />:<></>}
+                        <Route element={<Login setUser={setUser} URL_API={URL_API} user={user} />} path="/" />
                         <Route element={<RestorePassword URL_API={URL_API} user={user} />} path="/restorepassword" />
                         {store.user?<Route  element={<ChangePassword URL_API={URL_API} admin={user.admin} user={user}  />} path="/changepassword/:user_id" />:<></>}
                         {store.user != null && !store.user.admin ? <Route element={<Home rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} changeId={changeId} user={user} URL_API={URL_API} />} path="/home" /> : <></>}

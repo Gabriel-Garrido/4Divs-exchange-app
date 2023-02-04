@@ -2,9 +2,39 @@
 	const URL_API = process.env.BACKEND_URL
 	return {
 		store: {
-			user: null
+			user: null,
+			transaction: null
 		},
 		actions: {
+
+			newTransaction: async (user,change_id,bank_account_id,transaction_amount, conversion) => {
+
+				let data = {
+					"user_id": user, 
+					"status": "", 
+					"change_id": change_id, 
+					"bank_account_id": bank_account_id, 
+					"date": "21/01/2023", 
+					"time": "20:00", 
+					"transaction_amount": transaction_amount, 
+					"transfer_bank_id": "not defined"
+				}  
+		
+				await fetch(`${URL_API}/api/add_transaction`,{
+					method: ["POST"],
+					headers: {
+					 "Content-type": "application/json; charset=utf-8",
+					 "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
+					},
+					body: JSON.stringify(data)
+				})
+				.then(res => res.json())
+				.then(res=> {
+					setStore({transaction:res});
+				});
+				console.log("Transaction= " + transaction_amount + " CLP to " + conversion + " USD in bank account number " + bank_account_id)
+			},
+
 			login: async(email, password) => {
 				console.log(email + " " + password)
 				const resp = await fetch(`${URL_API}/api/token`, {

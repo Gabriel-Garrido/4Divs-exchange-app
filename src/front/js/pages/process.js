@@ -12,6 +12,11 @@ export const Process = (props) => {
     const { store, actions } = useContext(Context);
     const [timeLeft, setTimeLeft] = useState(900);
     const navigate = useNavigate();
+    const [mount, setMount] = useState("");
+
+    useEffect(() => {
+        setMount(store.transaction.transaction_amount)
+    },[]);
 
     useEffect(() => {
         if (timeLeft === 0) {
@@ -36,9 +41,7 @@ export const Process = (props) => {
                 <div className="container">
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
-                        <p className="fs-5">1 CLP x {props.rate} USD</p>
-
-
+                        <p className="fs-5">{mount} CLP x {props.rate} USD</p>
                         <div className="card">
                             <span className="text-black">Transferir a:</span>
                             <p className="fs-4 text-left">

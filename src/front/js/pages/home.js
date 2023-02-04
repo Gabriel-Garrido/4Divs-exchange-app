@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import { BankAccountItem } from "../component/bankAccountItem.js";
-import { NumericFormat } from 'react-number-format';
 
 import "../../styles/home.css";
 
@@ -22,10 +21,16 @@ export const Home = (props) => {
 
 
 	const handleChange = (e) => {
-		const value = e.floatValue;
-		setMount(value);
-		setConversion(Math.round((value / props.rate) * 100) / 100)
-	  };
+		const regex = /^\d*$/;
+		if (!regex.test(e.target.value)) {
+			setMountError("Debe ingresar valor en números");
+			setMount("");
+		} else {
+			setMountError("");
+			setMount(e.target.value);
+			setConversion(Math.round((e.target.value / props.rate) * 100) / 100)
+		}
+	};
 
 //-------------fetch GET bank account-------------------------
 	const bankAccountFetch = async () => {
@@ -47,27 +52,9 @@ export const Home = (props) => {
 
 //-------------fetch POST transaction ok -------------------------
 	async function processTransaction() {
-
-		let data = {
-			"user_id": store.user.id, 
-			"status": "", 
-			"change_id": 1, 
-			"bank_account_id": selectedBankAccount, 
-			"date": "21/01/2023", 
-			"time": "20:00", 
-			"transaction_amount": mount, 
-			"transfer_bank_id": "not defined"
-		}  
-
-		await fetch(`${props.URL_API}/api/add_transaction`,{
-			method: ["POST"],
-			headers: {
-			 "Content-type": "application/json; charset=utf-8",
-			 "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
-			},
-			body: JSON.stringify(data)
-		})
-		console.log("Transaction= " + mount + " CLP to " + conversion + " USD in bank account number " + selectedBankAccount)
+		await actions.newTransaction(store.user.id,1,selectedBankAccount,mount,conversion)
+		console.log(store.transaction);
+		navigate ("/process");
 	}
 //-------------/fetch POST transaction-------------------------------
 
@@ -102,23 +89,12 @@ const handleChangeBank = e => {
 					<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
 						
 						<div className="input-group">
-						<NumericFormat 
-  className="form-control" 
-  id="basic-url" 
-  aria-describedby="basic-addon3" 
-  placeholder="Ingrese el monto a enviar" 
-  onValueChange={handleChange} 
-  decimalScale={2}
-  thousandSeparator={true}
-  value={mount}
-/>
+						<input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="Ingrese el monto a enviar" onChange={handleChange}></input>
 							<span className="input-group-text" id="basic-addon3">CLP</span>
 						</div>
 						{mountError && <p className="text-danger">{mountError}</p>}
 						<div className="form-text fs-5">Usted va a cambiar:</div>
-						<p className="fs-1">
-      <NumericFormat value={mount} displayType={'text'} thousandSeparator={true} prefix={'CLP '} /> to <NumericFormat value={conversion} displayType={'text'} thousandSeparator={true} prefix={'USD '} />
-    </p>
+						<p className="fs-1"> {mount} CLP to {conversion} USD</p>
 
 						{/* Selección de cuenta bancaria */}
 							<div className="container text-center">
@@ -149,7 +125,7 @@ const handleChangeBank = e => {
 						{/* /Selección de cuenta bancaria */}
 
 
-						<Link onClick={() => processTransaction()} to="/process" className="btn btn-dark col-8 offset-2 col-md-4 offset-md-4 fs-4">Procesar cambio</Link>
+						<button onClick={() => processTransaction()} className="btn btn-dark col-8 offset-2 col-md-4 offset-md-4 fs-4">Procesar cambio</button>
 				</div>
 			</div>
 			
