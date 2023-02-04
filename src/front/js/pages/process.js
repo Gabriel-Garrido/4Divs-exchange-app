@@ -41,7 +41,7 @@ export const Process = (props) => {
                 <div className="container">
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
-                        <p className="fs-5">{mount} CLP x {mount / props.rate} USD</p>
+                        <p className="fs-5" >{mount} CLP x {(mount / props.rate).toFixed(2)} USD</p>
                         <div className="card">
                             <span className="text-black">Transferir a:</span>
                             <p className="fs-4 text-left">
