@@ -44,7 +44,7 @@ export const Navbar = (props) => {
 							{store.user.admin?<Link className="btn btn-dark" to="/rateadmin" type="button"><i className="pe-none fas fa-sync"></i> Cambiar Tasa</Link> : <></>}
 							{store.user.admin?<Link className="btn btn-dark" to="/reportadmin" type="button"><i className="pe-none fas fa-download"></i> Reportes</Link> : <></>}
 
-							<Link className="btn btn-dark" to="/changepassword" type="button"><i className="pe-none fas fa-unlock-alt"></i> Cambiar contraseña</Link>
+							<Link className="btn btn-dark" to= {"/changepassword/" + store.user.id} type="button"><i className="pe-none fas fa-unlock-alt"></i> Cambiar contraseña</Link>
 							<button className="btn btn-danger" onClick={() => {actions.logout(); navigate("/") }} type="button" ><i className="pe-none fas fa-sign-out-alt"></i> Cerrar sesión</button>
 					</div>
 				</div>

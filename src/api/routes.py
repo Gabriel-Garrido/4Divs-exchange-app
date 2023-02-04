@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Bank_account,Transaction, Change
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required
-from werkzeug.security import check_password_hash
+from werkzeug.security import generate_password_hash,check_password_hash
 
 api = Blueprint('api', __name__)
 
@@ -57,7 +57,7 @@ def edit_user(user_id):
         return "user not found", 404    
     req_Json = request.get_json()
     if req_Json["password"] is not None:
-        user.password = req_Json["password"]
+        user.password = generate_password_hash(req_Json["password"])
         user.admin = req_Json["admin"]
         user.email = req_Json["email"]
         db.session.add(user)

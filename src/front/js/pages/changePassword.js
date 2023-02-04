@@ -61,6 +61,7 @@ async function changePasswordFetch() {
       method: ["PUT"],
 			headers: {
 			 "Content-type": "application/json; charset=utf-8",
+       "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 			},
 			body: JSON.stringify(data)
       
