@@ -42,6 +42,7 @@ export const Process = (props) => {
                 <div className="container">
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
+                        <p className="fs-5" >{mount} CLP x {(mount / props.rate).toFixed(2)} USD</p>
                         <p className="fs-5">
                             <NumericFormat value={mount} displayType={'text'} thousandSeparator={true} /> CLP x  <NumericFormat value={mount / props.rate} displayType={'text'} thousandSeparator={true}  /> USD
                         </p>

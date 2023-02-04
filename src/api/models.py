@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.security import generate_password_hash
 
 
 db = SQLAlchemy()
@@ -11,7 +12,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rut = db.Column(db.String(11), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(20), unique=False, nullable=False)
+    password = db.Column(db.String(10000), unique=False, nullable=False)
     validate_status = db.Column(db.Boolean(), unique=False, nullable=False)
     first_name = db.Column(db.String(30), unique=False, nullable=False)
     last_name = db.Column(db.String(30), unique=False, nullable=False)
@@ -29,7 +30,7 @@ class User(db.Model):
     def __init__(self, rut, email, password, first_name, last_name, phone, birthdate, nationality, ocupation, monthly_income, particular_address, department):
         self.rut = rut
         self.email = email
-        self.password = password
+        self.password = generate_password_hash(password)
         self.validate_status = True
         self.first_name = first_name
         self.last_name = last_name
