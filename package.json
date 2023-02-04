@@ -76,6 +76,7 @@
 		"@emailjs/browser": "^3.10.0",
 		"formvalidation": "^0.6.2-dev",
 		"jsonwebtoken": "^9.0.0",
+		"jspdf": "^2.5.1",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-dom": "^16.8.4",
