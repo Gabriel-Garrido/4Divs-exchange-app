@@ -15,10 +15,9 @@ export const Home = (props) => {
 	const [mountError, setMountError] = useState("");
 	const [conversion, setConversion] = useState("");
 	const [selectedBankAccount, setSelectedBankAccount] = useState("")
+	const [newTransaction, setNewTransaction] = useState("")
 
 	console.log("Change rate is = " + props.rate)
-
-
 
 	const handleChange = (e) => {
 		const regex = /^\d*$/;
@@ -72,9 +71,9 @@ export const Home = (props) => {
 			},
 			body: JSON.stringify(data)
 		})
-				const transaction = await response.json();
-				console.log(transaction)
-				navigate(`/process/${transaction.id}`)
+				const transactionData = await response.json();
+				setNewTransaction
+				navigate(`/process/${transactionData.id}`)
 			
 	}
 //-------------/fetch POST transaction-------------------------------

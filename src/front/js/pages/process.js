@@ -40,6 +40,7 @@ export const Process = (props) => {
         const data = await response.json()
         console.log(data)
         setTransaction(data)
+        
     }
   // ----------------------/GET transaction data--------------------------------
 
