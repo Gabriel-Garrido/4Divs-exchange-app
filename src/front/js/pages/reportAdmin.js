@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import jsPDF from "jspdf";
 
-export const ReportAdmin = () => {
+export const ReportAdmin = (props) => {
   const { store, actions } = useContext(Context);
   const [mail, setMail] = useState("");
 
@@ -11,18 +11,38 @@ export const ReportAdmin = () => {
   	return <></>
 
     const handleDownloadReport = async () => {
+
       try {
-        const response = await fetch(`${props.URL_API}/api/get_user_by_email/${store.user.email}`, {
+        const responseUser = await fetch(`${props.URL_API}/api/get_user_by_email/${mail}`, {
           method: ["GET"],
           headers: {
             "Content-type": "application/json; charset=utf-8",
             "Authorization": "Bearer " + localStorage.getItem("jwt-token")
           }});
-        const data = await response.json();
-  
-        const doc = new jsPDF();
-        doc.text(JSON.stringify(data), 10, 10);
-        doc.save("reporte.pdf");
+        const responseTransaction = await fetch(`${props.URL_API}/api/get_user_report_by_email/${mail}`, {
+          method: ["GET"],
+          headers: {
+            "Content-type": "application/json; charset=utf-8",
+            "Authorization": "Bearer " + localStorage.getItem("jwt-token")
+          }});
+        const dataUser = await responseUser.json();
+          console.log(dataUser);
+        const dataTransaction = await responseTransaction.json();
+          console.log(dataTransaction);
+          const doc = new jsPDF();
+          doc.text(`Reporte transacciones usuario: ${mail}`, 20, 20);
+          let y = 40;
+          for (let transaction in dataTransaction) {
+            if (y > 280) {
+             doc.addPage();
+            y = 20;
+            }
+            doc.text(`Id transacción: ${dataTransaction[transaction].id}`, 20, y);
+            doc.text(`Monto transacción: ${dataTransaction[transaction].transaction_amount}`, 90, y)
+            doc.line(20, y + 2, 190, y + 2);
+            y += 10;
+            } 
+            doc.save("reporte.pdf");
       } catch (error) {
         console.error(error);
       }
@@ -42,7 +62,7 @@ export const ReportAdmin = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Rut usuario"
+                placeholder="Mail usuario"
                 aria-label="Recipient's username"
                 aria-describedby="button-addon2"
                 value={mail}
