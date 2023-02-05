@@ -37,7 +37,7 @@ export const HomeAdmin = (props) => {
 		}
 
 	return (
-		<div className="container text-center mt-5 col-10 offset-1 col-lg-6 offset-lg-3">
+		<div className="container text-center mt-5 col-10 offset-1 col-xl-6 offset-xl-3">
 			<div className="card text-center">
 
 {/* -------------------------------Vista de funcion de filtrar---------------------------------

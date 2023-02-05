@@ -42,7 +42,7 @@ export const RestorePassword = () => {
 
 
 	return (
-		<div className="container col-10 offset-1 col-md-6 offset-md-3">
+		<div className="container col-10 offset-1 col-xl-6 offset-xl-3">
 	<div className="card text-center">
 
   <div className="card-header fs-1">
