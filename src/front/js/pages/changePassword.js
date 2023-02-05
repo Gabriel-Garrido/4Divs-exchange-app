@@ -52,12 +52,10 @@ export const ChangePassword = (props) => {
 async function changePasswordFetch() {
 
   let data = {
-    "password": password2,
-    "email": store.user.email,
-    "admin": store.user.admin
+    "password": password2
   } 
   try {
-    await fetch (`${props.URL_API}/api/edit_user/${store.user.id}`, {
+    await fetch (`${props.URL_API}/api/edit_password/${store.user.id}`, {
       method: ["PUT"],
 			headers: {
 			 "Content-type": "application/json; charset=utf-8",

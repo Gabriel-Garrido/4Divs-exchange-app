@@ -50,16 +50,27 @@ def add_user():
     db.session.commit()
     return "user " + req_Json["email"] + " was created", 201
 
-@api.route('/edit_user/<int:user_id>', methods=['PUT'])
-def edit_user(user_id):
+@api.route('/edit_password/<int:user_id>', methods=['PUT'])
+def edit_password(user_id):
     user = User.query.get(user_id)
     if user is None:
         return "user not found", 404    
     req_Json = request.get_json()
     if req_Json["password"] is not None:
         user.password = generate_password_hash(req_Json["password"])
+        db.session.add(user)
+        db.session.commit()
+        return user.serialize(), 200
+    return "incorrect param", 400
+
+@api.route('/edit_admin/<int:user_id>', methods=['PUT'])
+def edit_admin(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        return "user not found", 404    
+    req_Json = request.get_json()
+    if req_Json["admin"] is not None:
         user.admin = req_Json["admin"]
-        user.email = req_Json["email"]
         db.session.add(user)
         db.session.commit()
         return user.serialize(), 200
