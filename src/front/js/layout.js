@@ -70,10 +70,10 @@ const Layout = () => {
                         {store.user != null && store.user.admin? <Route element={<VerificationAdmin URL_API={URL_API} user={user}/>} path="/verificationadmin" /> : <Route element={<NoLogged />} path="/verificationadmin"/>}
 
                         <Route path="*" element={
-                            <div className=" container text-center col-10 offset-1 col-xl-6 offset-xl-3">
+                            !store.isLoading?<div className=" container text-center col-10 offset-1 col-xl-6 offset-xl-3">
                                 <div className="card text-center">
                                     <div className="card-header fs-5">Error 404
-                                    <div className="fs-1"><i class="fas fa-exclamation-triangle"></i></div>
+                                    <div className="fs-1"><i className="fas fa-exclamation-triangle"></i></div>
                                     </div>
                                     <div className="card-body text-center">
                                         <div className="container row">
@@ -82,7 +82,20 @@ const Layout = () => {
                                     </div>
                                     <div className="card-footer text-muted"></div>
                                 </div>
+                            </div>:
+                            <div className=" container text-center col-10 offset-1 col-xl-6 offset-xl-3">
+                            <div className="card text-center">
+                                <div className="card-header fs-5">
+                                    <div className="spinner-border" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <div className="card-body">
+                                    
+                                </div>
+                                <div className="card-footer text-muted"></div>
                             </div>
+                        </div>
                         } />
 
                     </Routes>

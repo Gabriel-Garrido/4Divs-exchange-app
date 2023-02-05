@@ -5,12 +5,6 @@ import "../../styles/home.css";
 
 export const Record = (props) => {
 
-	useEffect(() => {
-		if (localStorage.getItem("email") == null) {
-		navigate("/")
-		return "no user logged"
-	}},[])
-
 	const { store, actions } = useContext(Context);
 	console.log(store.user.id)
 	

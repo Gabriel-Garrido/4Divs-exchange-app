@@ -5,7 +5,8 @@ import { Navigate } from "react-router-dom";
 	return {
 		store: {
 			user: null,
-			transaction: null
+			transaction: null,
+			isLoading: false
 		},
 		actions: {
 
@@ -70,8 +71,9 @@ import { Navigate } from "react-router-dom";
 				return console.log("No user logged")
 			},
 			get_user_by_email: async () => {
-
+				setStore({isLoading: true})
 				if (localStorage.getItem("email") == null) {
+					setStore({isLoading: false})
 					return "there is no user logged"
 				}
 				try {await fetch(`${URL_API}/api/get_user_by_email/${localStorage.getItem("email")}`, {
@@ -83,13 +85,16 @@ import { Navigate } from "react-router-dom";
 						response.json().then(data => {
 
 							if (data.msg == "Token has expired"){
+								setStore({isLoading: false})
 								return localStorage.clear()
 							}
 							setStore({user: data})
+							setStore({isLoading: false})
 							return console.log(data)
 						})
 					});
 				} catch (error) {
+					setStore({isLoading: false})
 					console.log('there is a problem with fetch:' + error.message);
 				}
 

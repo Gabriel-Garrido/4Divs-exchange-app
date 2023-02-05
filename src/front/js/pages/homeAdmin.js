@@ -6,12 +6,6 @@ import { RecordItemAdmin } from "../component/recordItemAdmin.js";
 
 export const HomeAdmin = (props) => {
 
-	useEffect(() => {
-		if (localStorage.getItem("email") == null) {
-		navigate("/")
-		return "no user logged"
-	}},[])
-
 	useEffect(()=>{recordItemFetch()},[recordItems])
 	const { store, actions } = useContext(Context);
 	const [recordItems, setRecordItems] = useState([])

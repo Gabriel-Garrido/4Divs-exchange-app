@@ -19,8 +19,6 @@ export const Home = (props) => {
 
 	console.log("Change rate is = " + props.rate)
 
-
-
 	const handleChange = (e) => {
 		const value = e.floatValue;
 		setMount(value);
