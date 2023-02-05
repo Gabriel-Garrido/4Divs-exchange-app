@@ -39,6 +39,13 @@ export const RateAdmin = (props) => {
 			setActiveButton(false)
 		}
  }	
+ function redirect() {
+	if (store.user.admin) {
+	  navigate("/homeadmin")
+	  } else {
+	  navigate("/home");
+	  }
+  }
 //-------------------------/validations-----------------------------
 
 
@@ -75,7 +82,7 @@ export const RateAdmin = (props) => {
 		  console.error(error)
 		}
 		props.setRate(rate)
-		navigate("/homeadmin")
+		//navigate("/homeadmin")
 	}
 //-------------------------/Change PUT fetch-----------------------------
 
@@ -121,11 +128,26 @@ export const RateAdmin = (props) => {
 						</div>
 					</div>
 					{rateError && <p className="text-danger">{rateError}</p>}
-					{activeButton?<button onClick={changeRateFetch} className="btn btn-dark col-4 offset-4">
+					{activeButton?<button onClick={changeRateFetch} className="btn btn-dark col-4 offset-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
 						Cambiar
-					</button>:<button className="btn btn-secondary col-4 offset-4">
+					</button>:<button className="btn btn-secondary col-4 offset-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
 						Cambiar
 					</button>}
+			<div className="modal" tabIndex="-1" id="exampleModal">
+            		<div className="modal-dialog">
+              		<div className="modal-content">
+                	<div className="modal-header">
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                	</div>
+                	<div className="modal-body">
+                    <p>La Tasa ha sido cambiada</p>
+                	</div>
+                	<div className="modal-footer">
+                  <button className="btn btn-dark" onClick={redirect} data-bs-dismiss="modal">Aceptar</button>
+                	</div>
+              		</div>
+            		</div>
+          </div>
 				</div>
 			</div>
 		</div>

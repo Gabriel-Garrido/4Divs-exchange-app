@@ -20,7 +20,7 @@ export const Record = (props) => {
 					"Content-type": "application/json",
 				}});
 			const data = await response.json();
-			return setRecordItems(data)
+			return setRecordItems(data.reverse())
 
 		}catch (error) {
 			console.log('there is a problem with fetch:' + error.message);
