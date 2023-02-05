@@ -99,7 +99,7 @@ const handleChangeBank = e => {
 						{mountError && <p className="text-danger">{mountError}</p>}
 						<div className="form-text fs-5">Usted va a cambiar:</div>
 						<p className="fs-1">
-							<NumericFormat value={mount} displayType={'text'} thousandSeparator={true} prefix={'CLP '} /> to <NumericFormat value={conversion} displayType={'text'} thousandSeparator={true} prefix={'USD '} />
+							<NumericFormat value={mount} displayType={'text'} thousandSeparator={true} prefix={'CLP '} /> <NumericFormat value={conversion} displayType={'text'} thousandSeparator={true} prefix={'a USD '} />
 						</p>
 
 						{/* Selección de cuenta bancaria */}

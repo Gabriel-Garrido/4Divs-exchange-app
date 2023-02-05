@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link, useNavigate } from "react-router-dom"
 
 
 export const NewBankAccount = (props) => {
+
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate()
 	if (!localStorage.getItem("jwt-token"))
@@ -14,6 +15,7 @@ export const NewBankAccount = (props) => {
 	const lettersRegex = /^[a-zA-Z]+$/;
 	const numbersRegex = /^\d{1,14}$/;
 	const identityRegex = /^[0-9]{1,9}-[0-9Kk]$/;
+	const passportRegex = /^([a-zA-Z0-9_-]){1,16}$/
 
 	const [bankName, setBankName] = useState("");
 	const [bankNameError, setBankNameError] = useState("");	
@@ -25,7 +27,10 @@ export const NewBankAccount = (props) => {
 	const [accountNumberError, setAccountNumberError] = useState("");
 	const [identity, setIdentity] = useState("");
 	const [identityError, setIdentityError] = useState("");
+
 	const [buttonActivate, setButtonActivate] = useState(false);
+
+	useEffect(() => {validatebutton()},[bankName, documentType, holderName, accountNumber, identity])
 
 
 	const handleBankNameChange = (e) => {
@@ -35,15 +40,13 @@ export const NewBankAccount = (props) => {
 			setBankNameError("");
 		}
 		setBankName(e.target.value);
+		validatebutton()
 	  };
 
 	const handleDocumentTypeChange = (e) => {
+		setIdentity("")
 		console.log(e.target.value)
-		if (!lettersRegex.test(e.target.value)) {
-			setDocumentTypeError("Sólo letras son válidas.");
-		} else {
-			setDocumentTypeError("");
-		}
+		setDocumentTypeError("");
 		setDocumentType(e.target.value);
 		validatebutton()
 	  };
@@ -68,9 +71,19 @@ export const NewBankAccount = (props) => {
 		validatebutton()
 	  };
 
-	  const handleIdentityChange = (e) => {
+	  const handleIdentityRutChange = (e) => {
 		if (!identityRegex.test(e.target.value)) {
-			setIdentityError("Formato valido: sin puntos y con guión ej. 1111111-1");
+			setIdentityError("Formato valido: Rut sin puntos y con guión ej. 1111111-1 y pasaporte Ingrese números o letras, hasta 16 caracteres");
+		} else {
+			setIdentityError("");
+		}
+		setIdentity(e.target.value);
+		validatebutton()
+	  }
+
+	  const handleIdentityPassportChange = (e) => {
+		if (!passportRegex.test(e.target.value)) {
+			setIdentityError("Formato valido: Rut sin puntos y con guión ej. 1111111-1 y pasaporte Ingrese números o letras, hasta 16 caracteres");
 		} else {
 			setIdentityError("");
 		}
@@ -79,11 +92,11 @@ export const NewBankAccount = (props) => {
 	  }
 
 	  function validatebutton() {
-		if (bankNameError!="" && documentTypeError!="" && holderNameError!="" && accountNumberError!="" && identityError!="") {
+		if (identityError === "" && bankNameError === "" && documentTypeError === "" && holderNameError === "" && accountNumberError === "" && bankName !== "" && documentType !== "" && holderName !== "" && accountNumber !== "" && identity !== "") {
 			setButtonActivate(true)
 		}
 		else{
-			setButtonActivate(true)
+			setButtonActivate(false)
 		}
 	  }
 //-----------------------/Validations--------------------------------
@@ -155,11 +168,33 @@ async function createBankAccount() {
 							</ul>
 						</div>
 
-						<label htmlFor="identity">Documento de Identidad</label>
+						{documentType==""?
 						<div>
-							<input className="col-12 offset-0 col-lg-8 col-xl-6" type="text" id="identity" name="identity" required minLength="4" maxLength="17" size="35" onChange={handleIdentityChange}/>
-							{identityError && <p className="text-danger">{identityError}</p>}
+							<label htmlFor="identity">Documento de Identidad</label>
+							<div>
+								<input className="col-12 offset-0 col-lg-8 col-xl-6" type="text" id="identity" name="identity" required minLength="4" maxLength="17" size="35" placeholder="seleccione un tipo de documento" disabled/>
+							</div>
 						</div>
+						:<></>}
+						{documentType=="Rut"?
+							<div>
+								<label htmlFor="identityRut">Documento de Identidad</label>
+								<div>
+									<input className="col-12 offset-0 col-lg-8 col-xl-6" type="text" id="identityRut" name="identityRut" required minLength="4" maxLength="17" size="35" value={identity} placeholder="Ingrese número de rut" onChange={handleIdentityRutChange}/>
+									{identityError && <p className="text-danger">{identityError}</p>}
+								</div>
+							</div>
+							:<></>}
+						{documentType=="Pasaporte"?
+							<div>
+								<label htmlFor="identityPassport">Documento de Identidad</label>
+								<div>
+									<input className="col-12 offset-0 col-lg-8 col-xl-6" type="text" id="identityPassport" name="identityPassport" required minLength="4" maxLength="17" size="35" value={identity} placeholder="Ingrese pasaporte" onChange={handleIdentityPassportChange}/>
+									{identityError && <p className="text-danger">{identityError}</p>}
+								</div>
+							</div>:<></>
+						}
+
 					</div>
         			{buttonActivate?<a href="#" className="btn btn-dark col-8 offset-2 col-md-8 offset-md-2 col-lg-4 offset-lg-4 mt-4" onClick={createBankAccount}>Guardar</a>:<a className="btn btn-secondary col-8 offset-2 col-md-8 offset-md-2 col-lg-4 offset-lg-4 mt-4" >Guardar</a>}
 				</div>
