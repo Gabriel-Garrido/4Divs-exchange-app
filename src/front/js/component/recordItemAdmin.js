@@ -98,7 +98,7 @@ export const RecordItemAdmin = (props) => {
 
             </div>
             <p className="mb-1 text-start fs-5">{transaction.transaction_amount} CLP a {transform} USD a la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
-            <p className="mb-1 text-start fs-6">Solicitado el 24-12-2022 14:30</p>
+            <p className="mb-1 text-start fs-6">Solicitado el {transaction.date_time}</p>
             <button className="btn btn-warning" data-bs-toggle="modal" onClick={() => changeStatus("Pendiente", props.transactions.id)}>Pendiente</button>
 
 <p>ID: {transaction.id}</p>

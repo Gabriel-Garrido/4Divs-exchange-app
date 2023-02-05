@@ -23,7 +23,7 @@ export const HomeAdmin = (props) => {
 					"Content-type": "application/json",
 				}});
 			const data = await response.json();
-			setRecordItems(data)
+			setRecordItems(data.reverse())
 			setIsLoading(false)
 			if (response == "transactions not found") {
 				setItemExist(false)

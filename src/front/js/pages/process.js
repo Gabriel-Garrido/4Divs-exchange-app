@@ -140,7 +140,7 @@ function redirect() {
 
 
 
-                            <Link to="/record" className={`btn btn-dark m-2 col-3 ${timeLeft === 0 ? 'disabled' : ''}`}>Ver historial</Link>
+                            <Link to="/record" className={`btn btn-dark m-2 col-3 ${timeLeft === 0 ? 'disabled' : ''}`}>Ya pagué</Link>
                         </div>
                     </div>
                 </div>
