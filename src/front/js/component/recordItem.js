@@ -58,6 +58,7 @@ export const RecordItem = (props) => {
             <div className="ms-2 me-auto">
                 <div className="fw-bold">{transaction.date_time}</div>
                 <p>{transaction.transaction_amount} CLP a {transform.toFixed(2)} USD en la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
+                <p>Id transacción: {transaction.id} </p>
             </div>
             <span className={statusPill}>{transaction.status}</span>
 		</li>

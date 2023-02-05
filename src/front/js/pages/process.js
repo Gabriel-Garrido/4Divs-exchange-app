@@ -125,7 +125,7 @@ function redirect() {
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 	</div>
                 	<div className="modal-body">
-                    <p>Desea Cancelar La Orden</p>
+                    <p>La transacción numero {transactionId} ha sido cancelada</p>
                 	</div>
                 	<div className="modal-footer">
                   <button className="btn btn-dark" onClick={redirect} data-bs-dismiss="modal">Aceptar</button>
