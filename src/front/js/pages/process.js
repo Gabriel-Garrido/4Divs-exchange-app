@@ -98,22 +98,28 @@ function redirect() {
                     <div className="card">
                         <p className="fs-4">{minutes}:{seconds.toString().padStart(2, "0")} Min Para Pagar</p>
                         <p className="fs-5">
-                            <NumericFormat value={mount} displayType={'text'} thousandSeparator={true} /> CLP x  <NumericFormat value={mount / props.rate} displayType={'text'} thousandSeparator={true}  /> USD
+                            <NumericFormat value={mount} displayType={'text'} thousandSeparator={true} /> CLP x  <NumericFormat value={(mount / props.rate).toFixed(2)} displayType={'text'} thousandSeparator={true}  /> USD
                         </p>
+                            <p className="text-black fs-6">Para continuar con la transacción realice transferencia de {mount} a la siguiente cuenta y luego presione "ya pagué"</p>
                         <div className="card">
-                            <span className="text-black">Transferir a:</span>
                             <p className="fs-4 text-left">
-                                <span className="d-inline-block key-color">Empresa: </span><span className="d-inline-block value-color">Innovación y Tecnología Empresarial ITEM Ltda</span>
+                                <span className="d-inline-block fs-5 key-color">Empresa: </span>
+                                <span className="d-inline-block fs-5 value-color">Innovación y Tecnología Empresarial ITEM Ltda</span>
                                 <br></br>
-                                <span className="d-inline-block key-color">Rut: </span><span className="d-inline-block value-color">78.936.330-7</span>
+                                <span className="d-inline-block fs-5 key-color">Rut: </span>
+                                <span className="d-inline-block fs-5 value-color">78.936.330-7</span>
                                 <br></br>
-                                <span className="d-inline-block key-color">Banco: </span><span className="d-inline-block value-color">Banco de Chile</span>
+                                <span className="d-inline-block fs-5 key-color">Banco: </span>
+                                <span className="d-inline-block fs-5 value-color">Banco de Chile</span>
                                 <br></br>
-                                <span className="d-inline-block key-color">Tipo de Cuenta: </span><span className="d-inline-block value-color">Cuenta corriente</span>
+                                <span className="d-inline-block fs-5 key-color">Tipo de Cuenta: </span>
+                                <span className="d-inline-block fs-5 value-color">Cuenta corriente</span>
                                 <br></br>
-                                <span className="d-inline-block key-color">Numero de Cuenta: </span><span className="d-inline-block value-color">8000519701</span>
+                                <span className="d-inline-block fs-5 key-color">Numero de Cuenta: </span>
+                                <span className="d-inline-block fs-5 value-color">8000519701</span>
                                 <br></br>
-                                <span className="d-inline-block key-color">Email: </span><span className="d-inline-block value-color">web@maconline.cl</span>
+                                <span className="d-inline-block fs-5 key-color">Email: </span>
+                                <span className="d-inline-block fs-5 value-color">web@maconline.cl</span>
                             </p>
                         </div>
                         <div className="container">
@@ -133,13 +139,6 @@ function redirect() {
               		</div>
             		</div>
           </div>
-
-
-
-
-
-
-
                             <Link to="/record" className={`btn btn-dark m-2 col-3 ${timeLeft === 0 ? 'disabled' : ''}`}>Ya pagué</Link>
                         </div>
                     </div>
