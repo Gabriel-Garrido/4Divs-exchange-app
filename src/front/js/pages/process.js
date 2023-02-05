@@ -33,7 +33,7 @@ export const Process = (props) => {
     const seconds = timeLeft % 60;
 
     return (
-        <div className="container col-10 offset-1 col-md-6 offset-md-3">
+        <div className="container col-10 offset-1 col-xl-6 offset-xl-3">
         <div className="card text-center">
             <div className="card-header fs-1">
                 En Proceso
@@ -62,9 +62,9 @@ export const Process = (props) => {
                                 <span className="d-inline-block key-color">Email: </span><span className="d-inline-block value-color">web@maconline.cl</span>
                             </p>
                         </div>
-                        <div className="container">
-                            <Link to="/home" className="btn btn-danger m-2 col-3">Realizar nueva transacción</Link>
-                            <Link to="/record" className={`btn btn-dark m-2 col-3 ${timeLeft === 0 ? 'disabled' : ''}`}>Ver historial</Link>
+                        <div className="container text-center row">
+                            <Link to="/home" className="btn btn-danger col-8 offset-2 col-md-8 offset-md-2 col-lg-4 offset-lg-4 mt-2">Cancelar</Link>
+                            <Link to="/record" className={`btn btn-dark col-8 offset-2 col-md-8 offset-md-2 col-lg-4 offset-lg-4 mt-2 ${timeLeft === 0 ? 'disabled' : ''}`}>Ya pagué</Link>
                         </div>
                     </div>
                 </div>

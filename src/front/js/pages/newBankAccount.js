@@ -115,7 +115,7 @@ async function createBankAccount() {
 //-------------------POST new bank account----------------------------
 
 	return (
-		<div className="container col-10 offset-1 col-md-6 offset-md-3">
+		<div className="container col-10 offset-1 col-xl-6 offset-xl-3">
 			<div className="card text-center row">
 				<div className="card-header fs-1">
 					Nueva Cuenta Bancaria
@@ -124,25 +124,25 @@ async function createBankAccount() {
 					<div className="container">
 						<label htmlFor="bankName">Nombre de Banco</label>
 						<div>
-							<input type="text" id="bankName" name="bankName" required minLength="4" maxLength="17" size="35" onChange={handleBankNameChange}  />
+							<input className="col-12 offset-0 col-lg-8 col-xl-6" type="text" id="bankName" name="bankName" required minLength="4" maxLength="17" size="35" onChange={handleBankNameChange}  />
 							{bankNameError && <p className="text-danger">{bankNameError}</p>}
 						</div>
 
 
 						<label htmlFor="accountNumber">Numero de Cuenta</label>
 						<div>
-							<input type="text" id="accountNumber" name="accountNumber" required	minLength="4" maxLength="22" size="35"  onChange={handleAccountNumberChange}/>
+							<input className="col-12 offset-0 col-lg-8 col-xl-6" type="text" id="accountNumber" name="accountNumber" required	minLength="4" maxLength="22" size="35"  onChange={handleAccountNumberChange}/>
 							{accountNumberError && <p className="text-danger">{accountNumberError}</p>}
 						</div>
 
 						<label htmlFor="holderName">Nombre del Titular</label>
 						<div>
-							<input type="text" id="holderName" name="holderName" required minLength="4" maxLength="17" size="35" onChange={handleHolderNameChange}/>
+							<input className="col-12 offset-0 col-lg-8 col-xl-6" type="text" id="holderName" name="holderName" required minLength="4" maxLength="17" size="35" onChange={handleHolderNameChange}/>
 							{holderNameError && <p className="text-danger">{holderNameError}</p>}
 						</div>
 
 						<label htmlFor="documentType">Tipo de documento</label>
-						<div className="container">
+						<div className="container col-md-10 offset-md-1 col-lg-6 offset-lg-3">
 							<ul className="list-group">
 								<li className="list-group-item">
 									<input className="form-check-input me-1" onChange={handleDocumentTypeChange} type="radio" name="listGroupRadio" value="Rut" id="firstRadio"></input>
@@ -157,11 +157,11 @@ async function createBankAccount() {
 
 						<label htmlFor="identity">Documento de Identidad</label>
 						<div>
-							<input type="text" id="identity" name="identity" required minLength="4" maxLength="17" size="35" onChange={handleIdentityChange}/>
+							<input className="col-12 offset-0 col-lg-8 col-xl-6" type="text" id="identity" name="identity" required minLength="4" maxLength="17" size="35" onChange={handleIdentityChange}/>
 							{identityError && <p className="text-danger">{identityError}</p>}
 						</div>
 					</div>
-        			{buttonActivate?<a href="#" className="btn btn-dark col-8 offset-2 col-md-2 offset-md-5 mt-4" onClick={createBankAccount}>Guardar</a>:<a className="btn btn-secondary col-8 offset-2 col-md-2 offset-md-5 mt-4" >Guardar</a>}
+        			{buttonActivate?<a href="#" className="btn btn-dark col-8 offset-2 col-md-8 offset-md-2 col-lg-4 offset-lg-4 mt-4" onClick={createBankAccount}>Guardar</a>:<a className="btn btn-secondary col-8 offset-2 col-md-8 offset-md-2 col-lg-4 offset-lg-4 mt-4" >Guardar</a>}
 				</div>
 				<div className="card-footer text-muted"></div>
 			</div>
