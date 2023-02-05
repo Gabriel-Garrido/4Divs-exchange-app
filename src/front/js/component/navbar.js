@@ -47,7 +47,6 @@ export const Navbar = (props) => {
 				{!store.user?<Link className="btn btn-dark" to="/" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>:store.user.admin?<Link className="btn btn-dark" to="/homeadmin" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>:<Link className="btn btn-dark" to="/home" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>}
 				
 
-
 		{/* -----------------------Session options (disble) ------------------------- */}
 				<button className="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i className="pe-none fas fa-user"></i>{store.user!=null? " " + store.user.first_name:<></>}</button>
 				<div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">

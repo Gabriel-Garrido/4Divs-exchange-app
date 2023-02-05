@@ -42,7 +42,8 @@ export const Login = (props) => {
 // ----------------------Login token---------------------------------
   const login_user = async (email, password) => {
         await actions.login(email, password)
-        loginDataFetch()
+        await actions.get_user_by_email()
+        render(store.user)
       }
 // ----------------------/Login token----------------------------------
 
@@ -58,8 +59,6 @@ export const Login = (props) => {
         }});
       const data = await response.json()
       localStorage.setItem("email", store.user.email);
-
-      // props.setUser(data)
 
       return render(data)
     }

@@ -9,12 +9,6 @@ import "../../styles/home.css";
 
 export const Home = (props) => {
 
-	useEffect(() => {
-		if (localStorage.getItem("email") == null) {
-		navigate("/")
-		return "no user logged"
-	}},[])
-
 	const navigate = useNavigate()
 	const { store, actions } = useContext(Context);
 	useEffect(() => {bankAccountFetch()},[])

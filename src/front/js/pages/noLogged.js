@@ -5,10 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const NoLogged = (props) => {
     const { store, actions } = useContext(Context)
-
-    useEffect(() => {
-        actions.logout()
-    },[])
+   
   
     return (
         <div className=" container text-center col-10 offset-1 col-xl-6 offset-xl-3">

@@ -61,6 +61,7 @@ import { Navigate } from "react-router-dom";
 					console.log(data)
 					localStorage.setItem("jwt-token", data.token);
 					setStore({user: data.user, token: data.token})
+					localStorage.setItem("email", data.user.email)
 			}
 			,
 			logout: () => {
@@ -69,6 +70,7 @@ import { Navigate } from "react-router-dom";
 				return console.log("No user logged")
 			},
 			get_user_by_email: async () => {
+
 				if (localStorage.getItem("email") == null) {
 					return "there is no user logged"
 				}
@@ -83,8 +85,8 @@ import { Navigate } from "react-router-dom";
 							if (data.msg == "Token has expired"){
 								return localStorage.clear()
 							}
-							console.log(data.email)
 							setStore({user: data})
+							return console.log(data)
 						})
 					});
 				} catch (error) {
