@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 	const getState = ({ getStore, getActions, setStore }) => {
 	const URL_API = process.env.BACKEND_URL
 	return {
@@ -64,24 +66,31 @@
 			logout: () => {
 				setStore({user: null})
 				localStorage.clear()
+				return console.log("No user logged")
 			},
 			get_user_by_email: async () => {
-				console.log("get_user_by_email")
-				await fetch(`${URL_API}/api/get_user_by_email/${localStorage.getItem("email")}`, {
+				if (localStorage.getItem("email") == null) {
+					return "there is no user logged"
+				}
+				try {await fetch(`${URL_API}/api/get_user_by_email/${localStorage.getItem("email")}`, {
 					method: ["GET"],
 					headers: {
 					  "Content-type": "application/json; charset=utf-8",
 					  "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 					}}).then(response => {
 						response.json().then(data => {
+
+							if (data.msg == "Token has expired"){
+								return localStorage.clear()
+							}
 							console.log(data.email)
 							setStore({user: data})
-							
 						})
-						
-						
-						
 					});
+				} catch (error) {
+					console.log('there is a problem with fetch:' + error.message);
+				}
+
 				}
 		}
 	};

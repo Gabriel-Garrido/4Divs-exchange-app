@@ -5,10 +5,14 @@ import { RecordItemAdmin } from "../component/recordItemAdmin.js";
 
 
 export const HomeAdmin = (props) => {
-	if (!localStorage.getItem("jwt-token"))
-  	return <></>
-	useEffect(()=>{recordItemFetch()},[recordItems])
 
+	useEffect(() => {
+		if (localStorage.getItem("email") == null) {
+		navigate("/")
+		return "no user logged"
+	}},[])
+
+	useEffect(()=>{recordItemFetch()},[recordItems])
 	const { store, actions } = useContext(Context);
 	const [recordItems, setRecordItems] = useState([])
 	const [isLoading, setIsLoading] = useState(false);

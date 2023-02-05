@@ -8,10 +8,14 @@ import { Link, useNavigate } from "react-router-dom"
 const rateRegex = /^\d*$/;
 
 export const RateAdmin = (props) => {
-	const navigate = useNavigate()
 
-	if (!localStorage.getItem("jwt-token"))
-  	return <></>
+	useEffect(() => {
+		if (localStorage.getItem("email") == null) {
+		navigate("/")
+		return "no user logged"
+	}},[])
+
+	const navigate = useNavigate()
 
 	useEffect(()=>{apiExternal()},[])
 

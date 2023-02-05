@@ -4,6 +4,13 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const ChangePassword = (props) => {
+
+  useEffect(() => {
+		if (localStorage.getItem("email") == null) {
+		navigate("/")
+		return "no user logged"
+	}},[])
+
   let { user_id } = useParams();
   console.log({user_id});
 	const { store, actions } = useContext(Context);

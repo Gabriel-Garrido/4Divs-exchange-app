@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash
+import pytz
 
 
 db = SQLAlchemy()
@@ -167,6 +168,10 @@ class Transaction(db.Model):
         return f"{self.user_id}:{self.status}:{self.change_id}:{self.bank_account_id}:{self.transaction_amount}:{self.transfer_bank_id}"
         
     def serialize(self):
+        timezone = pytz.timezone("America/Santiago")
+        date_time_chile = self.date_time.astimezone(timezone)
+        date_time_formatted = date_time_chile.strftime("%d/%m/%Y %H:%M:%S")
+
         return {
             "id": self.id,
             "user_id": self.user_id,
@@ -175,5 +180,5 @@ class Transaction(db.Model):
             "bank_account_id":self.bank_account_id,
             "transaction_amount":self.transaction_amount,
             "transfer_bank_id":self.transfer_bank_id,
-            "date_time": self.date_time
+            "date_time": date_time_formatted
         }

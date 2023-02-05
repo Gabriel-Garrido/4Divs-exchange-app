@@ -4,11 +4,15 @@ import "../../styles/home.css";
 import jsPDF from "jspdf";
 
 export const ReportAdmin = (props) => {
+
+  useEffect(() => {
+		if (localStorage.getItem("email") == null) {
+		navigate("/")
+		return "no user logged"
+	}},[])
+
   const { store, actions } = useContext(Context);
   const [mail, setMail] = useState("");
-
-  if (!localStorage.getItem("jwt-token"))
-  	return <></>
 
     const handleDownloadReport = async () => {
 

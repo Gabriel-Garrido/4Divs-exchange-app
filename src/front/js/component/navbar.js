@@ -5,16 +5,10 @@ import { Context } from "../store/appContext";
 
 
 export const Navbar = (props) => {
+	
 	const { store, actions } = useContext(Context)
 	const navigate = useNavigate()
 	const token = localStorage.getItem("jwt-token")
-
-// --------------------------------logOut-------------------------------------
-	function logOut() {
-		localStorage.clear()
-		navigate("/")
-}
-// --------------------------------/logOut-------------------------------------
 
 	return (
 		<nav className="navbar navbar-light sticky-top bg-light mb-4">
@@ -50,11 +44,12 @@ export const Navbar = (props) => {
 				</div>
 				:<></>
 			}
+				{!store.user?<Link className="btn btn-dark" to="/" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>:store.user.admin?<Link className="btn btn-dark" to="/homeadmin" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>:<Link className="btn btn-dark" to="/home" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>}
+				
 
-				<Link className="btn btn-dark" to="/" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>
 
 		{/* -----------------------Session options (disble) ------------------------- */}
-				<button className="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i className="pe-none fas fa-user"></i>{store.user!=null? " " + store.user.email:<></>}</button>
+				<button className="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i className="pe-none fas fa-user"></i>{store.user!=null? " " + store.user.first_name:<></>}</button>
 				<div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 					<div className="offcanvas-header">
 						<h3 className="offcanvas-title" id="offcanvasRightLabel">Future user function</h3>
