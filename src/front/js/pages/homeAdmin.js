@@ -7,11 +7,12 @@ import { RecordItemAdmin } from "../component/recordItemAdmin.js";
 export const HomeAdmin = (props) => {
 	if (!localStorage.getItem("jwt-token"))
   	return <></>
-	useEffect(()=>{recordItemFetch()},[])
+	useEffect(()=>{recordItemFetch()},[recordItems])
 
 	const { store, actions } = useContext(Context);
 	const [recordItems, setRecordItems] = useState([])
 	const [isLoading, setIsLoading] = useState(false);
+	const [itemsExist, setItemExist] = useState(false)
 
 	const recordItemFetch = async () => {
 		setIsLoading(true)
@@ -24,6 +25,11 @@ export const HomeAdmin = (props) => {
 			const data = await response.json();
 			setRecordItems(data)
 			setIsLoading(false)
+			if (response == "transactions not found") {
+				setItemExist(false)
+			}else {
+				setItemExist(true)
+			}
 		}catch (error) {
 			console.log('there is a problem with fetch:' + error.message);
 			setIsLoading(false)
@@ -31,7 +37,7 @@ export const HomeAdmin = (props) => {
 		}
 
 	return (
-		<div className="container text-center mt-5 col-10 offset-1 col-md-6 offset-md-3">
+		<div className="container text-center mt-5 col-10 offset-1 col-lg-6 offset-lg-3">
 			<div className="card text-center">
 
 {/* -------------------------------Vista de funcion de filtrar---------------------------------
@@ -54,18 +60,27 @@ export const HomeAdmin = (props) => {
 				</div> 
 -------------------------------Vista de funcion de filtrar---------------------------------*/}
 				{isLoading? 
-				<div className="container text-center">
-					<div className="spinner-border" role="status">
-					<span className="sr-only">Cargando...</span>
+				<div className="card-body">
+					<div className="container text-center">
+						<div className="spinner-border" role="status">
+						<span className="sr-only">Cargando...</span>
+						</div>
 					</div>
 				</div>
 				:
 				<div className="card-body">
+					{!itemsExist? 
+					<div>
+						<h1>No hay transacciones</h1>
+						<p>Espere a que se realicen transacciones y actualice</p>
+						<button className="btn btn-dark" onClick={recordItemFetch} >Actualizar</button>
+					</div>
+					:
 					<div className="list-group">
 						{recordItems.map(item => {
 							return <RecordItemAdmin key={item.id} transactions={item} URL_API={props.URL_API}/>
 						})}
-					</div>
+					</div>}
 				</div>}
 				<div className="card-footer text-muted">
 				</div>
