@@ -76,7 +76,7 @@ const Layout = () => {
                                     <div className="fs-1"><i className="fas fa-exclamation-triangle"></i></div>
                                     </div>
                                     <div className="card-body text-center">
-                                        <div className="container row">
+                                        <div>
                                             <p className="col-12">Ruta no encontrada</p>
                                         </div>
                                     </div>
@@ -91,7 +91,6 @@ const Layout = () => {
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                    
                                 </div>
                                 <div className="card-footer text-muted"></div>
                             </div>
