@@ -140,7 +140,7 @@ export const RateAdmin = (props) => {
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 	</div>
                 	<div className="modal-body">
-                    <p>La Tasa ha sido cambiada</p>
+                    <p>La Tasa ha sido cambiada ha {props.rate} CLP  x USD</p>
                 	</div>
                 	<div className="modal-footer">
                   <button className="btn btn-dark" onClick={redirect} data-bs-dismiss="modal">Aceptar</button>

@@ -10,6 +10,44 @@ export const ReportAdmin = (props) => {
   if (!localStorage.getItem("jwt-token"))
   	return <></>
 
+
+    //reporte general.............................................................
+
+
+    const handleDownloadReportall = async () => {
+
+      try {
+        const responseUser = await fetch(`${props.URL_API}/api/get_all_users/`, {
+          method: ["GET"],
+          headers: {
+            "Content-type": "application/json; charset=utf-8",
+            "Authorization": "Bearer " + localStorage.getItem("jwt-token")
+          }});
+        const dataUser = await responseUser.json();
+          console.log(dataUser);
+          const doc = new jsPDF();
+          doc.text(`Reporte todos los usuario:`, 20, 20);
+          let y = 40;
+          for (let user in dataUser) {
+            if (y > 280) {
+             doc.addPage();
+            y = 20;
+            }
+            doc.text(`Rut: ${dataUser[user].rut}`, 20, y);
+            doc.text(`Email: ${dataUser[user].email}`, 80, y)
+            doc.line(20, y + 2, 190, y + 2);
+            y += 10;
+            } 
+            doc.save("reporte.pdf");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
+
+    //reporte por usuario.............................................................
+
     const handleDownloadReport = async () => {
 
       try {
@@ -57,7 +95,12 @@ export const ReportAdmin = (props) => {
               <h1>Reporte</h1>
             </div>
             <div className="card-body">
-              <button className="btn btn-dark mb-4 mt-1">Descargar Reporte general</button>
+              <button className="btn btn-dark mb-4 mt-1"
+              data-bs-toggle="modal" data-bs-target="#exampleModal"
+              onClick={handleDownloadReportall}>Descargar Reporte general</button>
+              
+
+
               <div className="input-group mb-3">
               <input
                 type="text"
@@ -72,10 +115,26 @@ export const ReportAdmin = (props) => {
                 className="btn btn-dark"
                 type="button"
                 id="button-addon2"
+                data-bs-toggle="modal" data-bs-target="#exampleModal"
                 onClick={handleDownloadReport}
               >
                 Descargar reporte usuario
               </button>
+              <div className="modal" tabIndex="-1" id="exampleModal">
+            		<div className="modal-dialog">
+              		<div className="modal-content">
+                	<div className="modal-header">
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                	</div>
+                	<div className="modal-body">
+                    <p>Su reporte ha sido generado</p>
+                	</div>
+                	<div className="modal-footer">
+                  <button className="btn btn-dark" data-bs-dismiss="modal">Aceptar</button>
+                	</div>
+              		</div>
+            		</div>
+              </div>
             </div>
 
 
