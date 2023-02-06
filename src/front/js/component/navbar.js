@@ -30,7 +30,7 @@ export const Navbar = (props) => {
 						<p className="fs-4">1 USD = {props.rate} CLP</p>
 					</div>
 
-					<div className="offcanvas-body d-flex flex-column justify-content-around" data-bs-toggle="offcanvas">
+					<div className="offcanvas-body d-flex flex-column mb-6 justify-content-around" data-bs-toggle="offcanvas">
 
  					{/* --------------------------------User Options------------------------------------- */}
 							{!store.user.admin?<Link className="btn btn-dark" to="/home" type="button">  <i className="pe-none fas fa-home"></i> Home</Link> : <></>}
@@ -71,7 +71,6 @@ export const Navbar = (props) => {
 				</div>
 
 			</div>
-			
 		</nav>
 		
 	);
