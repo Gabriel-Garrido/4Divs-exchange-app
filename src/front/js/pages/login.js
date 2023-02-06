@@ -11,6 +11,10 @@ let myToken = null;
 
 export const Login = (props) => {
 
+  useEffect(() => {
+    actions.logout()
+  },[])
+
   const { store, actions } = useContext(Context)
   const navigate = useNavigate()
   const [email, setEmail] = useState("");

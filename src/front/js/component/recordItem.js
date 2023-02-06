@@ -11,6 +11,7 @@ export const RecordItem = (props) => {
 
 //------------------------------------All Fetch----------------------------------------
     const changeFetch = async () => {
+        actions.loadingFunction(true)
         try{
             const response = await fetch(`${props.URL_API}/api/get_change/${transaction.change_id}`,{
                 method: ['GET'],
@@ -18,13 +19,17 @@ export const RecordItem = (props) => {
                     "Content-type": "application/json",
                 }});
             const data = await response.json();
+            actions.loadingFunction(false)
+
             return setChange(data)
         }catch (error) {
             console.log('there is a problem with fetch:' + error.message);
+            actions.loadingFunction(false)
         }
         }
 
     const bankAccountFetch = async () => {
+        actions.loadingFunction(true)
         try{
             const response = await fetch(`${props.URL_API}/api/get_bank_account/${transaction.bank_account_id}`,{
                 method: ['GET'],
@@ -32,9 +37,12 @@ export const RecordItem = (props) => {
                     "Content-type": "application/json",
                 }});
             const data = await response.json();
+            actions.loadingFunction(false)
             return setBank_account(data)
         }catch (error) {
             console.log('there is a problem with fetch:' + error.message);
+            actions.loadingFunction(false)
+
         }
         }
 //------------------------------------/All Fetch----------------------------------------

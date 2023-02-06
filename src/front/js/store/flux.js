@@ -98,8 +98,10 @@ import { Navigate } from "react-router-dom";
 					console.log('there is a problem with fetch:' + error.message);
 				}
 
-				}
-		}
+				},
+				loadingFunction: async (status) => {
+					setStore({isLoading: status})
+		}}
 	};
 };
 
