@@ -54,7 +54,7 @@ const Layout = () => {
         <div className="row">
             <BrowserRouter basename={basename}>
                 <ScrollToTop> 
-                    <Navbar user={user} />
+                    <Navbar user={user} rate={rate} />
 
                     <Routes>
                         <Route element={<Login setUser={setUser} URL_API={URL_API} user={user} />} path="/" />

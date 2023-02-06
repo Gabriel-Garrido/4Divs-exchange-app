@@ -6,7 +6,9 @@ import { Navigate } from "react-router-dom";
 		store: {
 			user: null,
 			transaction: null,
-			isLoading: false
+			isLoading: false,
+			exchangeRate: null
+
 		},
 		actions: {
 
