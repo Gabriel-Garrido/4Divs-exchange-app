@@ -42,6 +42,7 @@ export const Process = (props) => {
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 				}});
 			const data = await response.json();
             console.log(data)
@@ -64,6 +65,7 @@ const changeStatus = async() => {
             method: ["PUT"],
             headers: {
                 "Content-type": "application/json; charset=utf-8",
+                "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
             },
             body: JSON.stringify(data)
         })

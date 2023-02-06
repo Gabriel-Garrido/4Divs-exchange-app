@@ -32,6 +32,7 @@ export const Home = (props) => {
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 				}});
 			const data = await response.json();
 			props.setBankAccount(data)

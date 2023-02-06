@@ -19,6 +19,7 @@ export const HomeAdmin = (props) => {
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 				}});
 			const data = await response.json();
 			setRecordItems(data.reverse())

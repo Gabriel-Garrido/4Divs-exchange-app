@@ -12,6 +12,7 @@ api = Blueprint('api', __name__)
 
 # -----------------------User endpoints-------------------------------
 @api.route('/get_all_users/', methods=['GET'])
+@jwt_required()
 def get_all_users():
     users = User.query.all()
     if (users == []):
@@ -21,6 +22,7 @@ def get_all_users():
         return jsonify(users), 200
 
 @api.route('/get_user/<int:user_id>', methods=['GET'])
+@jwt_required()
 def get_user(user_id):
     user = User.query.get(user_id)
     if user is None:
@@ -28,7 +30,6 @@ def get_user(user_id):
     return user.serialize(), 200
 
 @api.route('/get_user_by_email/<user_email>', methods=['GET'])
-@jwt_required()
 def get_user_by_email(user_email):
     user = User.query.filter(User.email == user_email).first()
     if user is None:
@@ -47,6 +48,7 @@ def get_user_report_by_email(user_email):
     return jsonify(user_transactions)
 
 @api.route('/get_user_id_by_email/<user_email>', methods=['GET'])
+@jwt_required()
 def get_user_id_by_email(user_email):
     user = User.query.filter(User.email == user_email).first()
     if user is None:
@@ -54,6 +56,7 @@ def get_user_id_by_email(user_email):
     return user.restorePassword(), 200   
     
 @api.route('/add_user', methods=['POST'])
+@jwt_required()
 def add_user():
     req_Json = request.get_json()
     user = User(req_Json["rut"], req_Json["email"],req_Json["password"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
@@ -62,6 +65,7 @@ def add_user():
     return "user " + req_Json["email"] + " was created", 201
 
 @api.route('/edit_password/<int:user_id>', methods=['PUT'])
+@jwt_required()
 def edit_password(user_id):
     user = User.query.get(user_id)
     if user is None:
@@ -75,6 +79,7 @@ def edit_password(user_id):
     return "incorrect param", 400
 
 @api.route('/edit_admin/<int:user_id>', methods=['PUT'])
+@jwt_required()
 def edit_admin(user_id):
     user = User.query.get(user_id)
     if user is None:
@@ -88,6 +93,7 @@ def edit_admin(user_id):
     return "incorrect param", 400
 
 @api.route('delete_user/<int:user_id>', methods=['DELETE'])
+@jwt_required()
 def delete_user(user_id):
     user = User.query.get(user_id)
     if user is None:
@@ -109,6 +115,7 @@ def get_all_changes():
         return jsonify(changes), 200
 
 @api.route('/get_change/<int:change_id>', methods=['GET'])
+@jwt_required()
 def get_change(change_id):
     changes = list(map(lambda x: x.serialize(),Change.query.all()))
     for change in changes:
@@ -118,6 +125,7 @@ def get_change(change_id):
             return "change not found", 404
 
 @api.route('add_change', methods=['POST'])
+@jwt_required()
 def add_change():
     req_Json = request.get_json()
     change = Change(req_Json["origin_exchange"],req_Json["destination_exchange"], req_Json["exchange_rate"])
@@ -126,6 +134,7 @@ def add_change():
     return "change was created", 201
 
 @api.route('edit_change/<int:change_id>', methods=['PUT'])
+@jwt_required()
 def edit_change(change_id):
     change = Change.query.get(change_id)
     if change is None:
@@ -144,6 +153,7 @@ def edit_change(change_id):
 
 # -----------------------Bank account endpoints-------------------------------
 @api.route('/get_all_bank_accounts/', methods=['GET'])
+@jwt_required()
 def get_all_bank_account():
     bank_accounts = Bank_account.query.all()
     if(bank_accounts == []):
@@ -153,6 +163,7 @@ def get_all_bank_account():
         return jsonify(bank_accounts), 200
 
 @api.route('/get_bank_account/<int:bank_account_id>', methods=['GET'])
+@jwt_required()
 def get_bank_account(bank_account_id):
     bank_account = Bank_account.query.get(bank_account_id)
     if bank_account is None:
@@ -160,6 +171,7 @@ def get_bank_account(bank_account_id):
     return bank_account.serialize(), 200
 
 @api.route('/get_bank_account_by_user_id/<int:user_id>', methods=['GET'])
+@jwt_required()
 def get_bank_account_by_user_id(user_id):
     all_bank_accounts = list(map(lambda x: x.serialize(),Bank_account.query.all()))
     user_bank_accounts = []
@@ -169,6 +181,7 @@ def get_bank_account_by_user_id(user_id):
     return jsonify(user_bank_accounts), 200
 
 @api.route('add_bank_account', methods=['POST'])
+@jwt_required()
 def add_bank_account():
     req_Json = request.get_json()
     bank_account = Bank_account(req_Json["user_id"], req_Json["country"], req_Json["account_number"], req_Json["bank"], req_Json["account_holder"], req_Json["document_type"], req_Json["document_id"])
@@ -177,6 +190,7 @@ def add_bank_account():
     return "bank account created", 201
     
 @api.route('edit_bank_account/<int:bank_account_id>', methods=['PUT'])
+@jwt_required()
 def edit_bank_account(bank_account_id):
     req_Json = request.get_json()
     for i, bank_account in enumerate(bank_account_temp):
@@ -187,6 +201,7 @@ def edit_bank_account(bank_account_id):
     return "bank account not found", 404
 
 @api.route('delete_bank_account/<int:bank_account_id>', methods=['DELETE'])
+@jwt_required()
 def delete_bank_account(bank_account_id):
     for i, bank_account in enumerate(bank_account_temp):
         if bank_account["id"] == bank_account_id:
@@ -198,6 +213,7 @@ def delete_bank_account(bank_account_id):
 
 # -----------------------Transactions endpoints-------------------------------
 @api.route('/get_all_transactions/', methods=['GET'])
+@jwt_required()
 def get_all_transaction():
     transactions = Transaction.query.all()
     if (transactions == []):
@@ -207,6 +223,7 @@ def get_all_transaction():
         return jsonify(transactions), 200
 
 @api.route('/get_transaction/<int:transaction_id>', methods=['GET'])
+@jwt_required()
 def get_transaction(transaction_id):
     transactions = list(map(lambda x: x.serialize(),Transaction.query.all()))
     for transaction in transactions:
@@ -216,6 +233,7 @@ def get_transaction(transaction_id):
             return "transaction not found", 404
 
 @api.route('/get_transaction_by_user_id/<int:user_id>', methods=['GET'])
+@jwt_required()
 def get_transaction_by_user_id(user_id):
     all_transactions = list(map(lambda x: x.serialize(),Transaction.query.all()))
     user_transactions = []
@@ -234,6 +252,7 @@ def add_transaction():
     return transaction.serialize(), 200
 
 @api.route('edit_transaction/<int:transaction_id>', methods=['PUT'])
+@jwt_required()
 def edit_transaction(transaction_id):
     transaction = Transaction.query.get(transaction_id)
     if transaction is None:
@@ -246,6 +265,7 @@ def edit_transaction(transaction_id):
     return "Status de la transacción cambiado a " + req_Json["status"], 200
 
 @api.route('delete_transaction/<int:transaction_id>', methods=['DELETE'])
+@jwt_required()
 def delete_transaction(transaction_id):
     transaction = User.query.get(transaction_id)
     if transaction is None:

@@ -12,28 +12,24 @@ export const Record = (props) => {
 	const [recordItems, setRecordItems] = useState([])
 
 	const recordItemFetch = async () => {
-		actions.loadingFunction(true)
-
 		try{
 			const response = await fetch(`${props.URL_API}/api/get_transaction_by_user_id/${store.user.id}`,{
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 				}});
 			const data = await response.json();
-			actions.loadingFunction(false)
 			return setRecordItems(data.reverse())
 
 		}catch (error) {
 			console.log('there is a problem with fetch:' + error.message);
-			actions.loadingFunction(false)
-
 		}
 		}
 
 	return (
 
-		!store.isLoading?<div className="container col-10 offset-1 col-xl-6 offset-xl-3">
+		<div className="container col-10 offset-1 col-xl-6 offset-xl-3">
 			<div className="card text-center">
 				<div className="card-header fs-1">
 					Historial
@@ -48,19 +44,6 @@ export const Record = (props) => {
 					</div>
 				</div>
 			</div>
-		</div>:
-		<div className=" container text-center col-10 offset-1 col-xl-6 offset-xl-3">
-		<div className="card text-center">
-			<div className="card-header fs-5">
-				<div className="spinner-border" role="status">
-					<span className="visually-hidden">Loading...</span>
-				</div>
-			</div>
-			<div className="card-body">
-				
-			</div>
-			<div className="card-footer text-muted"></div>
 		</div>
-	</div>
 	);
 };

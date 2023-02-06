@@ -42,7 +42,9 @@ import { Navigate } from "react-router-dom";
 				console.log(email + " " + password)
 				const resp = await fetch(`${URL_API}/api/token`, {
 				method: ["POST"],
-				headers: { "Content-Type": "application/json" },
+				headers: { 
+					"Content-Type": "application/json",
+				},
 				body: JSON.stringify({ "email": email, "password": password })
 				})
 				if(!resp.ok) {
@@ -80,7 +82,6 @@ import { Navigate } from "react-router-dom";
 					method: ["GET"],
 					headers: {
 					  "Content-type": "application/json; charset=utf-8",
-					  "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 					}}).then(response => {
 						response.json().then(data => {
 
