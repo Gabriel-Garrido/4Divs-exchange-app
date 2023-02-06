@@ -78,7 +78,7 @@ export const RateAdmin = (props) => {
 			  method: ["PUT"],
 					headers: {
 					 "Content-type": "application/json; charset=utf-8",
-					 'Access-Control-Allow-Origin':"*"
+					 "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 					},
 					body: JSON.stringify(data)
 			})

@@ -13,6 +13,7 @@ export const ReportAdmin = (props) => {
 
   const { store, actions } = useContext(Context);
   const [mail, setMail] = useState("");
+  const [mailError, setMailError] = useState("")
 
     const handleDownloadReport = async () => {
 
@@ -47,8 +48,10 @@ export const ReportAdmin = (props) => {
             y += 10;
             } 
             doc.save("reporte.pdf");
+            setMailError("")
       } catch (error) {
         console.error(error);
+        setMailError("Error en la solicitud de reporte de usuario")
       }
     };
 
@@ -65,7 +68,7 @@ export const ReportAdmin = (props) => {
               <div className="input-group mb-3">
               <input
                 type="text"
-                className="form-control"
+                className="form-control col-12 col-md-8"
                 placeholder="Mail usuario"
                 aria-label="Recipient's username"
                 aria-describedby="button-addon2"
@@ -73,13 +76,14 @@ export const ReportAdmin = (props) => {
                 onChange={(e) => setMail(e.target.value)}
               />
               <button
-                className="btn btn-dark"
+                className="btn btn-dark col-12 col-md-4"
                 type="button"
                 id="button-addon2"
                 onClick={handleDownloadReport}
               >
                 Descargar reporte usuario
               </button>
+              {mailError!=""?<p className="col-12 text-danger">{mailError}</p>:<></>}
             </div>
 
 
