@@ -7,8 +7,14 @@ import { NumericFormat } from 'react-number-format';
 
 export const Process = (props) => {
 
-    if (!localStorage.getItem("jwt-token"))
-    return <></>
+    useEffect(() => {
+        if (localStorage.getItem("email") == null) {
+            navigate("/")
+            return "no user logged"
+        }
+        transactionFetch()
+        setMount(store.transaction.transaction_amount)
+    },[]);
 
     const { store, actions } = useContext(Context);
     const [timeLeft, setTimeLeft] = useState(900);
@@ -16,10 +22,6 @@ export const Process = (props) => {
     const navigate = useNavigate();
     const [mount, setMount] = useState("");
 
-    useEffect(() => {
-        transactionFetch()
-        setMount(store.transaction.transaction_amount)
-    },[]);
 
     useEffect(() => {
         if (timeLeft === 0) {
@@ -40,6 +42,7 @@ export const Process = (props) => {
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 				}});
 			const data = await response.json();
             console.log(data)
@@ -62,9 +65,9 @@ const changeStatus = async() => {
             method: ["PUT"],
             headers: {
                 "Content-type": "application/json; charset=utf-8",
+                "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
             },
             body: JSON.stringify(data)
-                
         })
         .then(
             data => {console.log(data.status)
@@ -84,7 +87,6 @@ function redirect() {
 	  }
   }
 //-----------------------------/Change status Fetch------------------------------------
-
 
 
     return (
@@ -125,20 +127,20 @@ function redirect() {
                         <div className="container">
                             <button type="button" className="btn btn-danger m-2 col-3" onClick={changeStatus} data-bs-toggle="modal" data-bs-target="#exampleModal">Cancelar</button>
                             <div className="modal" tabIndex="-1" id="exampleModal">
-            		<div className="modal-dialog">
-              		<div className="modal-content">
-                	<div className="modal-header">
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                	</div>
-                	<div className="modal-body">
-                    <p>La transacción numero {transactionId} ha sido cancelada</p>
-                	</div>
-                	<div className="modal-footer">
-                  <button className="btn btn-dark" onClick={redirect} data-bs-dismiss="modal">Aceptar</button>
-                	</div>
-              		</div>
-            		</div>
-          </div>
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <p>La transacción numero {transactionId} ha sido cancelada</p>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button className="btn btn-dark" onClick={redirect} data-bs-dismiss="modal">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <Link to="/record" className={`btn btn-dark m-2 col-3 ${timeLeft === 0 ? 'disabled' : ''}`}>Ya pagué</Link>
                         </div>
                     </div>

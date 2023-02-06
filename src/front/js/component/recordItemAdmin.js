@@ -22,6 +22,7 @@ export const RecordItemAdmin = (props) => {
                 method: ['GET'],
                 headers: {
                     "Content-type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
                 }});
             const data = await response.json();
             return setChange(data)
@@ -36,6 +37,7 @@ export const RecordItemAdmin = (props) => {
                 method: ['GET'],
                 headers: {
                     "Content-type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
                 }});
             const data = await response.json();
             return setBank_account(data)
@@ -50,6 +52,7 @@ export const RecordItemAdmin = (props) => {
                 method: ['GET'],
                 headers: {
                     "Content-type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
                 }});
             const data = await response.json();
             return setRecordUser(data)
@@ -70,6 +73,7 @@ export const RecordItemAdmin = (props) => {
                 method: ["PUT"],
                 headers: {
                     "Content-type": "application/json; charset=utf-8",
+                    "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
                 },
                 body: JSON.stringify(data)
                     

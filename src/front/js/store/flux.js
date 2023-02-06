@@ -1,9 +1,14 @@
+import { Navigate } from "react-router-dom";
+
 	const getState = ({ getStore, getActions, setStore }) => {
 	const URL_API = process.env.BACKEND_URL
 	return {
 		store: {
 			user: null,
-			transaction: null
+			transaction: null,
+			isLoading: false,
+			exchangeRate: null
+
 		},
 		actions: {
 
@@ -39,7 +44,9 @@
 				console.log(email + " " + password)
 				const resp = await fetch(`${URL_API}/api/token`, {
 				method: ["POST"],
-				headers: { "Content-Type": "application/json" },
+				headers: { 
+					"Content-Type": "application/json",
+				},
 				body: JSON.stringify({ "email": email, "password": password })
 				})
 				if(!resp.ok) {
@@ -59,31 +66,45 @@
 					console.log(data)
 					localStorage.setItem("jwt-token", data.token);
 					setStore({user: data.user, token: data.token})
+					localStorage.setItem("email", data.user.email)
 			}
 			,
 			logout: () => {
 				setStore({user: null})
 				localStorage.clear()
+				return console.log("No user logged")
 			},
 			get_user_by_email: async () => {
-				console.log("get_user_by_email")
-				await fetch(`${URL_API}/api/get_user_by_email/${localStorage.getItem("email")}`, {
+				setStore({isLoading: true})
+				if (localStorage.getItem("email") == null) {
+					setStore({isLoading: false})
+					return "there is no user logged"
+				}
+				try {await fetch(`${URL_API}/api/get_user_by_email/${localStorage.getItem("email")}`, {
 					method: ["GET"],
 					headers: {
 					  "Content-type": "application/json; charset=utf-8",
-					  "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 					}}).then(response => {
 						response.json().then(data => {
-							console.log(data.email)
+
+							if (data.msg == "Token has expired"){
+								setStore({isLoading: false})
+								return localStorage.clear()
+							}
 							setStore({user: data})
-							
+							setStore({isLoading: false})
+							return console.log(data)
 						})
-						
-						
-						
 					});
+				} catch (error) {
+					setStore({isLoading: false})
+					console.log('there is a problem with fetch:' + error.message);
 				}
-		}
+
+				},
+				loadingFunction: async (status) => {
+					setStore({isLoading: status})
+		}}
 	};
 };
 

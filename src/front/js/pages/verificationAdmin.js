@@ -3,10 +3,14 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const VerificationAdmin = () => {
-	const { store, actions } = useContext(Context);
 
-	if (!localStorage.getItem("jwt-token"))
-  	return <></>
+	useEffect(() => {
+		if (localStorage.getItem("email") == null) {
+		navigate("/")
+		return "no user logged"
+	}},[])
+
+	const { store, actions } = useContext(Context);
 
 	return (
 		<div className="container col-10 offset-1 col-xl-6 offset-xl-3">

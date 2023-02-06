@@ -4,10 +4,9 @@ import { RecordItem } from "../component/recordItem.js";
 import "../../styles/home.css";
 
 export const Record = (props) => {
+
 	const { store, actions } = useContext(Context);
 	console.log(store.user.id)
-	if (!localStorage.getItem("jwt-token"))
-  	return <></>
 	
 	useEffect(()=>{recordItemFetch()},[])
 	const [recordItems, setRecordItems] = useState([])
@@ -18,6 +17,7 @@ export const Record = (props) => {
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 				}});
 			const data = await response.json();
 			return setRecordItems(data.reverse())
@@ -28,6 +28,7 @@ export const Record = (props) => {
 		}
 
 	return (
+
 		<div className="container col-10 offset-1 col-xl-6 offset-xl-3">
 			<div className="card text-center">
 				<div className="card-header fs-1">

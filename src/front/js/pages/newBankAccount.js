@@ -6,10 +6,14 @@ import { Link, useNavigate } from "react-router-dom"
 
 export const NewBankAccount = (props) => {
 
+	useEffect(() => {
+		if (localStorage.getItem("email") == null) {
+		navigate("/")
+		return "no user logged"
+	}},[])
+
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate()
-	if (!localStorage.getItem("jwt-token"))
-  	return <></>
 
 //-----------------------Validations--------------------------------
 	const lettersRegex = /^[a-zA-Z]+$/;
@@ -119,6 +123,7 @@ async function createBankAccount() {
 		method: ["POST"],
 		headers: {
 		 "Content-type": "application/json; charset=utf-8",
+		 "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 		},
 		body: JSON.stringify(data)
 	})

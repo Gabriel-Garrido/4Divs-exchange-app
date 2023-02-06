@@ -5,10 +5,8 @@ import { RecordItemAdmin } from "../component/recordItemAdmin.js";
 
 
 export const HomeAdmin = (props) => {
-	if (!localStorage.getItem("jwt-token"))
-  	return <></>
-	useEffect(()=>{recordItemFetch()},[recordItems])
 
+	useEffect(()=>{recordItemFetch()},[recordItems])
 	const { store, actions } = useContext(Context);
 	const [recordItems, setRecordItems] = useState([])
 	const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +19,7 @@ export const HomeAdmin = (props) => {
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 				}});
 			const data = await response.json();
 			setRecordItems(data.reverse())

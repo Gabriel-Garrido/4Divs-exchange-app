@@ -8,8 +8,8 @@ import "../../styles/home.css";
 
 
 export const Home = (props) => {
+
 	const navigate = useNavigate()
-	
 	const { store, actions } = useContext(Context);
 	useEffect(() => {bankAccountFetch()},[])
 	const [mount, setMount] = useState("");
@@ -18,8 +18,6 @@ export const Home = (props) => {
 	const [selectedBankAccount, setSelectedBankAccount] = useState("")
 
 	console.log("Change rate is = " + props.rate)
-
-
 
 	const handleChange = (e) => {
 		const value = e.floatValue;
@@ -34,6 +32,7 @@ export const Home = (props) => {
 				method: ['GET'],
 				headers: {
 					"Content-type": "application/json",
+					"Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
 				}});
 			const data = await response.json();
 			props.setBankAccount(data)
@@ -56,9 +55,6 @@ export const Home = (props) => {
 const handleChangeBank = e => {
     setSelectedBankAccount(e.target.value);
   };
-
-  if (!localStorage.getItem("jwt-token"))
-  	return <></>
 
 	return (
 		<div className="text-center container mb-2 mt-3 col-10 offset-1 col-xl-6 offset-xl-3">

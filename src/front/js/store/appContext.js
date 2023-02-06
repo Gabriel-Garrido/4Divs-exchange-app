@@ -22,8 +22,8 @@ const injectContext = PassedComponent => {
 		);
 
 		useEffect(() => {
-			state.actions.get_user_by_email()
 			console.log("--------useEffect---------")
+			state.actions.get_user_by_email()
 		},[])
 		
 

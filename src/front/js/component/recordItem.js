@@ -1,26 +1,34 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
+
 import { Link } from "react-router-dom";
 
 export const RecordItem = (props) => {
 	useEffect(()=>{changeFetch(), bankAccountFetch()},[])
     let transaction = props.transactions
-
+	const { store, actions } = useContext(Context);
     const [change, setChange] = useState([])
     const [bank_account, setBank_account] = useState([])
 
 
 //------------------------------------All Fetch----------------------------------------
     const changeFetch = async () => {
+        actions.loadingFunction(true)
         try{
             const response = await fetch(`${props.URL_API}/api/get_change/${transaction.change_id}`,{
                 method: ['GET'],
                 headers: {
                     "Content-type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
+
                 }});
             const data = await response.json();
+            actions.loadingFunction(false)
+
             return setChange(data)
         }catch (error) {
             console.log('there is a problem with fetch:' + error.message);
+            actions.loadingFunction(false)
         }
         }
 
@@ -30,11 +38,14 @@ export const RecordItem = (props) => {
                 method: ['GET'],
                 headers: {
                     "Content-type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('jwt-token')}`
+
                 }});
             const data = await response.json();
             return setBank_account(data)
         }catch (error) {
             console.log('there is a problem with fetch:' + error.message);
+
         }
         }
 //------------------------------------/All Fetch----------------------------------------

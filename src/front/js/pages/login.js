@@ -10,6 +10,11 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 let myToken = null;
 
 export const Login = (props) => {
+
+  useEffect(() => {
+    actions.logout()
+  },[])
+
   const { store, actions } = useContext(Context)
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
@@ -41,7 +46,8 @@ export const Login = (props) => {
 // ----------------------Login token---------------------------------
   const login_user = async (email, password) => {
         await actions.login(email, password)
-        loginDataFetch()
+        await actions.get_user_by_email()
+        render(store.user)
       }
 // ----------------------/Login token----------------------------------
 
@@ -57,8 +63,6 @@ export const Login = (props) => {
         }});
       const data = await response.json()
       localStorage.setItem("email", store.user.email);
-
-      // props.setUser(data)
 
       return render(data)
     }
