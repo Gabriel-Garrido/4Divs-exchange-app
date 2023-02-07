@@ -13,7 +13,7 @@ export const ReportAdmin = (props) => {
 
   const { store, actions } = useContext(Context);
   const [mail, setMail] = useState("");
-  const [mailError, setMailError] = useState("")
+  const [mailError, setMailError] = useState(null)
 
 
 //reporte general.............................................................
@@ -123,7 +123,7 @@ export const ReportAdmin = (props) => {
               >
                 Descargar reporte usuario
               </button>
-              {/* {mailError!=""?<p className="col-12 text-danger">{mailError}</p>:<></>} */}
+              {mailError!=""?<p className="col-12 text-danger">{mailError}</p>:<></>}
               <div className="modal" tabIndex="-1" id="exampleModal">
             		<div className="modal-dialog">
               		<div className="modal-content">
@@ -131,10 +131,22 @@ export const ReportAdmin = (props) => {
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 	</div>
                 	<div className="modal-body">
-                    <p>Su reporte ha sido generado</p>
+                    {mailError==null? 
+                      <div className="card text-center">
+                        <div className="card-header fs-5">
+                            <div className="spinner-border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <div className="card-body">
+                        </div>
+                        <div className="card-footer text-muted"></div>
+                    </div>
+                    :
+                    mailError!=""?<p className="col-12 text-danger">{mailError}</p>:<p>Su reporte ha sido generado</p>}
                 	</div>
                 	<div className="modal-footer">
-                  <button className="btn btn-dark" data-bs-dismiss="modal">Aceptar</button>
+                  <button className="btn btn-dark" onClick={() => setMailError(null)} data-bs-dismiss="modal">Aceptar</button>
                 	</div>
               		</div>
             		</div>
