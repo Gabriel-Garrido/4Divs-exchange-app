@@ -22,7 +22,6 @@ def get_all_users():
         return jsonify(users), 200
 
 @api.route('/get_user/<int:user_id>', methods=['GET'])
-@jwt_required()
 def get_user(user_id):
     user = User.query.get(user_id)
     if user is None:
@@ -48,7 +47,6 @@ def get_user_report_by_email(user_email):
     return jsonify(user_transactions)
 
 @api.route('/get_user_id_by_email/<user_email>', methods=['GET'])
-@jwt_required()
 def get_user_id_by_email(user_email):
     user = User.query.filter(User.email == user_email).first()
     if user is None:
@@ -56,7 +54,6 @@ def get_user_id_by_email(user_email):
     return user.restorePassword(), 200   
     
 @api.route('/add_user', methods=['POST'])
-@jwt_required()
 def add_user():
     req_Json = request.get_json()
     user = User(req_Json["rut"], req_Json["email"],req_Json["password"], req_Json["first_name"], req_Json["last_name"], req_Json["phone"], req_Json["birthdate"], req_Json["nationality"], req_Json["ocupation"], req_Json["monthly_income"], req_Json["particular_address"], req_Json["department"])
@@ -65,7 +62,6 @@ def add_user():
     return "user " + req_Json["email"] + " was created", 201
 
 @api.route('/edit_password/<int:user_id>', methods=['PUT'])
-@jwt_required()
 def edit_password(user_id):
     user = User.query.get(user_id)
     if user is None:
@@ -79,7 +75,6 @@ def edit_password(user_id):
     return "incorrect param", 400
 
 @api.route('/edit_admin/<int:user_id>', methods=['PUT'])
-@jwt_required()
 def edit_admin(user_id):
     user = User.query.get(user_id)
     if user is None:

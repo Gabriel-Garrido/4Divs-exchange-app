@@ -2,14 +2,14 @@ import React, { useContext , useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { NoLogged } from "./noLogged"
+
 
 export const ChangePassword = (props) => {
 
   useEffect(() => {
-		if (localStorage.getItem("email") == null) {
-		navigate("/")
-		return "no user logged"
-	}},[])
+    actions.get_user(user_id)
+},[])
 
   let { user_id } = useParams();
   console.log({user_id});
@@ -79,11 +79,7 @@ async function changePasswordFetch() {
 //---------------------/Fetch-----------------------------------------
 
 function redirect() {
-  if (store.user.admin) {
-    navigate("/homeadmin")
-    } else {
-    navigate("/home");
-    }
+  navigate("/")
 }
 
 	return (
@@ -94,6 +90,8 @@ function redirect() {
         <div className="card-header fs-1">
           Cambio de Contraseña
         </div>
+        {store.user != null ? 
+        
         <div className="card-body">
         <div className="container">
           <div className="form-floating mb-2 col-12 col-md-6 offset-md-3">
@@ -102,34 +100,52 @@ function redirect() {
             {passwordError1 && <p className="text-danger">{passwordError1}</p>}
 
           </div>
+          
           <div className="form-floating mb-2 col-12 col-md-6 offset-md-3">
             <input type="password" className="form-control" id="floatingPassword2" placeholder="Password" onChange={handlePasswordChange2}></input>
             <label htmlFor="floatingPassword2">Repetir Contraseña</label>
             {passwordError2 && <p className="text-danger">{passwordError2}</p>}
-
           </div>
-          {store.user.admin &&activateButton?<button to="/homeadmin" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
-          {!store.user.admin &&activateButton?<button to="/home" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
+          
+          {store.user != null && store.user.admin &&activateButton?<button to="/" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
+          {store.user != null && !store.user.admin &&activateButton?<button to="/" href="#" className="btn btn-dark fs-4 col-md-5" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
           {!activateButton?<button className="btn btn-dark fs-4 col-md-5 disabled" onClick={changePasswordFetch}>Cambiar contraseña</button>:<></>}
-
-          <div className="modal" tabIndex="-1" id="exampleModal">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    <p>Su contraseña ha sido cambiada</p>
-                </div>
-                <div className="modal-footer">
-                  <button className="btn btn-dark" onClick={redirect} data-bs-dismiss="modal">Aceptar</button>
+          
+            <div className="modal" tabIndex="-1" id="exampleModal">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body">
+                      <p>Su contraseña ha sido cambiada</p>
+                  </div>
+                  <div className="modal-footer">
+                    <button className="btn btn-dark" onClick={redirect} data-bs-dismiss="modal">Aceptar</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
           </div>
         </div>
+
+        : 
+          <div className=" container text-center col-10 offset-1 col-xl-6 offset-xl-3">
+            <div className="card text-center">
+                <div className="card-header fs-5">Error 404
+                <div className="fs-1"><i className="fas fa-exclamation-triangle"></i></div>
+                </div>
+                <div className="card-body text-center">
+                    <div>
+                        <p className="col-12">Ruta no encontrada</p>
+                    </div>
+                </div>
+                <div className="card-footer text-muted"></div>
+            </div>
+          </div>
+        }
+        
     </div>
     </div>
 

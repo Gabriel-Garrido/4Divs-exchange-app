@@ -102,6 +102,20 @@ import { Navigate } from "react-router-dom";
 				}
 
 				},
+				get_user: async (id) => {
+					try {await fetch(`${URL_API}/api/get_user/${id}`, {
+						method: ["GET"],
+						headers: {
+						  "Content-type": "application/json; charset=utf-8",
+						}}).then(response => {
+							response.json().then(data => {
+								setStore({user: data})
+							})
+						});
+					} catch (error) {
+						console.log('there is a problem with fetch:' + error.message);
+					}
+					},
 				loadingFunction: async (status) => {
 					setStore({isLoading: status})
 		}}

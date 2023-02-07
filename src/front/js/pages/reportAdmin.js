@@ -16,9 +16,7 @@ export const ReportAdmin = (props) => {
   const [mailError, setMailError] = useState("")
 
 
-    //reporte general.............................................................
-
-
+//reporte general.............................................................
     const handleDownloadReportall = async () => {
 
       try {
@@ -50,47 +48,7 @@ export const ReportAdmin = (props) => {
     };
 
 
-
-    //reporte por usuario.............................................................
-
-
-    //reporte general.............................................................
-
-
-    const handleDownloadReportall = async () => {
-
-      try {
-        const responseUser = await fetch(`${props.URL_API}/api/get_all_users/`, {
-          method: ["GET"],
-          headers: {
-            "Content-type": "application/json; charset=utf-8",
-            "Authorization": "Bearer " + localStorage.getItem("jwt-token")
-          }});
-        const dataUser = await responseUser.json();
-          console.log(dataUser);
-          const doc = new jsPDF();
-          doc.text(`Reporte todos los usuario:`, 20, 20);
-          let y = 40;
-          for (let user in dataUser) {
-            if (y > 280) {
-             doc.addPage();
-            y = 20;
-            }
-            doc.text(`Rut: ${dataUser[user].rut}`, 20, y);
-            doc.text(`Email: ${dataUser[user].email}`, 80, y)
-            doc.line(20, y + 2, 190, y + 2);
-            y += 10;
-            } 
-            doc.save("reporte.pdf");
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-
-
-    //reporte por usuario.............................................................
-
+//reporte por usuario.............................................................
     const handleDownloadReport = async () => {
 
       try {
@@ -165,7 +123,7 @@ export const ReportAdmin = (props) => {
               >
                 Descargar reporte usuario
               </button>
-              {mailError!=""?<p className="col-12 text-danger">{mailError}</p>:<></>}
+              {/* {mailError!=""?<p className="col-12 text-danger">{mailError}</p>:<></>} */}
               <div className="modal" tabIndex="-1" id="exampleModal">
             		<div className="modal-dialog">
               		<div className="modal-content">

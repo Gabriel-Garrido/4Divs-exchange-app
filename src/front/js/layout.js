@@ -59,7 +59,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Login setUser={setUser} URL_API={URL_API} user={user} />} path="/" />
                         <Route element={<RestorePassword URL_API={URL_API} user={user} />} path="/restorepassword" />
-                        {store.user?<Route  element={<ChangePassword URL_API={URL_API} admin={user.admin} user={user}  />} path="/changepassword/:user_id" />:<Route element={<NoLogged />} path="/changepassword"/>}
+                        <Route  element={<ChangePassword URL_API={URL_API} admin={user.admin} user={user}  />} path="/changepassword/:user_id" />
                         {store.user != null && !store.user.admin ? <Route element={<Home rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} changeId={changeId} user={user} URL_API={URL_API} />} path="/home" /> : <Route element={<NoLogged />} path="/home"/>}
                         {store.user != null && !store.user.admin ? <Route element={<Process URL_API={URL_API} rate={rate} bankAccount={bankAccount} setBankAccount={setBankAccount} />} path="/process" /> : <Route element={<NoLogged />} path="/process"/>}
                         {store.user != null && !store.user.admin ? <Route element={<NewBankAccount URL_API={URL_API} bankAccount={bankAccount} user={user}/>} path="/newbankaccount" /> : <Route element={<NoLogged />} path="/newbankaccount"/>}
