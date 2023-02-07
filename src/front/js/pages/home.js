@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
+import { Modal, Button } from 'react-bootstrap';
 import { BankAccountItem } from "../component/bankAccountItem.js";
 import { NumericFormat } from 'react-number-format';
 
@@ -16,6 +17,7 @@ export const Home = (props) => {
 	const [mountError, setMountError] = useState("");
 	const [conversion, setConversion] = useState("");
 	const [selectedBankAccount, setSelectedBankAccount] = useState("")
+	const [showModal, setShowModal] = useState(false);
 
 	console.log("Change rate is = " + props.rate)
 
@@ -45,19 +47,39 @@ export const Home = (props) => {
 
 
 //-------------fetch POST transaction ok -------------------------
-	async function processTransaction() {
-		await actions.newTransaction(store.user.id,1,selectedBankAccount,mount,conversion)
-		console.log(store.transaction);
-		navigate ("/process");
-	}
+async function processTransaction() {
+    if (!selectedBankAccount || !mount || !conversion) {
+      setShowModal(true);
+      return;
+    }
+    await actions.newTransaction(store.user.id, 1, selectedBankAccount, mount, conversion);
+    console.log(store.transaction);
+    navigate("/process");
+  }
 //-------------/fetch POST transaction-------------------------------
 
 const handleChangeBank = e => {
     setSelectedBankAccount(e.target.value);
   };
 
+  function MyModal({ onClose }) {
+	return (
+	  <Modal show onHide={onClose}>
+		<Modal.Body>Por favor, ingrese los valores necesarios antes de continuar.</Modal.Body>
+		<Modal.Footer>
+		  <Button variant="secondary" onClick={onClose}>
+			Cerrar
+		  </Button>
+		</Modal.Footer>
+	  </Modal>
+	);
+  }
+
 	return (
 		<div className="text-center container mb-2 mt-3 col-10 offset-1 col-xl-6 offset-xl-3">
+			{showModal && (
+        <MyModal onClose={() => setShowModal(false)} />
+      )}
 
 			<div className="card text-center">
 				<div className="card-header">
