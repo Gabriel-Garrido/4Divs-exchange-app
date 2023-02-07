@@ -102,7 +102,7 @@ function redirect() {
                         <p className="fs-5">
                             <NumericFormat value={mount} displayType={'text'} thousandSeparator={true} /> CLP x  <NumericFormat value={(mount / props.rate).toFixed(2)} displayType={'text'} thousandSeparator={true}  /> USD
                         </p>
-                            <p className="text-black fs-6">Para continuar con la transacción realice transferencia de {mount} a la siguiente cuenta y luego presione "ya pagué"</p>
+                            <p className="text-black fs-6">Para continuar con la transacción realice transferencia de <NumericFormat value={mount} displayType={'text'} thousandSeparator={true} /> CLP a la siguiente cuenta y luego presione "ya pagué"</p>
                         <div className="card">
                             <p className="fs-4 text-left">
                                 <span className="d-inline-block fs-5 key-color">Empresa: </span>

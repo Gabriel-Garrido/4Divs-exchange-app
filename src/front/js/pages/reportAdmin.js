@@ -15,6 +15,12 @@ export const ReportAdmin = (props) => {
   const [mail, setMail] = useState("");
   const [mailError, setMailError] = useState(null)
 
+  function separator(numb) {
+    var str = numb.toString().split(".");
+    str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return str.join(".");
+}
+
 
 //reporte general.............................................................
     const handleDownloadReportall = async () => {
@@ -50,6 +56,7 @@ export const ReportAdmin = (props) => {
 
 //reporte por usuario.............................................................
     const handleDownloadReport = async () => {
+      
 
       try {
         const responseUser = await fetch(`${props.URL_API}/api/get_user_by_email/${mail}`, {
@@ -77,7 +84,7 @@ export const ReportAdmin = (props) => {
             y = 20;
             }
             doc.text(`Id transacción: ${dataTransaction[transaction].id}`, 20, y);
-            doc.text(`Monto transacción: ${dataTransaction[transaction].transaction_amount}`, 90, y)
+            doc.text(`Monto transacción: ${separator(dataTransaction[transaction].transaction_amount)} CLP`, 90, y)
             doc.line(20, y + 2, 190, y + 2);
             y += 10;
             } 
