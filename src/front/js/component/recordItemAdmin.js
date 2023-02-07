@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
+import { NumericFormat } from "react-number-format";
 
 export const RecordItemAdmin = (props) => {
 
@@ -101,7 +102,7 @@ export const RecordItemAdmin = (props) => {
                 {status === 'Rechazado' ? <span className="badge rounded-pill bg-danger">{status}</span>:<></>}
 
             </div>
-            <p className="mb-1 text-start fs-5">{transaction.transaction_amount} CLP a {transform} USD a la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
+            <p className="mb-1 text-start fs-5"><NumericFormat value={transaction.transaction_amount.toFixed(2)} displayType={'text'} thousandSeparator={true} /> CLP a <NumericFormat value={transform.toFixed(2)} displayType={'text'} thousandSeparator={true} /> USD a la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
             <p className="mb-1 text-start fs-6">Solicitado el {transaction.date_time}</p>
             <button className="btn btn-warning" data-bs-toggle="modal" onClick={() => changeStatus("Pendiente", props.transactions.id)}>Pendiente</button>
 
