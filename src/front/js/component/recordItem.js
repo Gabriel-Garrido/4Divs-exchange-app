@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
+import { NumericFormat } from "react-number-format";
 
 import { Link } from "react-router-dom";
 
@@ -68,7 +69,7 @@ export const RecordItem = (props) => {
 		<li className="list-group-item d-flex justify-content-between align-items-start">
             <div className="ms-2 me-auto">
                 <div className="fw-bold">{transaction.date_time}</div>
-                <p>{transaction.transaction_amount} CLP a {transform.toFixed(2)} USD en la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
+                <p><NumericFormat value={transaction.transaction_amount} displayType={'text'} thousandSeparator={true} /> CLP a <NumericFormat value={transform.toFixed(2)} displayType={'text'} thousandSeparator={true} /> USD en la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
                 <p>Id transacción: {transaction.id} </p>
             </div>
             <span className={statusPill}>{transaction.status}</span>

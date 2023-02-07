@@ -120,7 +120,6 @@ def get_change(change_id):
             return "change not found", 404
 
 @api.route('add_change', methods=['POST'])
-@jwt_required()
 def add_change():
     req_Json = request.get_json()
     change = Change(req_Json["origin_exchange"],req_Json["destination_exchange"], req_Json["exchange_rate"])
