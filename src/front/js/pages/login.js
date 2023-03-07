@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
+import logo from "../../img/Logo_4Divs.png"
+
 //import jwt from 'jsonwebtoken';
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -80,7 +82,14 @@ export const Login = (props) => {
   return (
     <div className=" container text-center col-10 offset-1 col-xl-6 offset-xl-3">
       <div className="card text-center">
-        <div className="card-header fs-1">Bienvenido</div>
+        <div className="card-header fs-1 text-center">
+          <h1 className="">Bienvenido</h1>
+        </div>
+        <div className="text-center mt-2">
+          <img src={logo} alt="Logo 4Divs" width="150" style={{filter:"drop-shadow(0 0 4px grey)" }} />
+        </div>
+
+
         <div className="card-body">
           <div className="container row">
             <div className="mb-3 col-12 col-md-6 offset-md-3">

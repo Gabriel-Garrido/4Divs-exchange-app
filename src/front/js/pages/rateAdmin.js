@@ -96,10 +96,10 @@ export const RateAdmin = (props) => {
 		
 		<div className="text-center container mb-2 mt-3 col-10 offset-1 col-xl-6 offset-xl-3">
 			<div className="card text-center">
-					<h5>Hoy el valor del dolar observado es: {dolarActual}</h5>
+					<h6 className="text-secondary">El valor del dolar observado en Chile el dia de hoy es: {dolarActual} CLP</h6>
 				<div className="card-header">
-				<h1>Cambio de Tasa</h1>
-					<h2>Tasa Actual: {props.rate} CLP = 1 USD</h2>
+					<h5>Tasa de cambio actual declarada por admin:</h5> 
+					<h3>{props.rate} CLP = 1 USD</h3>
 					
 					<div className="dropdown mb-3">
 						<button className="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -115,10 +115,11 @@ export const RateAdmin = (props) => {
 				</div>
 				<div className="card-body row">
 					<div className="mb-3 d-flex flex-column align-items-center col-8 offset-2 col-md-4 offset-md-4 ">
-						<h2>Tasa Nueva</h2>					
-						<p className="fs-1">1 USD / {rate} CLP</p>
+						<h1>Cambio de Tasa</h1>
+						<h6>Ingrese una nueva tasa de cambio para reemplazar la actual</h6> 
+						<p className="fs-3">1 USD / {rate} CLP</p>
 
-						<label className="fs-4">1 USD to</label>
+						<label className="fs-4">1 USD a</label>
 						<div className="input-group">
 							<input
 								type="form-floating"
@@ -144,7 +145,8 @@ export const RateAdmin = (props) => {
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 	</div>
                 	<div className="modal-body">
-                    <p>La Tasa ha sido cambiada ha {props.rate} CLP  x USD</p>
+                    	<p>La Tasa ha sido cambiada a:</p> 
+						<p>1 USD = {props.rate} CLP</p>
                 	</div>
                 	<div className="modal-footer">
                   <button className="btn btn-dark" onClick={redirect} data-bs-dismiss="modal">Aceptar</button>

@@ -75,10 +75,13 @@ export const HomeAdmin = (props) => {
 						<button className="btn btn-dark" onClick={recordItemFetch} >Actualizar</button>
 					</div>
 					:
+					<div>
+					<p>A continuación se muestran las transacciones de los usuarios, usted puede aceptarlas o rechazarlas</p>
 					<div className="list-group">
 						{recordItems.map(item => {
 							return <RecordItemAdmin key={item.id} transactions={item} URL_API={props.URL_API}/>
 						})}
+					</div>
 					</div>}
 				</div>}
 				<div className="card-footer text-muted">

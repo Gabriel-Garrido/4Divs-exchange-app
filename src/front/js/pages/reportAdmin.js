@@ -102,14 +102,18 @@ export const ReportAdmin = (props) => {
 
           <div className="card text-center">
             <div className="card-header">
-              <h1>Reporte</h1>
+              <h1>Reportes</h1>
             </div>
             <div className="card-body">
-              <button className="btn btn-dark mb-4 mt-1"
+              <h5>Descargar reporte en PDF con detalle de transacciones</h5>
+
+              <p className="mt-4">Reporte de todos los usuarios:</p>
+
+              <button className="btn btn-dark mb-4 mt-0"
               data-bs-toggle="modal" data-bs-target="#exampleModal"
               onClick={handleDownloadReportall}>Descargar Reporte general</button>
               
-
+              <p className="mt-4">Reporte de usuario en específico:</p>
 
               <div className="input-group mb-3">
               <input

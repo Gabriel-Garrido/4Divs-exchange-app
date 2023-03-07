@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import logo from "../../img/Logo_4Divs.png"
 
 
 
@@ -18,6 +19,7 @@ export const Navbar = (props) => {
 				{token && store.user != null?<button className="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i className="pe-none fas fa-bars pe-none"></i></button>
 				:
 				<></>}
+				
 				{token && store.user != null?
 				<div className="offcanvas offcanvas-start " data-bs-scroll="true" data-bs-backdrop="true" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 					<div className="offcanvas-header">
@@ -48,7 +50,15 @@ export const Navbar = (props) => {
 				</div>
 				:<></>
 			}
-				{!store.user?<Link className="btn btn-dark" to="/" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>:store.user.admin?<Link className="btn btn-dark" to="/homeadmin" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>:<Link className="btn btn-dark" to="/home" type="button"><i className="fas fa-coins"></i> 4Divs <i className="fas fa-coins"></i></Link>}
+				{!store.user?
+					<Link className="btn btn-dark p-0 " to="/" type="button"><img src={logo} alt="Logo 4Divs" width="80" style={{filter:"drop-shadow(0 0 5px grey)" }} />
+</Link>
+				:store.user.admin?
+					<Link className="btn btn-dark p-0" to="/homeadmin" type="button"><img src={logo} alt="Logo 4Divs" width="80" style={{filter:"drop-shadow(0 0 5px grey)" }} />
+</Link>
+				:
+					<Link className="btn btn-dark p-0" to="/home" type="button"><img src={logo} alt="Logo 4Divs" width="80" style={{filter:"drop-shadow(0 0 5px grey)" }} />
+</Link>}
 				
 
 		{/* -----------------------Session options (disble) ------------------------- */}

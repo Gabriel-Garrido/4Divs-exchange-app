@@ -95,18 +95,18 @@ export const RecordItemAdmin = (props) => {
 	return (
 		<div className="list-group-item">
             <div className="d-flex w-100 justify-content-between">
-                <h5 className="mb-1 fs-4">{recordUser.first_name} {recordUser.last_name}</h5>
+                <h6 className="mb-1 fs-6">{recordUser.first_name} {recordUser.last_name}</h6>
 
                 {status === 'Pendiente' ? <span className="badge rounded-pill bg-warning">{status}</span>:<></>}
                 {status === 'Finalizado' ? <span className="badge rounded-pill bg-success">{status}</span>:<></>}
                 {status === 'Rechazado' ? <span className="badge rounded-pill bg-danger">{status}</span>:<></>}
 
             </div>
-            <p className="mb-1 text-start fs-5"><NumericFormat value={transaction.transaction_amount.toFixed(2)} displayType={'text'} thousandSeparator={true} /> CLP a <NumericFormat value={transform.toFixed(2)} displayType={'text'} thousandSeparator={true} /> USD a la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
-            <p className="mb-1 text-start fs-6">Solicitado el {transaction.date_time}</p>
-            <button className="btn btn-warning" data-bs-toggle="modal" onClick={() => changeStatus("Pendiente", props.transactions.id)}>Pendiente</button>
+            <p className="mb-1 text-start fs-6"><NumericFormat value={transaction.transaction_amount.toFixed(2)} displayType={'text'} thousandSeparator={true} /> CLP a <NumericFormat value={transform.toFixed(2)} displayType={'text'} thousandSeparator={true} /> USD a la cuenta N° {bank_account.account_number} del banco {bank_account.bank}</p>
+            <p className="mb-1 text-start fs-6 text-secondary">Solicitado el {transaction.date_time}</p>
+            {/* <button className="btn btn-warning" data-bs-toggle="modal" onClick={() => changeStatus("Pendiente", props.transactions.id)}>Pendiente</button> */}
 
-<p>ID: {transaction.id}</p>
+            <p>ID transacción: {transaction.id}</p>
             {status === 'Pendiente' ?<div className="input-group mb-3">
                 
                     <input type="text" className="form-control" placeholder="ID de transferencia" aria-label="ID de transferencia" aria-describedby="button-addon2"></input>
@@ -129,7 +129,7 @@ export const RecordItemAdmin = (props) => {
 
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar {props.transactions.id}</button> 
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
 
                     <button className="btn btn-dark" onClick={() => changeStatus("Finalizado", props.transactions.id)} data-bs-dismiss="modal">Confirmar el cambio</button>
                 </div>
